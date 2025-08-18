@@ -1,20 +1,19 @@
-
+import java.util.LinkedList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 public abstract class Persona
 {
-    private string nombre;
-    private string apellido;
-    private string celular;
-    private string correoElectronico;
-    private string contrasenia;
+    private String nombre;
+    private String apellido;
+    private String celular;
+    private String correoElectronico;
+    private String contrasenia;
     private LinkedList<Facultad> facultad;
 
-    public String getContasenia(string contrasenia)
+    public String getContasenia(String contrasenia)
     {
         if(contrasenia.length() < 6)
         {
-            
             return "La contraseña tiene que por lo menos tener seis (6) caracteres"; 
         }
         String mayusculas = "[A-Z]";
@@ -35,17 +34,18 @@ public abstract class Persona
         if (!matcher.find()) {
             return "la contraseña debe tener al menos un digito";
         }
+        this.contrasenia = contrasenia;
         return "Contraseña correcta";
     }
-    public int getCorreoElectronico(string correoElectronico)
+    public String getCorreoElectronico(String correoElectronico)
     {
-        string unicauca= "unicauca.edu.co";
+        String unicauca= "unicauca.edu.co";
         String[] palabras = correoElectronico.split("@");
         if(palabras[1].equals(unicauca))
         {
-            return 1;
+            return "Correo electronico correcto";
         }
-        return 0;
+        return "Correo electronico incorrecto";
     }
 
 }

@@ -34,5 +34,7 @@ public class Encriptador {
             ex.printStackTrace();
         }
         return null;
+
     }
+    //https://es.stackoverflow.com/questions/54098/que-algoritmo-de-cifrado-se-puede-usar-para-guardar-datos-en-java 
 }
