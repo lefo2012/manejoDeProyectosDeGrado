@@ -1,12 +1,11 @@
-import java.security.SecureRandom;
+package co.edu.unicauca.Util;
+
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
-import javax.xml.bind.DatatypeConverter;
+import java.util.Base64;
 
 public class Encriptador {
-
-    public static SecureRandom sr = new SecureRandom();
 
     public static String encriptar(String clave, byte[] iv, String value) {
         try {
@@ -15,7 +14,7 @@ public class Encriptador {
             cipher.init(Cipher.ENCRYPT_MODE, sks, new IvParameterSpec(iv));
 
             byte[] encriptado = cipher.doFinal(value.getBytes());
-            return DatatypeConverter.printBase64Binary(encriptado);
+            return Base64.getEncoder().encodeToString(encriptado);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -28,13 +27,11 @@ public class Encriptador {
             SecretKeySpec sks = new SecretKeySpec(clave.getBytes("UTF-8"), "AES");
             cipher.init(Cipher.DECRYPT_MODE, sks, new IvParameterSpec(iv));
 
-            byte[] dec = cipher.doFinal(DatatypeConverter.parseBase64Binary(encriptado));
+            byte[] dec = cipher.doFinal(Base64.getDecoder().decode(encriptado));
             return new String(dec);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         return null;
-
     }
-    //https://es.stackoverflow.com/questions/54098/que-algoritmo-de-cifrado-se-puede-usar-para-guardar-datos-en-java 
 }
