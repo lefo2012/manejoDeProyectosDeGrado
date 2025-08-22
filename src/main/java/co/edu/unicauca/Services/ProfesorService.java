@@ -9,13 +9,14 @@ import co.edu.unicauca.Models.Profesor;
 import co.edu.unicauca.Repository.ProfesorRepository;
 import co.edu.unicauca.Util.Validador;
 import co.edu.unicauca.Util.Encriptador;
+import co.edu.unicauca.dto.PersonaDTO;
 import java.io.UnsupportedEncodingException;
 
 /**
  *
  * @author Lefo
  */
-public class ProfesorService {
+public class ProfesorService implements PersonaService{
     
 
     
@@ -26,7 +27,8 @@ public class ProfesorService {
     }
     
     //Hay que tener en cuenta que la decision de retornar una persona es para que cuando el usuario ingrese sea mas personalizada la experiencia y mas facil de acceder a estos datos
-    public Profesor iniciarSesion(String correoElectronico,String contrasenia) throws UnsupportedEncodingException
+    @Override
+    public String iniciarSesion(String correoElectronico,String contrasenia) throws UnsupportedEncodingException
     {
         
         if(!Validador.esCorreoValido("@unicauca.edu.co",correoElectronico))
@@ -35,28 +37,34 @@ public class ProfesorService {
         /*EJEMPLO TOMADO DE CHATGPT PREGUNTAR AL PROFESOR DONDE DEBE DE IR LA CLAVE Y EL IV*/
         //fragmento codigo de sqlite uso de personaRepository basicamente.
         Profesor profesor = profesorRepository.buscarPorCorreo(correoElectronico);
+        
          // Clave de 16 caracteres (128 bits)
         if(profesor == null)
         {
-            return null;
+            return "CONTRASEÑA INCORRECTA o CORREO INCORRECTO";
         }
         
         String clave = "1234567890ABCDEF";  
-
         // IV de 16 bytes (ejemplo fijo, pero normalmente se genera aleatorio)
         byte[] iv = "abcdefghijklmnop".getBytes("UTF-8");  
 
         
         if(Encriptador.decriptar(clave, iv, profesor.getContrasenia()).equals(contrasenia))
         {
-            return profesor;
+            return "BIENVENIDO";
         }
 
-        return null;
+        return "CONTRASEÑA INCORRECTA o CORREO INCORRECTO" ;
+        
     }
-    public String registrar(Profesor profesor) throws UnsupportedEncodingException
+    @Override
+    public String registrar(PersonaDTO profesor) throws UnsupportedEncodingException
     {
-        if(!Validador.esCorreoValido("@unicauca.edu.co",profesor.getCorreoElectronico()))
+        if(!profesor.isEsProfesor())
+        {
+            return "REGISTRO EN ESTUDIANTE";
+        }
+        if(!Validador.esCorreoValido("unicauca.edu.co",profesor.getCorreoElectronico()))
             return "Correo invalido";
         if(!Validador.esContraseniaCorrecta(profesor.getContrasenia()))
         {
@@ -72,5 +80,6 @@ public class ProfesorService {
         
         profesorRepository.registrar(profesor);
         return "Registro completado";
+        
     }
 }

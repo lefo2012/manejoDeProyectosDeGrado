@@ -1,17 +1,22 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- */
-
 package com.mycompany.gestiondeproyectos;
+
 import co.edu.unicauca.database.InitDB;
-/**
- *
- * @author PixelBot Gaming
- */
+import co.edu.unicauca.Vista.Login;
+import co.edu.unicauca.Vista.Register;
+
+
 public class GestionDeProyectos {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        System.out.println("Iniciando aplicación...");
         InitDB.crearTablas();
+
+        // Mostrar interfaz gráfica de Login
+        java.awt.EventQueue.invokeLater(() -> {
+            //new Login().setVisible(true);
+            new Login().setVisible(true);
+            
+    
+        });
     }
 }

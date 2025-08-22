@@ -3,6 +3,7 @@ package co.edu.unicauca.Repository.Implementation;
 import co.edu.unicauca.Models.Profesor;
 import co.edu.unicauca.Repository.ProfesorRepository;
 import co.edu.unicauca.database.ConexionSQLite;
+import co.edu.unicauca.dto.PersonaDTO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -33,9 +34,9 @@ public class ProfesorRepositorySQLite implements ProfesorRepository{
                 null,
                 rs.getString("nombre"),
                 rs.getString("apellido"),
-                rs.getString("telefono"),
-                rs.getString("correoElectronico"),
                 rs.getString("celular"),
+                rs.getString("correoElectronico"),
+                rs.getString("contrasenia"),
                 new LinkedList<>()
             );
             return profesor;
@@ -45,7 +46,7 @@ public class ProfesorRepositorySQLite implements ProfesorRepository{
     }
     return null;
     }
-    public boolean registrar(Profesor profesor) {
+    public boolean registrar(PersonaDTO profesor) {
     String sqlPersona = "INSERT INTO persona(correoElectronico, contrasenia, nombre, apellido, celular) VALUES(?,?,?,?,?)";
     String sqlProfesor = "INSERT INTO profesor(correoElectronico) VALUES(?)";
     
@@ -59,7 +60,7 @@ public class ProfesorRepositorySQLite implements ProfesorRepository{
             pstmt.setString(2, profesor.getContrasenia());
             pstmt.setString(3, profesor.getNombre());
             pstmt.setString(4, profesor.getApellido());
-            pstmt.setString(5, profesor.getCelular());
+            pstmt.setString(5, profesor.getTelefono());
             pstmt.executeUpdate();
         }
 

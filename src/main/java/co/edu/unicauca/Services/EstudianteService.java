@@ -5,6 +5,7 @@
 package co.edu.unicauca.Services;
 
 import co.edu.unicauca.Models.Estudiante;
+import co.edu.unicauca.dto.PersonaDTO;
 import co.edu.unicauca.Repository.EstudianteRepository;
 import co.edu.unicauca.Util.Validador;
 import co.edu.unicauca.Util.Encriptador;
@@ -14,7 +15,7 @@ import java.io.UnsupportedEncodingException;
  *
  * @author Lefo
  */
-public class EstudianteService {
+public class EstudianteService implements PersonaService {
 
     private final EstudianteRepository estudianteRepository;
 
@@ -22,31 +23,36 @@ public class EstudianteService {
         this.estudianteRepository = estudianteRepository;
     }
 
+    
     // Iniciar sesión
-    public Estudiante iniciarSesion(String correoElectronico, String contrasenia) throws UnsupportedEncodingException {
-
-        if (!Validador.esCorreoValido("@unicauca.edu.co", correoElectronico))
+    @Override
+    public String iniciarSesion(String correoElectronico, String contrasenia) throws UnsupportedEncodingException {
+        System.out.println(correoElectronico);
+        if (!Validador.esCorreoValido("unicauca.edu.co", correoElectronico))
             return null;
-
+        
         Estudiante estudiante = estudianteRepository.buscarPorCorreo(correoElectronico);
+        
         if (estudiante == null) {
-            return null;
+            return "CONTRASEÑA INCORRECTA o CORREO INCORRECTO";
         }
 
         String clave = "1234567890ABCDEF";  
         byte[] iv = "abcdefghijklmnop".getBytes("UTF-8");
 
         if (Encriptador.decriptar(clave, iv, estudiante.getContrasenia()).equals(contrasenia)) {
-            return estudiante;
+            return "BIENVENIDO";
         }
 
-        return null;
+        return "CONTRASEÑA INCORRECTA o CORREO INCORRECTO";
     }
 
+    
     // Registrar estudiante
-    public String registrar(Estudiante estudiante) throws UnsupportedEncodingException {
-
-        if (!Validador.esCorreoValido("@unicauca.edu.co", estudiante.getCorreoElectronico()))
+    public String registrar(PersonaDTO estudiante) throws UnsupportedEncodingException {
+        if(estudiante.isEsProfesor())
+            return "REGISTRO EN PROFESOR";
+        if (!Validador.esCorreoValido("unicauca.edu.co", estudiante.getCorreoElectronico()))
             return "Correo invalido";
 
         if (!Validador.esContraseniaCorrecta(estudiante.getContrasenia())) {
@@ -55,10 +61,11 @@ public class EstudianteService {
 
         String clave = "1234567890ABCDEF";  
         byte[] iv = "abcdefghijklmnop".getBytes("UTF-8");
-
+        
         estudiante.setContrasenia(Encriptador.encriptar(clave, iv, estudiante.getContrasenia()));
-
+        
         estudianteRepository.registrar(estudiante);
         return "Registro completado";
     }
+
 }

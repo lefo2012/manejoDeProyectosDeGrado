@@ -5,6 +5,7 @@
 package co.edu.unicauca.Repository;
 
 import co.edu.unicauca.Models.Profesor;
+import co.edu.unicauca.dto.PersonaDTO;
 
 /**
  *
@@ -12,5 +13,5 @@ import co.edu.unicauca.Models.Profesor;
  */
 public interface ProfesorRepository {
     public Profesor buscarPorCorreo(String correoElectronico);
-    public boolean registrar(Profesor profesor);
+    public boolean registrar(PersonaDTO profesor);
 }
