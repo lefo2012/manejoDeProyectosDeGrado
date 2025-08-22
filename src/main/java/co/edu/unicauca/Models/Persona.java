@@ -5,7 +5,7 @@ import co.edu.unicauca.Models.Facultad.Facultad;
 
 import java.util.LinkedList;
 
-public abstract class Persona
+public class Persona
 {
     private String nombre;
     private String apellido;
@@ -16,11 +16,8 @@ public abstract class Persona
     private boolean isLogged;
     
     
-    
-    
-    
-
     public Persona(String nombre, String apellido, String celular, String correoElectronico, String contrasenia, LinkedList<Facultad> facultad) {
+        
         this.nombre = nombre;
         this.apellido = apellido;
         this.celular = celular;
