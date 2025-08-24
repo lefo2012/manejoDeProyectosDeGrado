@@ -1,20 +1,23 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+\
 package co.edu.unicauca.Util;
 
 import java.util.regex.Pattern;
 /**
  *
- * @author PixelBot Gaming
+ * @author LEFO
  */
 public class Validador {
     
     public static boolean esCorreoValido(String formatoDeCorreo,String correoElectronico)
     {
         
+        if(correoElectronico == null)
+            return false;
+
         String[] palabras = correoElectronico.split("@");
+        if(palabras.length < 2)
+            return false;
+
         if(palabras[1].equals(formatoDeCorreo))
         {
             return true;
