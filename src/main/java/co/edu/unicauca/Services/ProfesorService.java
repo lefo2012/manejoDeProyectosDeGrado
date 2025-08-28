@@ -5,11 +5,12 @@
 package co.edu.unicauca.Services;
 
 
+import co.edu.unicauca.Models.Persona;
 import co.edu.unicauca.Models.Profesor;
 import co.edu.unicauca.Repository.ProfesorRepository;
 import co.edu.unicauca.Util.Validador;
 import co.edu.unicauca.Util.Encriptador;
-import co.edu.unicauca.dto.PersonaDTO;
+
 import java.io.UnsupportedEncodingException;
 
 /**
@@ -31,8 +32,8 @@ public class ProfesorService implements PersonaService{
     public String iniciarSesion(String correoElectronico,String contrasenia) throws UnsupportedEncodingException
     {
         
-        if(!Validador.esCorreoValido("@unicauca.edu.co",correoElectronico))
-            return null;
+        if(!Validador.esCorreoValido("unicauca.edu.co",correoElectronico))
+            return "CONTRASEÑA INCORRECTA o CORREO INCORRECTO";
         
         /*EJEMPLO TOMADO DE CHATGPT PREGUNTAR AL PROFESOR DONDE DEBE DE IR LA CLAVE Y EL IV*/
         //fragmento codigo de sqlite uso de personaRepository basicamente.
@@ -58,12 +59,9 @@ public class ProfesorService implements PersonaService{
         
     }
     @Override
-    public String registrar(PersonaDTO profesor) throws UnsupportedEncodingException
+    public String registrar(Persona profesor) throws UnsupportedEncodingException
     {
-        if(!profesor.isEsProfesor())
-        {
-            return "REGISTRO EN ESTUDIANTE";
-        }
+       
         if(!Validador.esCorreoValido("unicauca.edu.co",profesor.getCorreoElectronico()))
             return "Correo invalido";
         if(!Validador.esContraseniaCorrecta(profesor.getContrasenia()))

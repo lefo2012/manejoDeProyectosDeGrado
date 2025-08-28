@@ -1,2 +1,2 @@
-co\edu\unicauca\Test\TestInsert.class
-co\edu\unicauca\Test\TestMostrarBD.class
+co\edu\unicauca\Services\ProfesorServiceTest.class
+co\edu\unicauca\Services\EstudianteServiceTest.class

@@ -1,6 +1,5 @@
 package co.edu.unicauca.Models;
 
-import co.edu.unicauca.Models.Facultad.Facultad;
 
 
 import java.util.LinkedList;
@@ -13,7 +12,11 @@ public class Persona
     private String correoElectronico;
     private String contrasenia;
     private LinkedList<Facultad> facultad;
+    
     private boolean isLogged;
+
+    public Persona() {
+    }
     
     
     public Persona(String nombre, String apellido, String celular, String correoElectronico, String contrasenia, LinkedList<Facultad> facultad) {

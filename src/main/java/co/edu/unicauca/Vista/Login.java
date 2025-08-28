@@ -1,9 +1,11 @@
 package co.edu.unicauca.Vista;
 
+import co.edu.unicauca.Models.Estudiante;
 import co.edu.unicauca.Models.Persona;
+import co.edu.unicauca.Models.Profesor;
 import co.edu.unicauca.Services.PersonaService;
 import co.edu.unicauca.Services.PersonaServiceFactory;
-import co.edu.unicauca.dto.PersonaDTO;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -99,13 +101,16 @@ public class Login extends JFrame {
         
         btnIngresar.addActionListener(e -> {
         try {
-            
-            PersonaDTO persona = new PersonaDTO();
+            Persona persona;
+            if(chkProfesor.isSelected())
+            {
+                persona = new Profesor();
+            }else
+            {
+                persona = new Estudiante();
+            }
             persona.setCorreoElectronico(txtCorreo.getText());
             persona.setContrasenia(new String(txtContrasena.getPassword()));
-            persona.setEsProfesor(chkProfesor.isSelected());
-            System.out.println(persona.getCorreoElectronico());
-            System.out.println(persona.getContrasenia());
             
             PersonaService service = PersonaServiceFactory.getService(persona);
             System.out.println(service.getClass());

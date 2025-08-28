@@ -1,4 +1,6 @@
-package co.edu.unicauca.Models.Facultad;
+package co.edu.unicauca.Models;
+
+import co.edu.unicauca.Models.Departamento;
 
 public class Programa extends Departamento
 {

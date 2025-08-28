@@ -5,7 +5,7 @@
 package co.edu.unicauca.Repository;
 
 import co.edu.unicauca.Models.Estudiante;
-import co.edu.unicauca.dto.PersonaDTO;
+import co.edu.unicauca.Models.Persona;
 
 
 /**
@@ -14,5 +14,5 @@ import co.edu.unicauca.dto.PersonaDTO;
  */
 public interface EstudianteRepository {
     public Estudiante buscarPorCorreo(String correoElectronico);
-    public boolean registrar(PersonaDTO estudiante);
+    public boolean registrar(Persona estudiante);
 }

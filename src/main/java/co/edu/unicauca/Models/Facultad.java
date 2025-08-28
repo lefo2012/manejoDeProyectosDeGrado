@@ -1,4 +1,4 @@
-package co.edu.unicauca.Models.Facultad;
+package co.edu.unicauca.Models;
 
 public class Facultad
 {

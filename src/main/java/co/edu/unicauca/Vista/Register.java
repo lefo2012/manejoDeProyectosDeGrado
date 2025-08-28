@@ -1,8 +1,11 @@
 package co.edu.unicauca.Vista;
 
+import co.edu.unicauca.Models.Estudiante;
+import co.edu.unicauca.Models.Persona;
+import co.edu.unicauca.Models.Profesor;
 import co.edu.unicauca.Services.PersonaService;
 import co.edu.unicauca.Services.PersonaServiceFactory;
-import co.edu.unicauca.dto.PersonaDTO;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -92,14 +95,22 @@ public class Register extends JFrame {
         add(panelMain, BorderLayout.CENTER);
         btnRegistrar.addActionListener(e -> {
         try {
-            // Construir el DTO con los datos del formulario
-            PersonaDTO persona = new PersonaDTO();
+            
+            Persona persona;
+            if(chkProfesor.isSelected())
+            {
+                persona = new Profesor();
+            
+            }else
+            {
+                persona = new Estudiante();
+            }
             persona.setNombre(txtNombre.getText());
             persona.setApellido(txtApellido.getText());
             persona.setCorreoElectronico(txtCorreo.getText());
             persona.setContrasenia(new String(txtContrasena.getPassword()));
-            persona.setTelefono(txtTelefono.getText());
-            persona.setEsProfesor(chkProfesor.isSelected());
+            persona.setCelular(txtTelefono.getText());
+            
             System.out.println(persona.getCorreoElectronico());
             System.out.println(persona.getContrasenia());
             // Obtener el servicio correcto según si es profesor o estudiante
@@ -138,11 +149,13 @@ public class Register extends JFrame {
         campo.setText(placeholder);
 
         campo.addFocusListener(new java.awt.event.FocusAdapter() {
+            @Override
             public void focusGained(java.awt.event.FocusEvent evt) {
                 if (campo.getText().equals(placeholder)) {
                     campo.setText("");
                 }
             }
+            @Override
             public void focusLost(java.awt.event.FocusEvent evt) {
                 if (campo.getText().isEmpty()) {
                     campo.setText(placeholder);

@@ -1,10 +1,11 @@
 package co.edu.unicauca.Repository.Implementation;
 
 import co.edu.unicauca.Models.Estudiante;
+import co.edu.unicauca.Models.Persona;
 import co.edu.unicauca.Repository.EstudianteRepository;
 
 import co.edu.unicauca.database.ConexionSQLite;
-import co.edu.unicauca.dto.PersonaDTO;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -47,7 +48,7 @@ public class EstudianteRepositorySQLite implements EstudianteRepository{
     }
     return null;
     }
-    public boolean registrar(PersonaDTO estudiante) {
+    public boolean registrar(Persona estudiante) {
     String sqlPersona = "INSERT INTO persona(correoElectronico, contrasenia, nombre, apellido, celular) VALUES(?,?,?,?,?)";
     String sqlProfesor = "INSERT INTO estudiante(correoElectronico) VALUES(?)";
     
@@ -61,7 +62,7 @@ public class EstudianteRepositorySQLite implements EstudianteRepository{
             pstmt.setString(2, estudiante.getContrasenia());
             pstmt.setString(3, estudiante.getNombre());
             pstmt.setString(4, estudiante.getApellido());
-            pstmt.setString(5, estudiante.getTelefono());
+            pstmt.setString(5, estudiante.getCelular());
             pstmt.executeUpdate();
         }
 

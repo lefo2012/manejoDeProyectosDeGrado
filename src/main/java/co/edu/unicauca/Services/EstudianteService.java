@@ -5,7 +5,7 @@
 package co.edu.unicauca.Services;
 
 import co.edu.unicauca.Models.Estudiante;
-import co.edu.unicauca.dto.PersonaDTO;
+import co.edu.unicauca.Models.Persona;
 import co.edu.unicauca.Repository.EstudianteRepository;
 import co.edu.unicauca.Util.Validador;
 import co.edu.unicauca.Util.Encriptador;
@@ -29,7 +29,7 @@ public class EstudianteService implements PersonaService {
     public String iniciarSesion(String correoElectronico, String contrasenia) throws UnsupportedEncodingException {
         System.out.println(correoElectronico);
         if (!Validador.esCorreoValido("unicauca.edu.co", correoElectronico))
-            return null;
+            return "CONTRASEÑA INCORRECTA o CORREO INCORRECTO";
         
         Estudiante estudiante = estudianteRepository.buscarPorCorreo(correoElectronico);
         
@@ -49,9 +49,8 @@ public class EstudianteService implements PersonaService {
 
     
     // Registrar estudiante
-    public String registrar(PersonaDTO estudiante) throws UnsupportedEncodingException {
-        if(estudiante.isEsProfesor())
-            return "REGISTRO EN PROFESOR";
+    @Override
+    public String registrar(Persona estudiante) throws UnsupportedEncodingException {
         if (!Validador.esCorreoValido("unicauca.edu.co", estudiante.getCorreoElectronico()))
             return "Correo invalido";
 
