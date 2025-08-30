@@ -4,15 +4,14 @@
  */
 package co.edu.unicauca.Repository;
 
-import co.edu.unicauca.Models.Estudiante;
 import co.edu.unicauca.Models.Persona;
-
 
 /**
  *
  * @author PixelBot Gaming
  */
-public interface EstudianteRepository {
-    public Estudiante buscarPorCorreo(String correoElectronico);
-    public boolean registrar(Persona estudiante);
+public interface PersonaRepository {
+    public Persona consultarPersonaPorCorreo(String correoElectronico);
+    public String consultarCargoPorCorreo(String correoElectronico);
+    public boolean registrar(Persona persona,String cargo);
 }

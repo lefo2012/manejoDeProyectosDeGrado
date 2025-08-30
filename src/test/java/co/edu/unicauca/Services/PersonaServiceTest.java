@@ -4,40 +4,35 @@
  */
 package co.edu.unicauca.Services;
 
-import co.edu.unicauca.Services.PersonaServiceFactory;
+import co.edu.unicauca.Models.Estudiante;
 import co.edu.unicauca.Models.Persona;
-import co.edu.unicauca.Models.Profesor;
+import co.edu.unicauca.Repository.Implementation.RepositoryFactory;
 import java.io.UnsupportedEncodingException;
+
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  *
  * @author J. Fernando
+ * @author LEFO
  */
-public class ProfesorServiceTest {
+public class PersonaServiceTest {
     
-    public ProfesorServiceTest() {
-    }
-    
-
-
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
     @Test
     public void registrarEstudianteValidoTest() throws UnsupportedEncodingException
     {
-        Persona persona = new Profesor();
+        Persona persona = new Estudiante();
         persona.setNombre("Pepito");
         persona.setApellido("Perez");
         persona.setCorreoElectronico("peperez@unicauca.edu.co");
         persona.setCelular("3007654321");
         persona.setContrasenia("123ABCabc.");
         
+        PersonaService personaService = new PersonaService(RepositoryFactory.getInstance("SQLite"));
         
-        PersonaService service = PersonaServiceFactory.getService(persona);
-        String resultado  = service.registrar(persona);
+        String resultado = personaService.registrar(persona,"Estudiante");
+        
         assertEquals(resultado,"Registro completado");
         
         
@@ -46,7 +41,7 @@ public class ProfesorServiceTest {
     @Test
     public void registrarEstudianteCorreoInvalidoTest() throws UnsupportedEncodingException
     {
-        Persona persona = new Profesor();
+        Persona persona = new Estudiante();
         persona.setNombre("Pepito");
         persona.setApellido("Perez");
         persona.setCorreoElectronico("peperez@mail.edu.co");
@@ -54,8 +49,9 @@ public class ProfesorServiceTest {
 
         persona.setContrasenia("123ABCabc.");
         
-        PersonaService service = PersonaServiceFactory.getService(persona);
-        String resultado  = service.registrar(persona);
+        PersonaService personaService = new PersonaService(RepositoryFactory.getInstance("SQLite"));
+        
+        String resultado = personaService.registrar(persona,"Estudiante");
         assertEquals(resultado,"Correo invalido");
         
         
@@ -64,16 +60,16 @@ public class ProfesorServiceTest {
     @Test
      public void registrarEstudianteContraseniaInvalidoTest() throws UnsupportedEncodingException
     {
-        Persona persona = new Profesor();
+        Persona persona = new Estudiante();
         persona.setNombre("Pepito");
         persona.setApellido("Perez");
         persona.setCorreoElectronico("peperez@unicauca.edu.co");
         persona.setCelular("3007654321");
-
         persona.setContrasenia("123ABCabc");
         
-        PersonaService service = PersonaServiceFactory.getService(persona);
-        String resultado  = service.registrar(persona);
+        PersonaService personaService = new PersonaService(RepositoryFactory.getInstance("SQLite"));
+        
+        String resultado = personaService.registrar(persona,"Estudiante");
         assertEquals(resultado,"Formato de contrasenia invalido recuerde que debe llevar por lo menos un caracter especial una mayuscula y un digito");
         
         
@@ -83,26 +79,40 @@ public class ProfesorServiceTest {
 @Test
 public void iniciarSesionValidoTest() throws UnsupportedEncodingException
     {
-        Persona persona = new Profesor();
+        Persona persona = new Estudiante();
         persona.setCorreoElectronico("peperez@unicauca.edu.co");
         persona.setContrasenia("123ABCabc.");
         
-        PersonaService service = PersonaServiceFactory.getService(persona);
-        String resultado  = service.iniciarSesion(persona.getCorreoElectronico(), persona.getContrasenia());
-        assertEquals(resultado,"BIENVENIDO");
+        PersonaService personaService = new PersonaService(RepositoryFactory.getInstance("SQLite"));
+        
+        persona = personaService.iniciarSesion(persona.getCorreoElectronico(),persona.getContrasenia());
+        
+        Persona personaEsperada = new Estudiante();
+        personaEsperada.setNombre("Pepito");
+        personaEsperada.setApellido("Perez");
+        personaEsperada.setCorreoElectronico("peperez@unicauca.edu.co");
+        personaEsperada.setCelular("3007654321");
+        
+        //PARA NO TENER QUE VOLVER A ENCRIPTAR SETEO LA MISMA CONTRASENIA EN EL RESULTADO Y EN LA ESPERADA
+        persona.setContrasenia("123ABCabc.");
+        personaEsperada.setContrasenia("123ABCabc.");
+        
+        assertEquals(persona,personaEsperada);
         
         
     }    
 @Test
 public void iniciarSesionInvalidoTest() throws UnsupportedEncodingException
     {
-        Persona persona = new Profesor();
+        Persona persona = new Estudiante();
         persona.setCorreoElectronico("peperez@unicauca.edu.co");
         persona.setContrasenia("123ABCab.");
         
-        PersonaService service = PersonaServiceFactory.getService(persona);
-        String resultado  = service.iniciarSesion(persona.getCorreoElectronico(), persona.getContrasenia());
-        assertEquals(resultado,"CONTRASEÑA INCORRECTA o CORREO INCORRECTO");
+        PersonaService personaService = new PersonaService(RepositoryFactory.getInstance("SQLite"));
+        
+        persona = personaService.iniciarSesion(persona.getCorreoElectronico(),persona.getContrasenia());
+        
+        assertEquals(persona,null);
         
         
     }    
