@@ -5,6 +5,7 @@
 package co.edu.unicauca.Repository;
 
 import co.edu.unicauca.Models.Persona;
+import co.edu.unicauca.Util.Cargo;
 
 /**
  *
@@ -12,6 +13,6 @@ import co.edu.unicauca.Models.Persona;
  */
 public interface PersonaRepository {
     public Persona consultarPersonaPorCorreo(String correoElectronico);
-    public String consultarCargoPorCorreo(String correoElectronico);
-    public boolean registrar(Persona persona,String cargo);
+    public Cargo consultarCargoPorCorreo(String correoElectronico);
+    public boolean registrar(Persona persona,Cargo cargo);
 }

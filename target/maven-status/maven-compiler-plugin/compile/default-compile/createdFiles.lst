@@ -15,3 +15,4 @@ co\edu\unicauca\database\ConexionSQLite.class
 co\edu\unicauca\Models\Facultad.class
 co\edu\unicauca\Models\Persona.class
 co\edu\unicauca\Repository\PersonaRepository.class
+co\edu\unicauca\Util\Cargo.class

@@ -8,6 +8,7 @@ import co.edu.unicauca.Models.Estudiante;
 import co.edu.unicauca.Models.Persona;
 import co.edu.unicauca.Models.Profesor;
 import co.edu.unicauca.Repository.PersonaRepository;
+import co.edu.unicauca.Util.Cargo;
 import co.edu.unicauca.database.ConexionSQLite;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -31,13 +32,13 @@ public class PersonaRepositorySQLite implements PersonaRepository {
         stmPersona.setString(1, correoElectronico);
 
         ResultSet rs = stmPersona.executeQuery();
-        String cargo = consultarCargoPorCorreo(correoElectronico);
+        Cargo cargo = consultarCargoPorCorreo(correoElectronico);
         
         if (cargo == null) return null;
         
         if (rs.next()) {
             Persona persona = null;
-            if(cargo.equals("Estudiante")){
+            if(cargo==Cargo.Estudiante){
                 persona = new Estudiante(
                 null,
                 rs.getString("nombre"),
@@ -47,7 +48,7 @@ public class PersonaRepositorySQLite implements PersonaRepository {
                 rs.getString("contrasenia"),
                 new LinkedList<>()
                 );
-            }else if(cargo.equals("Profesor"))
+            }else if(cargo==Cargo.Profesor)
             {
                 persona = new Profesor(
                 null,
@@ -69,7 +70,7 @@ public class PersonaRepositorySQLite implements PersonaRepository {
 
     
     @Override
-    public String consultarCargoPorCorreo(String correoElectronico) {   
+    public Cargo consultarCargoPorCorreo(String correoElectronico) {   
     String sqlProfesor = "SELECT COUNT(*) FROM persona inner join profesor on persona.correoElectronico=profesor.correoElectronico where persona.correoElectronico = ?";
     String sqlEstudiante = "SELECT COUNT(*) FROM persona inner join estudiante on persona.correoElectronico=estudiante.correoElectronico where persona.correoElectronico = ?";
     try (Connection conn = ConexionSQLite.conectar();     
@@ -88,8 +89,8 @@ public class PersonaRepositorySQLite implements PersonaRepository {
         if (esEstudiante.next()) cEst = esEstudiante.getInt(1);
         if (esProfesor.next())   cProf = esProfesor.getInt(1);
 
-        if (cEst > 0) return "Estudiante";
-        if (cProf > 0) return "Profesor";
+        if (cEst > 0) return Cargo.Estudiante;
+        if (cProf > 0) return Cargo.Profesor;
         return null;
     } catch (Exception e) {
         System.out.println("Error buscando persona: " + e.getMessage());
@@ -98,7 +99,7 @@ public class PersonaRepositorySQLite implements PersonaRepository {
     }
     
     @Override
-    public boolean registrar(Persona persona,String cargo) {
+    public boolean registrar(Persona persona,Cargo cargo) {
     String sqlPersona = "INSERT INTO persona(correoElectronico, contrasenia, nombre, apellido, celular) VALUES(?,?,?,?,?)";
     String sqlEstudiante = "INSERT INTO estudiante(correoElectronico) VALUES(?)";
     String sqlProfesor = "INSERT INTO profesor(correoElectronico) VALUES(?)";
@@ -116,12 +117,13 @@ public class PersonaRepositorySQLite implements PersonaRepository {
             pstmt.executeUpdate();
         }
 
-        if(cargo.equals("Estudiante")){
+        if(cargo==Cargo.Estudiante){
             try (PreparedStatement pstmt = conn.prepareStatement(sqlEstudiante)) {
                 pstmt.setString(1, persona.getCorreoElectronico());
                 pstmt.executeUpdate();
             }
-        }else if(cargo.equals("Profesor"))
+        }
+        if(cargo==Cargo.Profesor)
         {
             try (PreparedStatement pstmt = conn.prepareStatement(sqlProfesor)) {
                 pstmt.setString(1, persona.getCorreoElectronico());

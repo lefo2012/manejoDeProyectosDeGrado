@@ -7,6 +7,7 @@ package co.edu.unicauca.Services;
 import co.edu.unicauca.Models.Estudiante;
 import co.edu.unicauca.Models.Persona;
 import co.edu.unicauca.Repository.PersonaRepository;
+import co.edu.unicauca.Util.Cargo;
 import co.edu.unicauca.Util.Encriptador;
 import co.edu.unicauca.Util.Validador;
 import java.io.UnsupportedEncodingException;
@@ -44,20 +45,20 @@ public class PersonaService {
 
         return null;
     }
-    public String registrar(Persona estudiante,String cargo) throws UnsupportedEncodingException {
-        if (!Validador.esCorreoValido("unicauca.edu.co", estudiante.getCorreoElectronico()))
+    public String registrar(Persona persona,Cargo cargo) throws UnsupportedEncodingException {
+        if (!Validador.esCorreoValido("unicauca.edu.co", persona.getCorreoElectronico()))
             return "Correo invalido";
 
-        if (!Validador.esContraseniaCorrecta(estudiante.getContrasenia())) {
+        if (!Validador.esContraseniaCorrecta(persona.getContrasenia())) {
             return "Formato de contrasenia invalido recuerde que debe llevar por lo menos un caracter especial una mayuscula y un digito";
         }
 
         String clave = "1234567890ABCDEF";  
         byte[] iv = "abcdefghijklmnop".getBytes("UTF-8");
         
-        estudiante.setContrasenia(Encriptador.encriptar(clave, iv, estudiante.getContrasenia()));
+        persona.setContrasenia(Encriptador.encriptar(clave, iv, persona.getContrasenia()));
         
-        personaRepository.registrar(estudiante,cargo);
+        personaRepository.registrar(persona,cargo);
         return "Registro completado";
     }
 }
