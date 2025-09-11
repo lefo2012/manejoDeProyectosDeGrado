@@ -1,22 +1,19 @@
 package co.edu.unicauca.Models;
 
-import co.edu.unicauca.Models.Persona;
-import java.util.LinkedList;
-
-public class Departamento extends Facultad {
+public class Departamento {
     private int codigoDepartamento;
     private String nombreDepartamento;
-    private LinkedList<Persona> personasEnElDepartamento;
+    private Facultad facultad;
 
-    public Departamento(String nombreDepartamento) {
+    public Departamento(int codigoDepartamento, String nombreDepartamento, Facultad facultad) {
+        this.codigoDepartamento = codigoDepartamento;
         this.nombreDepartamento = nombreDepartamento;
-        this.personasEnElDepartamento = new LinkedList<>();
+        this.facultad = facultad;
     }
 
     public Departamento(int codigoDepartamento, String nombreDepartamento) {
         this.codigoDepartamento = codigoDepartamento;
         this.nombreDepartamento = nombreDepartamento;
-        this.personasEnElDepartamento = new LinkedList<>();
     }
 
     public int getCodigoDepartamento() {
@@ -35,11 +32,12 @@ public class Departamento extends Facultad {
         this.nombreDepartamento = nombreDepartamento;
     }
 
-    public LinkedList<Persona> getPersonasEnElDepartamento() {
-        return personasEnElDepartamento;
+    public Facultad getFacultad() {
+        return facultad;
     }
 
-    public void setPersonasEnElDepartamento(LinkedList<Persona> personasEnElDepartamento) {
-        this.personasEnElDepartamento = personasEnElDepartamento;
+    public void setFacultad(Facultad facultad) {
+        this.facultad = facultad;
     }
+    
 }

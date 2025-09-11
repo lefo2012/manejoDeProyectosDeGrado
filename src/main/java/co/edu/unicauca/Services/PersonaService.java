@@ -1,10 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package co.edu.unicauca.Services;
 
-import co.edu.unicauca.Models.Estudiante;
 import co.edu.unicauca.Models.Persona;
 import co.edu.unicauca.Repository.PersonaRepository;
 import co.edu.unicauca.Util.Cargo;
@@ -12,9 +7,10 @@ import co.edu.unicauca.Util.Encriptador;
 import co.edu.unicauca.Util.Validador;
 import java.io.UnsupportedEncodingException;
 
+
 /**
  *
- * @author PixelBot Gaming
+ * @author LEFO
  */
 public class PersonaService {
     PersonaRepository personaRepository;
@@ -25,7 +21,7 @@ public class PersonaService {
     
     
     
-    public Persona iniciarSesion(String correoElectronico, String contrasenia) throws UnsupportedEncodingException {
+    public Persona iniciarSesion(String correoElectronico, String contrasenia) throws UnsupportedEncodingException, Exception {
         System.out.println(correoElectronico);
         if (!Validador.esCorreoValido("unicauca.edu.co", correoElectronico))
             return null;
@@ -45,7 +41,7 @@ public class PersonaService {
 
         return null;
     }
-    public String registrar(Persona persona,Cargo cargo) throws UnsupportedEncodingException {
+    public String registrar(Persona persona,Cargo cargo) throws UnsupportedEncodingException, Exception {
         if (!Validador.esCorreoValido("unicauca.edu.co", persona.getCorreoElectronico()))
             return "Correo invalido";
 
@@ -53,12 +49,15 @@ public class PersonaService {
             return "Formato de contrasenia invalido recuerde que debe llevar por lo menos un caracter especial una mayuscula y un digito";
         }
 
-        String clave = "1234567890ABCDEF";  
-        byte[] iv = "abcdefghijklmnop".getBytes("UTF-8");
         
-        persona.setContrasenia(Encriptador.encriptar(clave, iv, persona.getContrasenia()));
         
-        personaRepository.registrar(persona,cargo);
-        return "Registro completado";
+        persona.setContrasenia(Encriptador.encriptar(persona.getContrasenia()));
+        
+        if(personaRepository.registrar(persona,cargo))
+        {
+            return "Registro completado";
+        }
+        
+        return "Se encontro un registro con el mismo correo electronico";
     }
 }

@@ -8,7 +8,6 @@ public class ConexionSQLite {
     
     private static final String URL = "jdbc:sqlite:mi_base.db"; 
     // Se creará en la raíz del proyecto
-
     public static Connection conectar() {
         try {
             return DriverManager.getConnection(URL);

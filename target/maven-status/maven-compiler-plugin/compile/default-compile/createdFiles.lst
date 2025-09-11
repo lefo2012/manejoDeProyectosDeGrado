@@ -1,3 +1,4 @@
+co\edu\unicauca\Models\Usuario.class
 co\edu\unicauca\Repository\Implementation\RepositoryFactory.class
 co\edu\unicauca\Services\PersonaService.class
 co\edu\unicauca\main\Main.class
@@ -5,6 +6,7 @@ co\edu\unicauca\Repository\Implementation\PersonaRepositorySQLite.class
 co\edu\unicauca\Util\Encriptador.class
 co\edu\unicauca\Models\Estudiante.class
 co\edu\unicauca\Vista\UserRegisterController.class
+co\edu\unicauca\Models\Coordinador.class
 co\edu\unicauca\Models\Programa.class
 co\edu\unicauca\Models\Departamento.class
 co\edu\unicauca\database\InitDB.class

@@ -10,10 +10,40 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: radial-gradient(center 50% 50%,radius 200%, #001282,black);" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.unicauca.Vista.UserRegisterController">
    <children>
+      <StackPane prefHeight="1080.0" prefWidth="1920.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.8" prefHeight="600.0" prefWidth="500.0" rotate="3.0" style="-fx-background-color: #ffffff;" />
+            <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.8" prefHeight="600.0" prefWidth="500.0" rotate="-3.0" style="-fx-background-color: #ffffff;" />
+            <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="500.0" style="-fx-background-color: #ffffff;">
+               <children>
+                  <Pane layoutX="175.0" layoutY="29.0" prefHeight="150.0" prefWidth="150.0">
+                     <children>
+                        <ImageView fitHeight="150.0" fitWidth="100.0" layoutX="25.0">
+                           <image>
+                              <Image url="@../imagenes/logoUnicaucaVertical.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                  <TextField fx:id="textFieldCorreoElectronico" layoutX="176.0" layoutY="179.0" promptText="CORREO ELECTRONICO *" style="-fx-alignment: CENTER;" />
+                  <PasswordField fx:id="passwordFieldContrasenia" layoutX="176.0" layoutY="213.0" promptText="CONTRASEÑA *" style="-fx-alignment: center;" />
+                  <TextField fx:id="textFieldNombre" layoutX="176.0" layoutY="246.0" promptText="NOMBRE *" style="-fx-alignment: center;" />
+                  <TextField fx:id="textFieldApellido" layoutX="176.0" layoutY="280.0" promptText="APELLIDO *" style="-fx-alignment: center;" />
+                  <TextField fx:id="textFieldCelular" layoutX="176.0" layoutY="314.0" promptText="TELEFONO" style="-fx-alignment: center;" />
+                  <ComboBox fx:id="comboBoxCargo" editable="false" layoutX="175.0" layoutY="347.0" prefWidth="150.0" promptText="CARGO" style="-fx-background-color: #FFFFFF; -fx-border-color: #dddddd;" />
+                  <Label layoutX="146.0" layoutY="389.0" text="Ya estoy registrado volver al" />
+                  <Hyperlink id="linkVolverAlLogin" fx:id="linkIrALogin" layoutX="296.0" layoutY="386.0" onAction="#irALogin" text="Login" textFill="#9f0e13" />
+                  <Button fx:id="botonRegistrarme" layoutX="200.0" layoutY="419.0" mnemonicParsing="false" onAction="#registrarse" prefHeight="30.0" prefWidth="100.0" style="-fx-background-radius: 10px; -fx-background-color: linear-gradient(from 50% 25% to 100% 100%, #9F0E13, #001282);" text="REGISTRARME" textFill="WHITE" />
+                  <Text fx:id="textoAviso" layoutX="58.0" layoutY="481.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-text-alignment: center;" wrappingWidth="382.78204345703125" />
+               </children>
+            </Pane>
+         </children>
+      </StackPane>
       <AnchorPane layoutX="30.0" layoutY="856.0" prefHeight="150.0" prefWidth="1920.0" style="-fx-background-color: #FFFFFF;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
             <Pane layoutX="-4.0" layoutY="-48.0" prefHeight="150.0" prefWidth="150.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
@@ -27,30 +57,5 @@
             </Pane>
          </children>
       </AnchorPane>
-      <Pane layoutX="684.0" layoutY="242.0" opacity="0.8" prefHeight="600.0" prefWidth="500.0" rotate="3.0" style="-fx-background-color: #ffffff;" AnchorPane.bottomAnchor="240.0" AnchorPane.leftAnchor="710.0" />
-      <Pane layoutX="1030.0" layoutY="234.0" opacity="0.8" prefHeight="600.0" prefWidth="500.0" rotate="-3.0" style="-fx-background-color: #ffffff;" AnchorPane.bottomAnchor="240.0" AnchorPane.leftAnchor="710.0" />
-      <Pane layoutX="674.0" layoutY="232.0" prefHeight="600.0" prefWidth="500.0" style="-fx-background-color: #ffffff;" AnchorPane.bottomAnchor="240.0" AnchorPane.leftAnchor="710.0">
-         <children>
-            <Pane layoutX="175.0" layoutY="29.0" prefHeight="150.0" prefWidth="150.0">
-               <children>
-                  <ImageView fitHeight="150.0" fitWidth="100.0" layoutX="25.0">
-                     <image>
-                        <Image url="@../imagenes/logoUnicaucaVertical.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </Pane>
-            <TextField fx:id="textFieldCorreoElectronico" layoutX="176.0" layoutY="179.0" promptText="CORREO ELECTRONICO *" style="-fx-alignment: CENTER;" />
-            <PasswordField fx:id="passwordFieldContrasenia" layoutX="176.0" layoutY="213.0" promptText="CONTRASEÑA *" style="-fx-alignment: center;" />
-            <TextField fx:id="textFieldNombre" layoutX="176.0" layoutY="246.0" promptText="NOMBRE *" style="-fx-alignment: center;" />
-            <TextField fx:id="textFieldApellido" layoutX="176.0" layoutY="280.0" promptText="APELLIDO *" style="-fx-alignment: center;" />
-            <TextField fx:id="textFieldCelular" layoutX="176.0" layoutY="314.0" promptText="TELEFONO" style="-fx-alignment: center;" />
-            <ComboBox fx:id="comboBoxCargo" editable="false" layoutX="175.0" layoutY="347.0" prefWidth="150.0" promptText="CARGO" style="-fx-background-color: #FFFFFF; -fx-border-color: #dddddd;" />
-            <Label layoutX="146.0" layoutY="389.0" text="Ya estoy registrado volver al" />
-            <Hyperlink id="linkVolverAlLogin" fx:id="linkIrALogin" layoutX="296.0" layoutY="386.0" onAction="#irALogin" text="Login" textFill="#9f0e13" />
-            <Button fx:id="botonRegistrarme" layoutX="200.0" layoutY="419.0" mnemonicParsing="false" onAction="#registrarse" prefHeight="30.0" prefWidth="100.0" style="-fx-background-radius: 10px; -fx-background-color: linear-gradient(from 50% 25% to 100% 100%, #9F0E13, #001282);" text="REGISTRARME" textFill="WHITE" />
-            <Text fx:id="textoAviso" layoutX="58.0" layoutY="481.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-text-alignment: center;" wrappingWidth="382.78204345703125" />
-         </children>
-      </Pane>
    </children>
 </AnchorPane>

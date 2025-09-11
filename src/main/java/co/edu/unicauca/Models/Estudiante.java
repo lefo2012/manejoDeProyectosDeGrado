@@ -1,25 +1,39 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package co.edu.unicauca.Models;
 
 import co.edu.unicauca.Models.Programa;
-import java.util.LinkedList;
 
 /**
  *
- * @author PixelBot Gaming
+ * @author LEFO
  */
 public class Estudiante extends Persona {
+    
     Programa programa;
-
+    Project proyecto;
     public Estudiante() {
     }
-    
-    public Estudiante(Programa programa,String nombre, String apellido, String celular, String correoElectronico, String contrasenia, LinkedList<Facultad> facultad) {
-        super(nombre, apellido, celular, correoElectronico, contrasenia, facultad);
-        this.programa=programa;
+
+    public Estudiante(Programa programa, String nombre, String apellido, String celular, String correoElectronico, String contrasenia) {
+        super(nombre, apellido, celular, correoElectronico, contrasenia, programa.getDepartamento());
+        this.programa = programa;
     }
+
+    public Programa getPrograma() {
+        return programa;
+    }
+
+    public void setPrograma(Programa programa) {
+        this.programa = programa;
+    }
+
+    public Project getProyecto() {
+        return proyecto;
+    }
+
+    public void setProyecto(Project proyecto) {
+        this.proyecto = proyecto;
+    }
+    
+    
     
 }

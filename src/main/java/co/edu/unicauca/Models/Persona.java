@@ -1,9 +1,10 @@
 package co.edu.unicauca.Models;
 
 
-
-import java.util.LinkedList;
-
+/**
+ *
+ * @author LEFO
+ */
 public class Persona
 {
     private String nombre;
@@ -11,7 +12,8 @@ public class Persona
     private String celular;
     private String correoElectronico;
     private String contrasenia;
-    private LinkedList<Facultad> facultad;
+    private Departamento departamento;
+    private Facultad facultad;
     
     private boolean isLogged;
 
@@ -19,14 +21,16 @@ public class Persona
     }
     
     
-    public Persona(String nombre, String apellido, String celular, String correoElectronico, String contrasenia, LinkedList<Facultad> facultad) {
+    public Persona(String nombre, String apellido, String celular, String correoElectronico, String contrasenia,Departamento departamento) {
         
         this.nombre = nombre;
         this.apellido = apellido;
         this.celular = celular;
         this.correoElectronico = correoElectronico;
         this.contrasenia = contrasenia;
-        this.facultad = facultad;
+        this.facultad = new Facultad(1,"Facultad de Ingenieria Electronica y Telecomunicaciones");
+        this.departamento = departamento;
+        departamento.setFacultad(facultad);
     }
     
     public boolean setContrasenia(String contrasenia)
@@ -63,10 +67,6 @@ public class Persona
         return contrasenia;
     }
 
-    public LinkedList<Facultad> getFacultad() {
-        return facultad;
-    }
-
     public boolean isIsLogged() {
         return isLogged;
     }
@@ -81,10 +81,6 @@ public class Persona
 
     public void setCelular(String celular) {
         this.celular = celular;
-    }
-
-    public void setFacultad(LinkedList<Facultad> facultad) {
-        this.facultad = facultad;
     }
 
     public void setIsLogged(boolean isLogged) {

@@ -1,10 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package co.edu.unicauca.Vista;
 
 
+import co.edu.unicauca.Models.Departamento;
 import co.edu.unicauca.Models.Persona;
 import co.edu.unicauca.Repository.Implementation.RepositoryFactory;
 import co.edu.unicauca.Services.PersonaService;
@@ -22,7 +19,7 @@ import javafx.scene.text.Text;
 
 /**
  *
- * @author PixelBot Gaming
+ * @author LEFO
  */
 public class UserRegisterController {
     @FXML
@@ -41,8 +38,6 @@ public class UserRegisterController {
     
     }
     public void initialize() {
-
-        
         // NO hacer: comboBoxCargo = new ComboBox<>();
         comboBoxCargo.setItems(FXCollections.observableArrayList(Cargo.values()));
         comboBoxCargo.getSelectionModel().selectFirst(); // opcional
@@ -65,7 +60,7 @@ public class UserRegisterController {
       textFieldCelular.setStyle("-fx-alignment: CENTER;");
       passwordFieldContrasenia.setStyle("-fx-alignment: CENTER;");
     }
-    public void registrarse() throws UnsupportedEncodingException, IOException
+    public void registrarse() throws UnsupportedEncodingException, IOException, Exception
     {
         int errores=0;
         String resultado="";
@@ -102,9 +97,8 @@ public class UserRegisterController {
                 textFieldCelular.getText(),            
                 textFieldCorreoElectronico.getText(),
                 passwordFieldContrasenia.getText(),
-                new LinkedList<>()//facultad o falcultades
+                new Departamento(1,"Departamento de sistemas")// Deberia venir de un combo box;
             );
-            
             resultado = personaService.registrar(personaARegistrar, comboBoxCargo.getValue());
             if(resultado.equals("Registro completado"))
             {

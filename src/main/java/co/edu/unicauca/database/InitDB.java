@@ -31,10 +31,17 @@ public class InitDB {
                     FOREIGN KEY (correoElectronico) REFERENCES persona(correoElectronico)
                 );
                 """;
+             String sqlCoordinador = """
+                CREATE TABLE IF NOT EXISTS coordinador (
+                    correoElectronico TEXT PRIMARY KEY,
+                    FOREIGN KEY (correoElectronico) REFERENCES persona(correoElectronico)
+                );
+                """;
 
             stmt.execute(sqlPersona);
             stmt.execute(sqlProfesor);
             stmt.execute(sqlEstudiante);
+            stmt.execute(sqlCoordinador);
 
             System.out.println("Tablas creadas correctamente.");
         } catch (Exception e) {
