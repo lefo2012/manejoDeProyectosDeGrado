@@ -16,4 +16,13 @@ public class ConexionSQLite {
             return null;
         }
     }
+    public static void desconectar(Connection cn) {
+    if (cn != null) {
+        try {
+            if (!cn.isClosed()) cn.close();
+        } catch (SQLException e) {
+            System.out.println("Error al cerrar: " + e.getMessage());
+        }
+    }
+}
 }

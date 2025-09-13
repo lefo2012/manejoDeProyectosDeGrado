@@ -7,91 +7,79 @@ package co.edu.unicauca.Models;
  */
 public class Persona
 {
+    private String id;
     private String nombre;
     private String apellido;
     private String celular;
     private String correoElectronico;
     private String contrasenia;
-    private Departamento departamento;
-    private Facultad facultad;
-    
     private boolean isLogged;
-
+    
     public Persona() {
     }
-    
-    
-    public Persona(String nombre, String apellido, String celular, String correoElectronico, String contrasenia,Departamento departamento) {
-        
+
+    public Persona(String nombre, String apellido, String celular, String correoElectronico, String contrasenia) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.celular = celular;
         this.correoElectronico = correoElectronico;
         this.contrasenia = contrasenia;
-        this.facultad = new Facultad(1,"Facultad de Ingenieria Electronica y Telecomunicaciones");
-        this.departamento = departamento;
-        departamento.setFacultad(facultad);
     }
-    
-    public boolean setContrasenia(String contrasenia)
-    {   
-        this.contrasenia=contrasenia;
-        return true;
+
+    public String getId() {
+        return id;
     }
-    
-    
-    public boolean setCorreoElectronico(String correoElectronico)
-    {
-        
-        this.correoElectronico=correoElectronico;
-        return true;
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getNombre() {
         return nombre;
     }
 
-    public String getApellido() {
-        return apellido;
-    }
-
-    public String getCelular() {
-        return celular;
-    }
-
-    public String getCorreoElectronico() {
-        return correoElectronico;
-    }
-
-    public String getContrasenia() {
-        return contrasenia;
-    }
-
-    public boolean isIsLogged() {
-        return isLogged;
-    }
-    
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
     }
 
     public void setApellido(String apellido) {
         this.apellido = apellido;
     }
 
+    public String getCelular() {
+        return celular;
+    }
+
     public void setCelular(String celular) {
         this.celular = celular;
+    }
+
+    public String getCorreoElectronico() {
+        return correoElectronico;
+    }
+
+    public void setCorreoElectronico(String correoElectronico) {
+        this.correoElectronico = correoElectronico;
+    }
+
+    public String getContrasenia() {
+        return contrasenia;
+    }
+
+    public void setContrasenia(String contrasenia) {
+        this.contrasenia = contrasenia;
+    }
+
+    public boolean isIsLogged() {
+        return isLogged;
     }
 
     public void setIsLogged(boolean isLogged) {
         this.isLogged = isLogged;
     }
     
-    public boolean verificarInicioDeSesion()
-    {
-        
-        return true;
-        
-    }
-
 }

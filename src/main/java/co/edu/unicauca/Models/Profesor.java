@@ -1,6 +1,6 @@
 package co.edu.unicauca.Models;
 
-import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
@@ -8,13 +8,31 @@ import java.util.LinkedList;
  */
 public class Profesor extends Persona{
     
-    Programa programa;
-    LinkedList<Project> listaProyectos;
+    Departamento departamento;
+    List<Proyecto> listaProyectos;
 
-    public Profesor(Programa programa, String nombre, String apellido, String celular, String correoElectronico, String contrasenia) {
-        super(nombre, apellido, celular, correoElectronico, contrasenia, programa.getDepartamento());
-        this.programa = programa;
+    public Profesor(Departamento departamento, String nombre, String apellido, String celular, String correoElectronico, String contrasenia) {
+        super(nombre, apellido, celular, correoElectronico, contrasenia);
+        this.departamento = departamento;
     }
+
+    public Departamento getDepartamento() {
+        return departamento;
+    }
+
+    public void setDepartamento(Departamento departamento) {
+        this.departamento = departamento;
+    }
+
+    public List<Proyecto> getListaProyectos() {
+        return listaProyectos;
+    }
+
+    public void setListaProyectos(List<Proyecto> listaProyectos) {
+        this.listaProyectos = listaProyectos;
+    }
+    
+    
 
     
   

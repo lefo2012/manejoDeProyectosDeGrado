@@ -9,11 +9,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import co.edu.unicauca.database.InitDB;
 
 public class Main extends Application {
 
     private static Scene scene;
-
+    
     @Override
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("UserLogin"), 1920, 1080);
@@ -32,7 +33,7 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         InitDB.crearTablas();
-        launch();
+        
     }
 
 }

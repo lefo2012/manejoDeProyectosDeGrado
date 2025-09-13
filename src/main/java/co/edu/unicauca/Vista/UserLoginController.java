@@ -36,7 +36,7 @@ public class UserLoginController  {
         
     }    
     @FXML
-    public void iniciarSesion() throws UnsupportedEncodingException, IOException
+    public void iniciarSesion() throws UnsupportedEncodingException, IOException, Exception
     {
 
     

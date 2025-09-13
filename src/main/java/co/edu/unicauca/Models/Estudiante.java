@@ -1,6 +1,8 @@
 package co.edu.unicauca.Models;
 
 import co.edu.unicauca.Models.Programa;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
@@ -9,13 +11,18 @@ import co.edu.unicauca.Models.Programa;
 public class Estudiante extends Persona {
     
     Programa programa;
-    Project proyecto;
+    List<Proyecto> proyectos;
+    int cantidadIntentosPractica;
+    int cantidadIntentosInvestigacion;
     public Estudiante() {
     }
 
-    public Estudiante(Programa programa, String nombre, String apellido, String celular, String correoElectronico, String contrasenia) {
-        super(nombre, apellido, celular, correoElectronico, contrasenia, programa.getDepartamento());
+    public Estudiante(Programa programa, int cantidadIntentosPractica, int cantidadIntentosInvestigacion, String nombre, String apellido, String celular, String correoElectronico, String contrasenia) {
+        super(nombre, apellido, celular, correoElectronico, contrasenia);
         this.programa = programa;
+        this.cantidadIntentosPractica = cantidadIntentosPractica;
+        this.cantidadIntentosInvestigacion = cantidadIntentosInvestigacion;
+        proyectos = new LinkedList();
     }
 
     public Programa getPrograma() {
@@ -26,13 +33,17 @@ public class Estudiante extends Persona {
         this.programa = programa;
     }
 
-    public Project getProyecto() {
-        return proyecto;
+    public List<Proyecto> getProyectos() {
+        return proyectos;
     }
 
-    public void setProyecto(Project proyecto) {
-        this.proyecto = proyecto;
+    public void setProyectos(List<Proyecto> proyectos) {
+        this.proyectos = proyectos;
     }
+
+   
+
+
     
     
     

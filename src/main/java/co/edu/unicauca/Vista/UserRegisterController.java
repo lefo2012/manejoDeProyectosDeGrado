@@ -1,7 +1,6 @@
 package co.edu.unicauca.Vista;
 
 
-import co.edu.unicauca.Models.Departamento;
 import co.edu.unicauca.Models.Persona;
 import co.edu.unicauca.Repository.Implementation.RepositoryFactory;
 import co.edu.unicauca.Services.PersonaService;
@@ -9,7 +8,6 @@ import co.edu.unicauca.Util.Cargo;
 import co.edu.unicauca.main.Main;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.LinkedList;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
@@ -96,8 +94,8 @@ public class UserRegisterController {
                 textFieldApellido.getText(),
                 textFieldCelular.getText(),            
                 textFieldCorreoElectronico.getText(),
-                passwordFieldContrasenia.getText(),
-                new Departamento(1,"Departamento de sistemas")// Deberia venir de un combo box;
+                passwordFieldContrasenia.getText()
+                // Deberia venir de un combo box;
             );
             resultado = personaService.registrar(personaARegistrar, comboBoxCargo.getValue());
             if(resultado.equals("Registro completado"))
