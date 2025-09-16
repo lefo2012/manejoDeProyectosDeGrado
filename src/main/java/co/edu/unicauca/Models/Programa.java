@@ -7,21 +7,30 @@ import co.edu.unicauca.Models.Departamento;
  */
 public class Programa
 {
-    private String codigoDePrograma;
+    private int codigoDePrograma;
     private String nombrePrograma;
     private Departamento departamento;
 
-    public Programa(String codigoDePrograma, String nombrePrograma, Departamento departamento) {
+    public Programa(int codigoDePrograma, String nombrePrograma, Departamento departamento) {
         this.codigoDePrograma = codigoDePrograma;
         this.nombrePrograma = nombrePrograma;
         this.departamento = departamento;
     }
 
-    public String getCodigoDePrograma() {
+    public Programa(int codigoDePrograma, String nombrePrograma) {
+        this.codigoDePrograma = codigoDePrograma;
+        this.nombrePrograma = nombrePrograma;
+    }
+
+    public Programa(int codigoDePrograma) {
+        this.codigoDePrograma = codigoDePrograma;
+    }
+    
+    public int getCodigoDePrograma() {
         return codigoDePrograma;
     }
 
-    public void setCodigoDePrograma(String codigoDePrograma) {
+    public void setCodigoDePrograma(int codigoDePrograma) {
         this.codigoDePrograma = codigoDePrograma;
     }
 

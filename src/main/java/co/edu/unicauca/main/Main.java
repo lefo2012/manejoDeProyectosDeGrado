@@ -1,9 +1,8 @@
 package co.edu.unicauca.main;
 
-import co.edu.unicauca.database.InitDB;
+
 import java.io.IOException;
 import javafx.application.Application;
-import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -33,7 +32,7 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         InitDB.crearTablas();
-        
+        launch();
     }
 
 }

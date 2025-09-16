@@ -8,20 +8,24 @@ import java.util.List;
  */
 public class Coordinador extends Persona {
     
-    Programa programa;
+    Departamento departamento;
     List<Proyecto> listaProyectos;
 
-    public Coordinador(Programa programa, String nombre, String apellido, String celular, String correoElectronico, String contrasenia) {
+    public Coordinador(Departamento departamento, String nombre, String apellido, String celular, String correoElectronico, String contrasenia) {
         super(nombre, apellido, celular, correoElectronico, contrasenia);
-        this.programa = programa;
+        this.departamento = departamento;
     }
 
-    public Programa getPrograma() {
-        return programa;
+    public Coordinador() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    public void setPrograma(Programa programa) {
-        this.programa = programa;
+    public Departamento getDepartamento() {
+        return departamento;
+    }
+
+    public void setDepartamento(Departamento departamento) {
+        this.departamento = departamento;
     }
 
     public List<Proyecto> getListaProyectos() {

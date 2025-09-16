@@ -1,26 +1,30 @@
 package co.edu.unicauca.Models;
 
 public class Departamento {
-    private String codigoDepartamento;
+    private int codigoDepartamento;
     private String nombreDepartamento;
     private Facultad facultad;
 
-    public Departamento(String codigoDepartamento, String nombreDepartamento, Facultad facultad) {
+    public Departamento(int codigoDepartamento, String nombreDepartamento, Facultad facultad) {
         this.codigoDepartamento = codigoDepartamento;
         this.nombreDepartamento = nombreDepartamento;
         this.facultad = facultad;
     }
 
-    public Departamento(String codigoDepartamento, String nombreDepartamento) {
+    public Departamento(int codigoDepartamento, String nombreDepartamento) {
         this.codigoDepartamento = codigoDepartamento;
         this.nombreDepartamento = nombreDepartamento;
     }
 
-    public String getCodigoDepartamento() {
+    public Departamento(int codigoDepartamento) {
+        this.codigoDepartamento = codigoDepartamento;
+    }
+
+    public int getCodigoDepartamento() {
         return codigoDepartamento;
     }
 
-    public void setCodigoDepartamento(String codigoDepartamento) {
+    public void setCodigoDepartamento(int codigoDepartamento) {
         this.codigoDepartamento = codigoDepartamento;
     }
 

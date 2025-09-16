@@ -25,6 +25,11 @@ public class Estudiante extends Persona {
         proyectos = new LinkedList();
     }
 
+    public Estudiante(Programa programa, String nombre, String apellido, String celular, String correoElectronico, String contrasenia) {
+        super(nombre, apellido, celular, correoElectronico, contrasenia);
+        this.programa = programa;
+    }
+    
     public Programa getPrograma() {
         return programa;
     }

@@ -8,20 +8,28 @@ public class ConexionSQLite {
     
     private static final String URL = "jdbc:sqlite:mi_base.db"; 
     // Se creará en la raíz del proyecto
-    public static Connection conectar() {
+    private static Connection instance;
+    public static Connection getInstance() throws Exception {
         try {
-            return DriverManager.getConnection(URL);
+            if(instance == null || instance.isClosed())
+            {
+                instance = DriverManager.getConnection(URL);
+            }
+            
+            return instance;
         } catch (SQLException e) {
-            System.out.println("Error al conectar: " + e.getMessage());
-            return null;
+            System.out.println("Error en ConexionSQLite "+ e.getMessage());
+            throw new Exception("Error al conectar con la conexion con la base de datos");
         }
     }
-    public static void desconectar(Connection cn) {
-    if (cn != null) {
+    public static void desconectar() throws Exception {
+    if (instance != null) {
         try {
-            if (!cn.isClosed()) cn.close();
+            if (!instance.isClosed()) instance.close();
         } catch (SQLException e) {
-            System.out.println("Error al cerrar: " + e.getMessage());
+            System.out.println("Error en ConexionSQLite "+ e.getMessage());
+            throw new Exception("Error al cerrar la conexion con la base de datos");
+            
         }
     }
 }

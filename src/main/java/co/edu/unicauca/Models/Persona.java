@@ -7,7 +7,7 @@ package co.edu.unicauca.Models;
  */
 public class Persona
 {
-    private String id;
+    private int id;
     private String nombre;
     private String apellido;
     private String celular;
@@ -26,11 +26,11 @@ public class Persona
         this.contrasenia = contrasenia;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

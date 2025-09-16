@@ -1,7 +1,12 @@
 package co.edu.unicauca.Vista;
 
 
+import co.edu.unicauca.Models.Coordinador;
+import co.edu.unicauca.Models.Departamento;
+import co.edu.unicauca.Models.Estudiante;
 import co.edu.unicauca.Models.Persona;
+import co.edu.unicauca.Models.Profesor;
+import co.edu.unicauca.Models.Programa;
 import co.edu.unicauca.Repository.Implementation.RepositoryFactory;
 import co.edu.unicauca.Services.PersonaService;
 import co.edu.unicauca.Util.Cargo;
@@ -26,6 +31,7 @@ public class UserRegisterController {
     PasswordField passwordFieldContrasenia;
     @FXML
     ComboBox<Cargo> comboBoxCargo;
+    
     @FXML
     Text textoAviso;
     
@@ -89,15 +95,44 @@ public class UserRegisterController {
         }
         if (errores==0)
         {
-            Persona personaARegistrar = new Persona(
-                textFieldNombre.getText(),
-                textFieldApellido.getText(),
-                textFieldCelular.getText(),            
-                textFieldCorreoElectronico.getText(),
-                passwordFieldContrasenia.getText()
-                // Deberia venir de un combo box;
-            );
-            resultado = personaService.registrar(personaARegistrar, comboBoxCargo.getValue());
+            Persona personaARegistrar=null;
+            if(comboBoxCargo.getValue()==Cargo.ESTUDIANTE)
+            {
+                personaARegistrar = new Estudiante(
+                    new Programa(1,"Sistemas"),
+                    textFieldNombre.getText(),
+                    textFieldApellido.getText(),
+                    textFieldCelular.getText(),
+                    textFieldCorreoElectronico.getText(),
+                    passwordFieldContrasenia.getText()
+                );
+
+            }
+            else if(comboBoxCargo.getValue()==Cargo.PROFESOR)
+            {
+                personaARegistrar = new Profesor(
+                    new Departamento(1,"Sistemas"), 
+                    textFieldNombre.getText(),
+                    textFieldApellido.getText(),
+                    textFieldCelular.getText(),
+                    textFieldCorreoElectronico.getText(),
+                    passwordFieldContrasenia.getText()
+                );
+
+            }
+            else if(comboBoxCargo.getValue()==Cargo.COORDINADOR)
+            {
+                personaARegistrar = new Coordinador(
+                    new Departamento(1,"Sistemas"),
+                    textFieldNombre.getText(),
+                    textFieldApellido.getText(),
+                    textFieldCelular.getText(),
+                    textFieldCorreoElectronico.getText(),
+                    passwordFieldContrasenia.getText()
+                );
+
+            }
+            resultado = personaService.registrar(personaARegistrar);
             if(resultado.equals("Registro completado"))
             {
                 textoAviso.setText(resultado);

@@ -13,6 +13,7 @@ import java.io.UnsupportedEncodingException;
  * @author LEFO
  */
 public class PersonaService {
+    
     PersonaRepository personaRepository;
 
     public PersonaService(PersonaRepository personaRepository) {
@@ -26,7 +27,7 @@ public class PersonaService {
         if (!Validador.esCorreoValido("unicauca.edu.co", correoElectronico))
             return null;
         
-        Persona persona =  personaRepository.consultarPersonaPorCorreo(correoElectronico);
+        Persona persona =  personaRepository.getOne(correoElectronico);
         
         if (persona == null) {
             return null;
@@ -41,7 +42,7 @@ public class PersonaService {
 
         return null;
     }
-    public String registrar(Persona persona,Cargo cargo) throws UnsupportedEncodingException, Exception {
+    public String registrar(Persona persona) throws UnsupportedEncodingException, Exception {
         if (!Validador.esCorreoValido("unicauca.edu.co", persona.getCorreoElectronico()))
             return "Correo invalido";
 
@@ -49,11 +50,9 @@ public class PersonaService {
             return "Formato de contrasenia invalido recuerde que debe llevar por lo menos un caracter especial una mayuscula y un digito";
         }
 
-        
-        
         persona.setContrasenia(Encriptador.encriptar(persona.getContrasenia()));
         
-        if(personaRepository.registrar(persona,cargo))
+        if(personaRepository.save(persona))
         {
             return "Registro completado";
         }

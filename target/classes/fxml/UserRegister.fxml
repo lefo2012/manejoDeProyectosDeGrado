@@ -21,7 +21,13 @@
             <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.8" prefHeight="600.0" prefWidth="500.0" rotate="-3.0" style="-fx-background-color: #ffffff;" />
             <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="500.0" style="-fx-background-color: #ffffff;">
                <children>
-                  <Pane layoutX="175.0" layoutY="29.0" prefHeight="150.0" prefWidth="150.0">
+                  <TextField fx:id="textFieldCorreoElectronico" layoutX="176.0" layoutY="138.0" promptText="CORREO ELECTRONICO *" style="-fx-alignment: CENTER;" />
+                  <PasswordField fx:id="passwordFieldContrasenia" layoutX="175.0" layoutY="171.0" promptText="CONTRASEÑA *" style="-fx-alignment: center;" />
+                  <TextField fx:id="textFieldNombre" layoutX="176.0" layoutY="202.0" promptText="NOMBRE *" style="-fx-alignment: center;" />
+                  <TextField fx:id="textFieldApellido" layoutX="176.0" layoutY="233.0" promptText="APELLIDO *" style="-fx-alignment: center;" />
+                  <TextField fx:id="textFieldCelular" layoutX="175.0" layoutY="264.0" promptText="TELEFONO" style="-fx-alignment: center;" />
+                  <ComboBox fx:id="comboBoxCargo" editable="false" layoutX="174.0" layoutY="295.0" prefWidth="150.0" promptText="CARGO" style="-fx-background-color: #FFFFFF; -fx-border-color: #dddddd;" />
+                  <Pane layoutX="175.0" prefHeight="150.0" prefWidth="150.0">
                      <children>
                         <ImageView fitHeight="150.0" fitWidth="100.0" layoutX="25.0">
                            <image>
@@ -30,16 +36,11 @@
                         </ImageView>
                      </children>
                   </Pane>
-                  <TextField fx:id="textFieldCorreoElectronico" layoutX="176.0" layoutY="179.0" promptText="CORREO ELECTRONICO *" style="-fx-alignment: CENTER;" />
-                  <PasswordField fx:id="passwordFieldContrasenia" layoutX="176.0" layoutY="213.0" promptText="CONTRASEÑA *" style="-fx-alignment: center;" />
-                  <TextField fx:id="textFieldNombre" layoutX="176.0" layoutY="246.0" promptText="NOMBRE *" style="-fx-alignment: center;" />
-                  <TextField fx:id="textFieldApellido" layoutX="176.0" layoutY="280.0" promptText="APELLIDO *" style="-fx-alignment: center;" />
-                  <TextField fx:id="textFieldCelular" layoutX="176.0" layoutY="314.0" promptText="TELEFONO" style="-fx-alignment: center;" />
-                  <ComboBox fx:id="comboBoxCargo" editable="false" layoutX="175.0" layoutY="347.0" prefWidth="150.0" promptText="CARGO" style="-fx-background-color: #FFFFFF; -fx-border-color: #dddddd;" />
                   <Label layoutX="146.0" layoutY="389.0" text="Ya estoy registrado volver al" />
                   <Hyperlink id="linkVolverAlLogin" fx:id="linkIrALogin" layoutX="296.0" layoutY="386.0" onAction="#irALogin" text="Login" textFill="#9f0e13" />
                   <Button fx:id="botonRegistrarme" layoutX="200.0" layoutY="419.0" mnemonicParsing="false" onAction="#registrarse" prefHeight="30.0" prefWidth="100.0" style="-fx-background-radius: 10px; -fx-background-color: linear-gradient(from 50% 25% to 100% 100%, #9F0E13, #001282);" text="REGISTRARME" textFill="WHITE" />
                   <Text fx:id="textoAviso" layoutX="58.0" layoutY="481.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-text-alignment: center;" wrappingWidth="382.78204345703125" />
+                  <ComboBox fx:id="comboBoxProgramaDepartamento" editable="false" layoutX="175.0" layoutY="330.0" prefHeight="23.0" prefWidth="150.0" promptText="PROGRAMA O DEPARTAMENTO" style="-fx-background-color: #FFFFFF; -fx-border-color: #dddddd;" />
                </children>
             </Pane>
          </children>

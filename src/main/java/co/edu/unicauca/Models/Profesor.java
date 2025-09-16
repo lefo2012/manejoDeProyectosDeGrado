@@ -16,6 +16,10 @@ public class Profesor extends Persona{
         this.departamento = departamento;
     }
 
+    public Profesor() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     public Departamento getDepartamento() {
         return departamento;
     }
