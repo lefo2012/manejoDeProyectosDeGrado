@@ -261,8 +261,10 @@ public class PersonaRepositorySQLite implements PersonaRepository{
     public boolean save(Persona object) throws Exception {
         
         Connection conexionDB = null;
+        
         try {
             conexionDB = ConexionSQLite.getInstance();
+            conexionDB.setAutoCommit(false);
         } catch (Exception ex) {
             System.out.println("Error al conectar a la base de datos en save personaRepositorySql");
             throw new Exception("Error al conectar a la base de datos");
@@ -333,6 +335,7 @@ public class PersonaRepositorySQLite implements PersonaRepository{
             int filasAfectadas = statementPersona.executeUpdate();
             
             if (filasAfectadas == 0) {
+                
                 throw new SQLException("Error al registrar en estudiante.");
             }
             return true;

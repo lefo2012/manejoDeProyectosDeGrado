@@ -10,6 +10,7 @@ public class InitDB {
     
         try {
             Connection conn = ConexionSQLite.getInstance();
+            
             // Recomendado para SQLite: WAL y timeout para locks
             try (Statement s = conn.createStatement()) {
                 s.execute("PRAGMA journal_mode = WAL;");
@@ -17,8 +18,9 @@ public class InitDB {
                 s.execute("PRAGMA foreign_keys = ON;");
                 s.execute("PRAGMA busy_timeout = 5000;");
             }
-
+            
             conn.setAutoCommit(false);
+            
             try (Statement st = conn.createStatement()) {
                     // ============ Núcleo académico ============
                st.addBatch("""
@@ -257,12 +259,14 @@ public class InitDB {
                """);
                 st.executeBatch();
                 conn.commit();
+                ConexionSQLite.desconectar();
             } catch (SQLException ex) {
                 conn.rollback();
                 throw ex;
             } 
         } catch (Exception e) {
-            throw new RuntimeException("Error inicializando el esquema SQLite", e);
+            System.out.println("Error " + e.getMessage());
+            
         }
   }
 }

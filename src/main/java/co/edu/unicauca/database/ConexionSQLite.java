@@ -16,6 +16,7 @@ public class ConexionSQLite {
     
     public static Connection getInstance() throws Exception {
         try {
+            
             if(instance == null || instance.isClosed())
             {
                 instance = DriverManager.getConnection(URL);

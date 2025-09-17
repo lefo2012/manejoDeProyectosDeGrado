@@ -42,7 +42,7 @@ public class UserLoginController  {
     @FXML
     public void iniciarSesion() throws UnsupportedEncodingException, IOException, Exception
     {
-
+        
         factoryPersonaRepository = new RepositoryFactory(PersonaRepository.class);
         
         PersonaService personaService = new PersonaService(factoryPersonaRepository.getInstance("SQLite"));
