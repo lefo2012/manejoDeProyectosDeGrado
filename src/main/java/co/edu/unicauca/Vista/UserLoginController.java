@@ -2,7 +2,8 @@ package co.edu.unicauca.Vista;
 
 
 import co.edu.unicauca.Models.Persona;
-import co.edu.unicauca.Repository.Implementation.RepositoryFactory;
+import co.edu.unicauca.Factorys.RepositoryFactory;
+import co.edu.unicauca.Repository.PersonaRepository;
 
 
 import co.edu.unicauca.Services.PersonaService;
@@ -30,6 +31,9 @@ public class UserLoginController  {
     @FXML
     Text textCorreoOContraseniaIncorrecto;
     @FXML
+            
+    RepositoryFactory<PersonaRepository> factoryPersonaRepository;
+    
     public void irARegistrarse() throws IOException {
         
         Main.setRoot("UserRegister");
@@ -39,9 +43,9 @@ public class UserLoginController  {
     public void iniciarSesion() throws UnsupportedEncodingException, IOException, Exception
     {
 
-    
+        factoryPersonaRepository = new RepositoryFactory(PersonaRepository.class);
         
-        PersonaService personaService = new PersonaService(RepositoryFactory.getInstance("SQLite"));
+        PersonaService personaService = new PersonaService(factoryPersonaRepository.getInstance("SQLite"));
         
         Persona persona = personaService.iniciarSesion(textFieldCorreoElectronico.getText(), passwordFieldContrasenia.getText());
         

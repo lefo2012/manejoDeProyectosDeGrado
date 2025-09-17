@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
 package co.edu.unicauca.Repository;
 
 import java.util.List;
@@ -9,8 +5,8 @@ import java.util.List;
 /**
  *
  * @author PixelBot Gaming
- * @param <T>
- * @param <C>
+ * @param <T> RECIBE EL OBJETO
+ * @param <C> RECIBE LA CLAVE DEL OBJETO
  */
 public interface Repository<T,C> {
     public List<T> getAll()throws Exception;

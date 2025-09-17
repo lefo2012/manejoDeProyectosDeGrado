@@ -7,15 +7,22 @@ import co.edu.unicauca.Models.Estudiante;
 import co.edu.unicauca.Models.Persona;
 import co.edu.unicauca.Models.Profesor;
 import co.edu.unicauca.Models.Programa;
-import co.edu.unicauca.Repository.Implementation.RepositoryFactory;
+import co.edu.unicauca.Factorys.RepositoryFactory;
+import co.edu.unicauca.Repository.DepartamentoRepository;
+import co.edu.unicauca.Repository.PersonaRepository;
+import co.edu.unicauca.Repository.ProgramaRepository;
+import co.edu.unicauca.Services.DepartamentoService;
 import co.edu.unicauca.Services.PersonaService;
+import co.edu.unicauca.Services.ProgramaService;
 import co.edu.unicauca.Util.Cargo;
 import co.edu.unicauca.main.Main;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
@@ -31,9 +38,16 @@ public class UserRegisterController {
     PasswordField passwordFieldContrasenia;
     @FXML
     ComboBox<Cargo> comboBoxCargo;
-    
+    @FXML
+    ComboBox<Programa> comboBoxPrograma;
+    @FXML
+    ComboBox<Departamento> comboBoxDepartamento;
     @FXML
     Text textoAviso;
+    
+    
+    
+    
     
     public void irALogin() throws IOException
     {
@@ -42,10 +56,69 @@ public class UserRegisterController {
     
     }
     public void initialize() {
+        RepositoryFactory<ProgramaRepository> repositoryProgramaFactory = new RepositoryFactory(ProgramaRepository.class);
+        RepositoryFactory<DepartamentoRepository> repositoryDepartamentoFactory = new RepositoryFactory(DepartamentoRepository.class);
+        
+        DepartamentoService departamentoService = new DepartamentoService(repositoryDepartamentoFactory.getInstance("SQLite"));
+        
+        ProgramaService programaService = new ProgramaService(repositoryProgramaFactory.getInstance("SQLite"));
+        
+        try{
         // NO hacer: comboBoxCargo = new ComboBox<>();
         comboBoxCargo.setItems(FXCollections.observableArrayList(Cargo.values()));
         comboBoxCargo.getSelectionModel().selectFirst(); // opcional
+        comboBoxPrograma.setItems(FXCollections.observableArrayList(programaService.obtenerTodos()));
+        
+        comboBoxPrograma.setCellFactory(param -> new ListCell<Programa>() {
+            @Override
+            protected void updateItem(Programa item, boolean empty) {
+                super.updateItem(item, empty);
+                setText(empty || item == null ? null : item.getNombrePrograma());
+            }
+        });
+        
+        comboBoxPrograma.setButtonCell(new ListCell<Programa>() {
+            @Override
+            protected void updateItem(Programa item, boolean empty) {
+                super.updateItem(item, empty);
+                setText(empty || item == null ? "Seleccione programa" : item.getNombrePrograma());
+            }
+        });
+        comboBoxDepartamento.setItems(FXCollections.observableArrayList(departamentoService.obtenerTodos()));
+        comboBoxDepartamento.setCellFactory(param -> new ListCell<Departamento>() {
+            @Override
+            protected void updateItem(Departamento item, boolean empty) {
+                super.updateItem(item, empty);
+                setText(empty || item == null ? null : item.getNombreDepartamento());
+            }
+        });
+        comboBoxDepartamento.setButtonCell(new ListCell<Departamento>() {
+            @Override
+            protected void updateItem(Departamento item, boolean empty) {
+                super.updateItem(item, empty);
+                setText(empty || item == null ? "Seleccione programa" : item.getNombreDepartamento());
+            }
+        });
+        comboBoxDepartamento.getSelectionModel().selectFirst();
+        comboBoxPrograma.getSelectionModel().selectFirst();
+        
+        if(comboBoxCargo.getValue().equals(Cargo.ESTUDIANTE))
+        {
+            comboBoxDepartamento.setVisible(false);
+            comboBoxPrograma.setVisible(true);
+        }else
+        {
+            comboBoxDepartamento.setVisible(true);
+            comboBoxPrograma.setVisible(false);
+        }
+        
+        
+        }catch(Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
     }
+    
     private void limpiarCampos() {
       textFieldCorreoElectronico.clear();
       textFieldNombre.clear();
@@ -66,40 +139,17 @@ public class UserRegisterController {
     }
     public void registrarse() throws UnsupportedEncodingException, IOException, Exception
     {
-        int errores=0;
+        RepositoryFactory<PersonaRepository> repositoryPersonaFactory = new RepositoryFactory(PersonaRepository.class);
         String resultado="";
-        PersonaService personaService = new PersonaService(RepositoryFactory.getInstance("SQLite"));
-        if("".equals(textFieldNombre.getText()) )
-        {
-            textFieldNombre.setStyle("-fx-prompt-text-fill: red;-fx-alignment: center;");
-            resultado+="FALTA EL CAMPO DE NOMBRE\n";
-            errores++;
-        }
-        if("".equals(textFieldApellido.getText()) )
-        {
-            textFieldApellido.setStyle("-fx-prompt-text-fill: red;-fx-alignment: center;");
-            resultado+="FALTA EL CAMPO DE APELLIDO\n";
-            errores++;
-        }
-        if("".equals(textFieldCorreoElectronico.getText()))
-        {
-            textFieldCorreoElectronico.setStyle("-fx-prompt-text-fill: red;-fx-alignment: center;");
-            resultado+="FALTA EL CAMPO DE CORREO ELECTRONICO\n";
-            errores++;
-        }
-        if("".equals(passwordFieldContrasenia.getText()))
-        {
-            passwordFieldContrasenia.setStyle("-fx-prompt-text-fill: red;-fx-alignment: center;");
-            resultado+="FALTA EL CAMPO DE CONTRASEÑA\n";
-            errores++;
-        }
-        if (errores==0)
+        PersonaService personaService = new PersonaService(repositoryPersonaFactory.getInstance("SQLite"));
+        
+        if (validarCampos())
         {
             Persona personaARegistrar=null;
             if(comboBoxCargo.getValue()==Cargo.ESTUDIANTE)
             {
                 personaARegistrar = new Estudiante(
-                    new Programa(1,"Sistemas"),
+                    new Programa(comboBoxPrograma.getValue().getCodigoDePrograma(),comboBoxPrograma.getValue().getNombrePrograma()),
                     textFieldNombre.getText(),
                     textFieldApellido.getText(),
                     textFieldCelular.getText(),
@@ -111,7 +161,7 @@ public class UserRegisterController {
             else if(comboBoxCargo.getValue()==Cargo.PROFESOR)
             {
                 personaARegistrar = new Profesor(
-                    new Departamento(1,"Sistemas"), 
+                    new Departamento(comboBoxDepartamento.getValue().getCodigoDepartamento(),comboBoxDepartamento.getValue().getNombreDepartamento()), 
                     textFieldNombre.getText(),
                     textFieldApellido.getText(),
                     textFieldCelular.getText(),
@@ -123,7 +173,7 @@ public class UserRegisterController {
             else if(comboBoxCargo.getValue()==Cargo.COORDINADOR)
             {
                 personaARegistrar = new Coordinador(
-                    new Departamento(1,"Sistemas"),
+                    new Departamento(comboBoxDepartamento.getValue().getCodigoDepartamento(),comboBoxDepartamento.getValue().getNombreDepartamento()),
                     textFieldNombre.getText(),
                     textFieldApellido.getText(),
                     textFieldCelular.getText(),
@@ -153,6 +203,52 @@ public class UserRegisterController {
             
         }
         
+    }
+    private boolean validarCampos()
+    {   
+        boolean bandera = true;
+        String resultado = "";
+        if("".equals(textFieldNombre.getText()) )
+        {
+            textFieldNombre.setStyle("-fx-prompt-text-fill: red;-fx-alignment: center;");
+            resultado+="FALTA EL CAMPO DE NOMBRE\n";
+            bandera=false;
+        }
+        if("".equals(textFieldApellido.getText()) )
+        {
+            textFieldApellido.setStyle("-fx-prompt-text-fill: red;-fx-alignment: center;");
+            resultado+="FALTA EL CAMPO DE APELLIDO\n";
+            bandera=false;
+        }
+        if("".equals(textFieldCorreoElectronico.getText()))
+        {
+            textFieldCorreoElectronico.setStyle("-fx-prompt-text-fill: red;-fx-alignment: center;");
+            resultado+="FALTA EL CAMPO DE CORREO ELECTRONICO\n";
+            bandera=false;
+        }
+        if("".equals(passwordFieldContrasenia.getText()))
+        {
+            passwordFieldContrasenia.setStyle("-fx-prompt-text-fill: red;-fx-alignment: center;");
+            resultado+="FALTA EL CAMPO DE CONTRASEÑA\n";
+            bandera=false;
+        }
         textoAviso.setText(resultado);
+        return bandera;
+    }
+    public void cambiarDepartamentoPrograma()
+    {
+        
+        if(comboBoxCargo.getValue().equals(Cargo.ESTUDIANTE))
+        {
+            comboBoxDepartamento.setVisible(false);
+            comboBoxPrograma.setVisible(true);
+            System.out.println("Cambiando combo box a programa");
+        }
+        else
+        {
+            comboBoxDepartamento.setVisible(true);
+            comboBoxPrograma.setVisible(false);
+            System.out.println("Cambiando combo box a departamento");
+        }
     }
 }

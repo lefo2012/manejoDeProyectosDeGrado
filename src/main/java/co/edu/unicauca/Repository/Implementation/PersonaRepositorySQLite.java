@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package co.edu.unicauca.Repository.Implementation;
 
 import co.edu.unicauca.Models.Coordinador;
@@ -22,7 +18,7 @@ import java.util.List;
 
 /**
  *
- * @author PixelBot Gaming
+ * @author LEFO
  */
 public class PersonaRepositorySQLite implements PersonaRepository{
 
@@ -201,7 +197,7 @@ public class PersonaRepositorySQLite implements PersonaRepository{
         return null;
     }
     
-    private Cargo getCargo(String correoElectronico) {
+    private Cargo getCargo(String correoElectronico) throws Exception {
         Connection conexionDB = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -248,7 +244,7 @@ public class PersonaRepositorySQLite implements PersonaRepository{
             try {
                 if (rs != null) rs.close();
                 if (stmt != null) stmt.close();
-                if (conexionDB != null) conexionDB.close();
+                if (conexionDB != null) ConexionSQLite.desconectar();
             } catch (SQLException e) {
                 e.printStackTrace();
             }

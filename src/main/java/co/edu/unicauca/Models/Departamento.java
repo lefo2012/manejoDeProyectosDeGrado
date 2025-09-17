@@ -11,6 +11,9 @@ public class Departamento {
         this.facultad = facultad;
     }
 
+    public Departamento() {
+    }
+
     public Departamento(int codigoDepartamento, String nombreDepartamento) {
         this.codigoDepartamento = codigoDepartamento;
         this.nombreDepartamento = nombreDepartamento;

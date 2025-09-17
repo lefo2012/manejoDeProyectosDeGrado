@@ -22,6 +22,9 @@ public class Programa
         this.nombrePrograma = nombrePrograma;
     }
 
+    public Programa() {
+    }
+
     public Programa(int codigoDePrograma) {
         this.codigoDePrograma = codigoDePrograma;
     }

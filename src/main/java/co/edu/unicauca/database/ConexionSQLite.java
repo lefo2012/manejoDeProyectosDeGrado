@@ -9,6 +9,11 @@ public class ConexionSQLite {
     private static final String URL = "jdbc:sqlite:mi_base.db"; 
     // Se creará en la raíz del proyecto
     private static Connection instance;
+
+    private ConexionSQLite() {
+    }
+    
+    
     public static Connection getInstance() throws Exception {
         try {
             if(instance == null || instance.isClosed())

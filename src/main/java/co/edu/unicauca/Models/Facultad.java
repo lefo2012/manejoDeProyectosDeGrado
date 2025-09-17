@@ -2,19 +2,23 @@ package co.edu.unicauca.Models;
 
 public class Facultad
 {   
-    private String codigoFacultad;
+    private int codigoFacultad;
     private String nombreFacultad;
 
-    public Facultad(String codigoFacultad, String nombreFacultad) {
+    public Facultad(int codigoFacultad, String nombreFacultad) {
         this.codigoFacultad = codigoFacultad;
         this.nombreFacultad = nombreFacultad;
     }
 
-    public String getCodigoFacultad() {
+    public Facultad(int codigoFacultad) {
+        this.codigoFacultad = codigoFacultad;
+    }
+    
+    public int getCodigoFacultad() {
         return codigoFacultad;
     }
 
-    public void setCodigoFacultad(String codigoFacultad) {
+    public void setCodigoFacultad(int codigoFacultad) {
         this.codigoFacultad = codigoFacultad;
     }
 
