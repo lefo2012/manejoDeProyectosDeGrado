@@ -40,6 +40,7 @@ public class InitDB {
                        ON DELETE RESTRICT
                    );
                """);
+               //FALTA AGREGAR ID COORDINADOR PARA QUE NO SE REPITAN COORDINADORES EN DEPARTAMENTO
                st.addBatch("""
                    CREATE TABLE IF NOT EXISTS Programa (
                      idPrograma     INTEGER PRIMARY KEY AUTOINCREMENT,
