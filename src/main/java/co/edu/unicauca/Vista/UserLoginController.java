@@ -2,12 +2,8 @@ package co.edu.unicauca.Vista;
 
 
 import co.edu.unicauca.Models.Persona;
-import co.edu.unicauca.Factorys.RepositoryFactory;
-import co.edu.unicauca.Repository.PersonaRepository;
-
-
+import co.edu.unicauca.Models.Profesor;
 import co.edu.unicauca.Services.PersonaService;
-
 import co.edu.unicauca.main.Main;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -15,15 +11,15 @@ import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
-
-
 /**
  * FXML Controller class
  *
  * @author LEFO
  */
-public class UserLoginController  {
+public class UserLoginController {
     
+    PersonaService personaService;
+    Persona persona;
     @FXML
     TextField textFieldCorreoElectronico;
     @FXML
@@ -32,32 +28,41 @@ public class UserLoginController  {
     Text textCorreoOContraseniaIncorrecto;
     @FXML
             
-    RepositoryFactory<PersonaRepository> factoryPersonaRepository;
+
     
+    public void initialize()
+    {      
+        
+    }
     public void irARegistrarse() throws IOException {
         
         Main.setRoot("UserRegister");
-        
-    }    
+    }   
+    
     @FXML
     public void iniciarSesion() throws UnsupportedEncodingException, IOException, Exception
     {
         
-        factoryPersonaRepository = new RepositoryFactory(PersonaRepository.class);
-        
-        PersonaService personaService = new PersonaService(factoryPersonaRepository.getInstance("SQLite"));
-        
-        Persona persona = personaService.iniciarSesion(textFieldCorreoElectronico.getText(), passwordFieldContrasenia.getText());
+        persona = personaService.iniciarSesion(textFieldCorreoElectronico.getText(), passwordFieldContrasenia.getText());
         
         if(persona == null)
         {
             textCorreoOContraseniaIncorrecto.setText("CORREO O CONTRASEÑA INCORRECTOS");
         }else
         {
-            textCorreoOContraseniaIncorrecto.setText("BIENVENIDO BRO");
+            
+            if(persona instanceof Profesor)
+            {
+                Main.goProfesor();
+            }
+            
         }
         
         
+    }
+
+    public void setPersonaService(PersonaService personaService) {
+        this.personaService = personaService;
     }
     
 }

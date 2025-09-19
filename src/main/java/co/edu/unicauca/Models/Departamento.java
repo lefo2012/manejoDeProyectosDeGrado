@@ -1,5 +1,8 @@
 package co.edu.unicauca.Models;
-
+/**
+ *
+ * @author LEFO
+ */
 public class Departamento {
     private int codigoDepartamento;
     private String nombreDepartamento;

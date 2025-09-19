@@ -12,5 +12,6 @@ import co.edu.unicauca.Models.Persona;
  */
 public interface PersonaRepository extends Repository<Persona,String> {
     
+    public Persona getOne(int id);
     
 }

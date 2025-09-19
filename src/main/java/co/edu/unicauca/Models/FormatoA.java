@@ -2,13 +2,14 @@
 package co.edu.unicauca.Models;
 
 import co.edu.unicauca.Util.Tipo;
+import java.util.List;
 
 /**
  *
  * @author LEFO
  */
-public class Proyecto {
-    private String idProyecto;
+public class FormatoA {
+    private int idProyecto;
     private String titulo;
     private String objetivo;
     private String objetivoEspecifico;
@@ -17,12 +18,11 @@ public class Proyecto {
     private String fechaDeSubida;    
     private String fechaRevision;    
     private String archivoAdjunto;  
+    private List<Estudiante> estudiantes;
+    private List<Profesor> profesores;
+    private Coordinador coordinador;
 
-
-
-    public Proyecto(String idProyecto, String titulo, String objetivo, String objetivoEspecifico,
-                    String estado, Tipo tipo,
-                    String fechaDeSubida, String fechaRevision, String archivoAdjunto) {
+    public FormatoA(int idProyecto, String titulo, String objetivo, String objetivoEspecifico, String estado, Tipo tipo, String fechaDeSubida, String fechaRevision, String archivoAdjunto, List<Estudiante> estudiantes, List<Profesor> profesores, Coordinador coordinador) {
         this.idProyecto = idProyecto;
         this.titulo = titulo;
         this.objetivo = objetivo;
@@ -32,13 +32,28 @@ public class Proyecto {
         this.fechaDeSubida = fechaDeSubida;
         this.fechaRevision = fechaRevision;
         this.archivoAdjunto = archivoAdjunto;
+        this.estudiantes = estudiantes;
+        this.profesores = profesores;
+        this.coordinador = coordinador;
     }
 
-    public String getIdProyecto() {
+    public FormatoA(String titulo, String objetivo, String objetivoEspecifico, String estado, Tipo tipo, String fechaDeSubida, String archivoAdjunto, List<Estudiante> estudiantes, List<Profesor> profesores) {
+        this.titulo = titulo;
+        this.objetivo = objetivo;
+        this.objetivoEspecifico = objetivoEspecifico;
+        this.estado = estado;
+        this.tipo = tipo;
+        this.fechaDeSubida = fechaDeSubida;
+        this.archivoAdjunto = archivoAdjunto;
+        this.estudiantes = estudiantes;
+        this.profesores = profesores;
+    }
+    
+    public int getIdProyecto() {
         return idProyecto;
     }
 
-    public void setIdProyecto(String idProyecto) {
+    public void setIdProyecto(int idProyecto) {
         this.idProyecto = idProyecto;
     }
 
@@ -104,6 +119,30 @@ public class Proyecto {
 
     public void setArchivoAdjunto(String archivoAdjunto) {
         this.archivoAdjunto = archivoAdjunto;
+    }
+
+    public List<Estudiante> getEstudiantes() {
+        return estudiantes;
+    }
+
+    public void setEstudiantes(List<Estudiante> estudiantes) {
+        this.estudiantes = estudiantes;
+    }
+
+    public List<Profesor> getProfesores() {
+        return profesores;
+    }
+
+    public void setProfesores(List<Profesor> profesores) {
+        this.profesores = profesores;
+    }
+
+    public Coordinador getCoordinador() {
+        return coordinador;
+    }
+
+    public void setCoordinador(Coordinador coordinador) {
+        this.coordinador = coordinador;
     }
     
 }

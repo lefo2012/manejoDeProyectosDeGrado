@@ -2,7 +2,6 @@ package co.edu.unicauca.Repository.Implementation;
 
 import co.edu.unicauca.Models.Departamento;
 import co.edu.unicauca.Models.Facultad;
-import co.edu.unicauca.Models.Programa;
 import co.edu.unicauca.Repository.DepartamentoRepository;
 import co.edu.unicauca.database.ConexionSQLite;
 import java.sql.Connection;

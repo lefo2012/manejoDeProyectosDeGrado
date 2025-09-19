@@ -9,7 +9,7 @@ import java.util.List;
 public class Coordinador extends Persona {
     
     Departamento departamento;
-    List<Proyecto> listaProyectos;
+    List<FormatoA> listaProyectos;
 
     public Coordinador(Departamento departamento, String nombre, String apellido, String celular, String correoElectronico, String contrasenia) {
         super(nombre, apellido, celular, correoElectronico, contrasenia);
@@ -28,11 +28,11 @@ public class Coordinador extends Persona {
         this.departamento = departamento;
     }
 
-    public List<Proyecto> getListaProyectos() {
+    public List<FormatoA> getListaProyectos() {
         return listaProyectos;
     }
 
-    public void setListaProyectos(List<Proyecto> listaProyectos) {
+    public void setListaProyectos(List<FormatoA> listaProyectos) {
         this.listaProyectos = listaProyectos;
     }
 

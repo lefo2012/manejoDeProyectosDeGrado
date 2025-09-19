@@ -8,6 +8,9 @@ import co.edu.unicauca.Models.Estudiante;
 import co.edu.unicauca.Models.Profesor;
 import co.edu.unicauca.Models.Programa;
 import co.edu.unicauca.Util.Cargo;
+import static co.edu.unicauca.Util.Cargo.COORDINADOR;
+import static co.edu.unicauca.Util.Cargo.ESTUDIANTE;
+import static co.edu.unicauca.Util.Cargo.PROFESOR;
 import co.edu.unicauca.database.ConexionSQLite;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -26,7 +29,88 @@ public class PersonaRepositorySQLite implements PersonaRepository{
     public List<Persona> getAll() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+    
+    public Persona getOne(int id)
+    {
+        Connection conexionDB = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
+        try {
+            
+
+            // Primero determinar el tipo de persona usando la función existente
+            Cargo cargo = getCargo(id);
+            conexionDB = ConexionSQLite.getInstance();
+            if (cargo == null) {
+                return null; // No existe en ninguna tabla
+            }
+
+            // Obtener datos básicos de Persona
+            String sqlPersona = """
+                SELECT idPersona, nombre, apellido, correoElectronico, contrasenia, celular 
+                FROM Persona 
+                WHERE idPersona = ?
+            """;
+
+            stmt = conexionDB.prepareStatement(sqlPersona);
+            stmt.setInt(1, id);
+            rs = stmt.executeQuery();
+
+            if (!rs.next()) {
+                return null; 
+            }
+
+            // Datos básicos comunes
+            int idPersona = rs.getInt("idPersona");
+            String nombre = rs.getString("nombre");
+            String apellido = rs.getString("apellido");
+            String correo = rs.getString("correoElectronico");
+            String contrasenia = rs.getString("contrasenia");
+            String celular = rs.getString("celular");
+
+            // Cerrar recursos para reutilizar
+            rs.close();
+            stmt.close();
+
+            // Cargar datos específicos según el cargo
+            switch (cargo) {
+                case ESTUDIANTE:
+                    return cargarEstudiante(conexionDB, idPersona, nombre, apellido, correo, contrasenia, celular);
+
+                case PROFESOR:
+                    return cargarProfesor(conexionDB, idPersona, nombre, apellido, correo, contrasenia, celular);
+
+                case COORDINADOR:
+                    return cargarCoordinador(conexionDB, idPersona, nombre, apellido, correo, contrasenia, celular);
+
+                default:
+                    // Persona básica (sin rol específico)
+                    Persona persona = new Persona();
+                    persona.setId(idPersona);
+                    persona.setNombre(nombre);
+                    persona.setApellido(apellido);
+                    persona.setCorreoElectronico(correo);
+                    persona.setContrasenia(contrasenia);
+                    persona.setCelular(celular);
+                    return persona;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (stmt != null) stmt.close();
+                if (conexionDB != null) conexionDB.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        
+    
+    }
     @Override
     public Persona getOne(String correoElectronico) {
         Connection conexionDB = null;
@@ -55,7 +139,7 @@ public class PersonaRepositorySQLite implements PersonaRepository{
             rs = stmt.executeQuery();
 
             if (!rs.next()) {
-                return null; // No se encontró en Persona (debería existir)
+                return null; 
             }
 
             // Datos básicos comunes
@@ -228,6 +312,59 @@ public class PersonaRepositorySQLite implements PersonaRepository{
             String sqlCoordinador = "SELECT 1 FROM Coordinador WHERE correoElectronico = ?";
             stmt = conexionDB.prepareStatement(sqlCoordinador);
             stmt.setString(1, correoElectronico);
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                return Cargo.COORDINADOR;
+            }
+
+            // Si no encuentra en ninguna tabla
+            return null;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            // Cerrar recursos
+            try {
+                if (rs != null) rs.close();
+                if (stmt != null) stmt.close();
+                if (conexionDB != null) ConexionSQLite.desconectar();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    private Cargo getCargo(int id) throws Exception {
+        Connection conexionDB = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+
+            conexionDB = ConexionSQLite.getInstance();
+
+            // Consulta para verificar en Estudiante
+            String sqlEstudiante = "SELECT 1 FROM Estudiante WHERE idEstudiante = ?";
+            stmt = conexionDB.prepareStatement(sqlEstudiante);
+            stmt.setInt(1, id);
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                return Cargo.ESTUDIANTE;
+            }
+
+            // Consulta para verificar en Profesor
+            String sqlProfesor = "SELECT 1 FROM Profesor WHERE idProfesor = ?";
+            stmt = conexionDB.prepareStatement(sqlProfesor);
+            stmt.setInt(1, id);
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                return Cargo.PROFESOR;
+            }
+
+            // Consulta para verificar en Coordinador
+            String sqlCoordinador = "SELECT 1 FROM Coordinador WHERE idCoordinador = ?";
+            stmt = conexionDB.prepareStatement(sqlCoordinador);
+            stmt.setInt(1, id);
             rs = stmt.executeQuery();
             if (rs.next()) {
                 return Cargo.COORDINADOR;

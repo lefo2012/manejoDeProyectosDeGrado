@@ -5,8 +5,10 @@ import co.edu.unicauca.Repository.DepartamentoRepository;
 import co.edu.unicauca.Repository.Implementation.DepartamentoRepositorySQLite;
 import co.edu.unicauca.Repository.Implementation.PersonaRepositorySQLite;
 import co.edu.unicauca.Repository.Implementation.ProgramaRepositorySQLite;
+import co.edu.unicauca.Repository.Implementation.ProyectoRepositorySQLite;
 import co.edu.unicauca.Repository.PersonaRepository;
 import co.edu.unicauca.Repository.ProgramaRepository;
+import co.edu.unicauca.Repository.ProyectoRepository;
 
 /**
  *
@@ -32,6 +34,9 @@ public class RepositoryFactory<T>{
             }else if(repositoryTipe.equals(DepartamentoRepository.class))
             {
                 return (T) new DepartamentoRepositorySQLite();
+            }else if(repositoryTipe.equals(ProyectoRepository.class))
+            {
+                return (T) new ProyectoRepositorySQLite();
             }
             
         }

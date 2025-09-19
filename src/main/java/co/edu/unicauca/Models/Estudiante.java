@@ -11,7 +11,7 @@ import java.util.List;
 public class Estudiante extends Persona {
     
     Programa programa;
-    List<Proyecto> proyectos;
+    List<FormatoA> proyectos;
     int cantidadIntentosPractica;
     int cantidadIntentosInvestigacion;
     public Estudiante() {
@@ -38,11 +38,11 @@ public class Estudiante extends Persona {
         this.programa = programa;
     }
 
-    public List<Proyecto> getProyectos() {
+    public List<FormatoA> getProyectos() {
         return proyectos;
     }
 
-    public void setProyectos(List<Proyecto> proyectos) {
+    public void setProyectos(List<FormatoA> proyectos) {
         this.proyectos = proyectos;
     }
 
