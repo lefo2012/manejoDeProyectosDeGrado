@@ -2,6 +2,9 @@
 package co.edu.unicauca.Vista;
 
 
+import co.edu.unicauca.Builders.Director;
+import co.edu.unicauca.Builders.InvestigacionBuilder;
+import co.edu.unicauca.Builders.PracticaBuilder;
 import co.edu.unicauca.Factorys.RepositoryFactory;
 import co.edu.unicauca.Models.Estudiante;
 import co.edu.unicauca.Models.FormatoA;
@@ -22,9 +25,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
-import java.util.ArrayList;
 
-import java.util.List;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -82,26 +83,57 @@ public class ProfesorSubirFormatoA implements Observer{
     
     public void enviarFormato() throws Exception
     {
+        Boolean bandera=true;
+        Estudiante estudiante1 = null;
+        Estudiante estudiante2 = null;
+        Profesor coodirector = null;
+        String nombreArchivo = "";
+        Director director = new Director();
+        if(comboBoxModalidad.getValue().equals(Tipo.Investigacion))
+        {
+            director.SetBuilder(new InvestigacionBuilder());
+        }else if(comboBoxModalidad.getValue().equals(Tipo.PracticaProfesional))
+        {
+            director.SetBuilder(new PracticaBuilder());
+        }
+        
         RepositoryFactory<ProyectoRepository> repositoryFactory = new RepositoryFactory(ProyectoRepository.class);
         ProyectoService proyectoService = new ProyectoService(repositoryFactory.getInstance("SQLite"));
         LocalDate hoy = LocalDate.now();
         String fecha = hoy.format(DateTimeFormatter.ISO_DATE);
-        Estudiante estudiante1 = new Estudiante();
-        Estudiante estudiante2 = new Estudiante();
-        estudiante1.setId(Integer.parseInt( textFieldEstudiante.getText()));
-        estudiante2.setId(Integer.parseInt(textFieldEstudiante1.getText()));
-        List<Estudiante> listaEstudiantes = new ArrayList();
-        listaEstudiantes.add(estudiante1);
-        listaEstudiantes.add(estudiante2);
+        if(textFieldEstudiante.getText() == "")
+        {
+            textFieldEstudiante.setStyle("-fx-prompt-text-fill: red;-fx-alignment: center;");
+            bandera = false;
+            
+        }else
+        {
+            estudiante1 = new Estudiante();
+            estudiante1.setId(Integer.parseInt( textFieldEstudiante.getText()));
+        }
         
-        Profesor coodirector = new Profesor();
-        coodirector.setId(Integer.parseInt(textFieldCoodirector.getText()));
-        List<Profesor> listaProfesores = new ArrayList();
-        listaProfesores.add(this.profesor);
-        listaProfesores.add(coodirector);
+        if(textFieldEstudiante1.getText() != "")
+        {
+            estudiante2 = new Estudiante();
+            
+            estudiante2.setId(Integer.parseInt(textFieldEstudiante1.getText()));
+        }
         
-        proyectoService.subirFormato(new FormatoA(textFieldTituloProyecto.getText(),textFieldObjetivoGeneral.getText(),textAreaObjetivosEspecificos.getText(),"PENDIENTE",comboBoxModalidad.getValue(),fecha,archivo.getName(),listaEstudiantes,listaProfesores));
-        
+        if(textFieldCoodirector.getText()!="")
+        {
+            coodirector = new Profesor();
+            
+            coodirector.setId(Integer.parseInt(textFieldCoodirector.getText()));
+        }
+        if(archivo!=null)
+        {
+            nombreArchivo = archivo.getName();
+        }
+        if(bandera)
+        {
+            director.build(textFieldTituloProyecto.getText(), this.profesor, coodirector, fecha, textFieldObjetivoGeneral.getText(), textAreaObjetivosEspecificos.getText(), estudiante1, estudiante2, comboBoxModalidad.getValue(),nombreArchivo);
+            proyectoService.subirFormato(director.getObject());
+        }
         
         archivo = null;
         imagenArchivoPlano.setVisible(true);
@@ -117,6 +149,27 @@ public class ProfesorSubirFormatoA implements Observer{
         textFieldCoodirector.setText("");
         textFieldEstudiante.setText("");
         textFieldEstudiante1.setText("");
+    }
+    public void verificarProyecto()
+    {
+    
+        if(comboBoxModalidad.getValue().equals(Tipo.PracticaProfesional))
+        {
+            textFieldEstudiante1.setText("");
+            textFieldEstudiante1.setEditable(false);
+            textFieldEstudiante1.setMouseTransparent(true);
+            textFieldEstudiante1.setFocusTraversable(false);
+            textFieldEstudiante1.setPromptText("En practica profesional solo puede haber un estudiante");
+        }
+        if(comboBoxModalidad.getValue().equals(Tipo.Investigacion))
+        {
+            textFieldEstudiante1.setText(null);
+            textFieldEstudiante1.setEditable(true);
+            textFieldEstudiante1.setMouseTransparent(false);
+            textFieldEstudiante1.setFocusTraversable(true);
+            textFieldEstudiante1.setPromptText("Estudiante");
+        }
+        
     }
     public void subirDocumento()
     {
@@ -144,8 +197,9 @@ public class ProfesorSubirFormatoA implements Observer{
     public void update(Object o) {
         
         PersonaService personaService = (PersonaService) o;
-        profesor = (Profesor) personaService.getPersona();
-        
+            if(personaService.getPersona() instanceof Profesor){
+            profesor = (Profesor) personaService.getPersona();
+        }
         
     }
 

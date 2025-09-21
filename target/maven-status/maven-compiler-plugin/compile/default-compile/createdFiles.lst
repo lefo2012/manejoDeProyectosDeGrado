@@ -1,9 +1,11 @@
 co\edu\unicauca\Vista\ProfesorSubirFormatoA.class
+co\edu\unicauca\Builders\PracticaBuilder.class
 co\edu\unicauca\Repository\Implementation\ProyectoRepositorySQLite.class
 co\edu\unicauca\Services\DepartamentoService.class
 co\edu\unicauca\Models\Coordinador.class
 co\edu\unicauca\Observer\Subject.class
 co\edu\unicauca\Services\ProgramaService.class
+co\edu\unicauca\Builders\Builder.class
 co\edu\unicauca\database\ConexionSQLite.class
 co\edu\unicauca\Models\Persona.class
 co\edu\unicauca\Services\PersonaService.class
@@ -25,9 +27,11 @@ co\edu\unicauca\Services\ProyectoService.class
 co\edu\unicauca\Repository\Implementation\PersonaRepositorySQLite$1.class
 co\edu\unicauca\Util\Tipo.class
 co\edu\unicauca\Vista\UserRegisterController$1.class
+co\edu\unicauca\Builders\Director.class
 co\edu\unicauca\Repository\DepartamentoRepository.class
 co\edu\unicauca\Repository\Repository.class
 co\edu\unicauca\Models\FormatoA.class
+co\edu\unicauca\Builders\InvestigacionBuilder.class
 co\edu\unicauca\Vista\UserRegisterController.class
 co\edu\unicauca\Vista\UserRegisterController$4.class
 co\edu\unicauca\Models\Departamento.class

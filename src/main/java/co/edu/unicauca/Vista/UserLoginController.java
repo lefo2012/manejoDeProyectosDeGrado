@@ -1,6 +1,7 @@
 package co.edu.unicauca.Vista;
 
 
+import co.edu.unicauca.Models.Coordinador;
 import co.edu.unicauca.Models.Persona;
 import co.edu.unicauca.Models.Profesor;
 import co.edu.unicauca.Services.PersonaService;
@@ -36,7 +37,7 @@ public class UserLoginController {
     }
     public void irARegistrarse() throws IOException {
         
-        Main.setRoot("UserRegister");
+        Main.goRegister();
     }   
     
     @FXML
@@ -54,6 +55,10 @@ public class UserLoginController {
             if(persona instanceof Profesor)
             {
                 Main.goProfesor();
+            }
+            if(persona instanceof Coordinador)
+            {
+               Main.setRoot("FormatosCoordinador");
             }
             
         }

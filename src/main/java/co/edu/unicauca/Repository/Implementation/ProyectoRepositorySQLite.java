@@ -43,7 +43,7 @@ public class ProyectoRepositorySQLite implements ProyectoRepository{
             statamentProyecto.setString(6, object.getFechaDeSubida());
             statamentProyecto.setString(7, object.getArchivoAdjunto());
             
-            int affected = statamentProyecto.executeUpdate();  // <- primero ejecuta
+            int affected = statamentProyecto.executeUpdate();
             if (affected == 0) throw new SQLException("No se insertó proyecto.");
             int idProyecto;
                     try (ResultSet generatedKeys = statamentProyecto.getGeneratedKeys()) {
@@ -122,7 +122,7 @@ public class ProyectoRepositorySQLite implements ProyectoRepository{
     {
         Connection conexionBaseDatos = ConexionSQLite.getInstance();
         PreparedStatement statamentProyecto;
-        if(p.get(1)!=null)
+        if(p.size()>1)
         {
         
             statamentProyecto = conexionBaseDatos.prepareStatement("insert into ProyectosProfesor(idDirector,idCodirector,idProyecto) values(?,?,?)");

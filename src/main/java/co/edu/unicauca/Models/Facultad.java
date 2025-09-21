@@ -12,7 +12,7 @@ public class Facultad
         this.codigoFacultad = codigoFacultad;
         this.nombreFacultad = nombreFacultad;
     }
-
+    
     public Facultad(int codigoFacultad) {
         this.codigoFacultad = codigoFacultad;
     }

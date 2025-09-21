@@ -62,7 +62,7 @@
                         <Font size="10.0" />
                      </font>
                   </Text>
-                  <ComboBox fx:id="comboBoxModalidad" layoutX="128.0" layoutY="500.0" prefHeight="40.0" prefWidth="400.0" style="-fx-background-color: white; -fx-border-color: gray;" />
+                  <ComboBox fx:id="comboBoxModalidad" layoutX="128.0" layoutY="500.0" prefHeight="40.0" onAction="#verificarProyecto" prefWidth="400.0" style="-fx-background-color: white; -fx-border-color: gray;" />
                   <Text layoutX="306.0" layoutY="406.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-text-alignment: CENTER;" text="Estudiante:">
                      <font>
                         <Font size="10.0" />

@@ -50,8 +50,8 @@ public class UserRegisterController {
     
     public void irALogin() throws IOException
     {
-    
-        Main.setRoot("UserLogin");
+        
+        Main.goLogin();
     
     }
     public void initialize() {
@@ -63,7 +63,7 @@ public class UserRegisterController {
         ProgramaService programaService = new ProgramaService(repositoryProgramaFactory.getInstance("SQLite"));
         
         try{
-        // NO hacer: comboBoxCargo = new ComboBox<>();
+        
         comboBoxCargo.setItems(FXCollections.observableArrayList(Cargo.values()));
         comboBoxCargo.getSelectionModel().selectFirst(); // opcional
         comboBoxPrograma.setItems(FXCollections.observableArrayList(programaService.obtenerTodos()));

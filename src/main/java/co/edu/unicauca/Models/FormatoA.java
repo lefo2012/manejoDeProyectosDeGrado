@@ -2,6 +2,8 @@
 package co.edu.unicauca.Models;
 
 import co.edu.unicauca.Util.Tipo;
+
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -22,6 +24,12 @@ public class FormatoA {
     private List<Profesor> profesores;
     private Coordinador coordinador;
 
+    public FormatoA() {
+        profesores = new LinkedList();
+        estudiantes = new LinkedList();
+        estado = "PENDIENTE";
+    }
+    
     public FormatoA(int idProyecto, String titulo, String objetivo, String objetivoEspecifico, String estado, Tipo tipo, String fechaDeSubida, String fechaRevision, String archivoAdjunto, List<Estudiante> estudiantes, List<Profesor> profesores, Coordinador coordinador) {
         this.idProyecto = idProyecto;
         this.titulo = titulo;
