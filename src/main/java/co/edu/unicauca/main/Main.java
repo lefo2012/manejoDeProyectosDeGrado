@@ -22,13 +22,18 @@ public class Main extends Application {
     private static Parent profesorRoot;
     private static Parent loginRoot;
     private static Parent registerRoot;
+<<<<<<< HEAD
     private static Parent profesorFormatosRoot;
+=======
+    private static Parent cordinadorRoot;
+>>>>>>> origin/Nicor
     private ProfesorSubirFormatoA profesorSubirFormatoCrtl;
 
     public static Parent getProfesorRoot() {
         return profesorRoot;
     }
-    
+    //victor@unicauca.edu.co
+    //123ASD.
     @Override
     public void start(Stage stage) throws IOException {
         scene = new Scene(new javafx.scene.Group(), 1920, 1080);
@@ -51,11 +56,16 @@ public class Main extends Application {
         uc.setPersonaService(personaService);
         
         loader = new FXMLLoader(Main.class.getResource("/fxml/UserRegister.fxml"));
-        registerRoot = loader.load();  
+        registerRoot = loader.load(); 
         
+<<<<<<< HEAD
         loader = new FXMLLoader(Main.class.getResource("/fxml/ProfesorFormatos.fxml"));
         profesorFormatosRoot = loader.load();  
         
+=======
+        loader = new FXMLLoader(Main.class.getResource("/fxml/UserLogin.fxml"));
+        cordinadorRoot = loader.load();  
+>>>>>>> origin/Nicor
         
         scene.setRoot(loginRoot);
 
