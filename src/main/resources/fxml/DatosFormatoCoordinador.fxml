@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox maxHeight="100.0" prefHeight="100.0" prefWidth="1650.0" style="-fx-background-color: white; -fx-background-radius: 20;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.unicauca.Vista.DatosFormatoController">
+   <children>
+      <Label fx:id="lblFormato" alignment="CENTER" prefHeight="100.0" prefWidth="300.0" style="-fx-background-color: white; -fx-background-radius: 20;">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblName" alignment="CENTER" prefHeight="100.0" prefWidth="368.0" style="-fx-background-color: white; -fx-background-radius: 20;">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblFecha" alignment="CENTER" prefHeight="100.0" prefWidth="274.0" style="-fx-background-color: white; -fx-background-radius: 20;">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblEstado" alignment="CENTER" prefHeight="100.0" prefWidth="300.0" style="-fx-background-color: white; -fx-background-radius: 20;" >
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblDetalles" alignment="CENTER" prefHeight="100.0" prefWidth="300.0" style="-fx-background-color: white; -fx-background-radius: 20;" text="Ver detalle" textFill="#9f0e13">
+         <font>
+            <Font size="24.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Label>
+   </children>
+</HBox>

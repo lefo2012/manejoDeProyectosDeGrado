@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.PasswordField;
@@ -43,6 +44,7 @@ public class UserRegisterController {
     ComboBox<Departamento> comboBoxDepartamento;
     @FXML
     Text textoAviso;
+    @FXML
     
     
     
@@ -188,7 +190,7 @@ public class UserRegisterController {
                 
                 limpiarCampos();
                 
-                Main.setRoot("UserLogin");
+                Main.goLogin();
                 
             }if(resultado.equals("Formato de contrasenia invalido recuerde que debe llevar por lo menos un caracter especial una mayuscula y un digito"))
             {
