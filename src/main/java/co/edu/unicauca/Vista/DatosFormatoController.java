@@ -29,8 +29,7 @@ public class DatosFormatoController implements Initializable{
         lblName.setText(prueba.getName());
         lblFecha.setText(prueba.getFecha());
         lblEstado.setText(prueba.getEstado());
-<<<<<<< HEAD
-=======
+
         lblEstado.getStyleClass().removeAll("label-pendiente", "label-revision", "label-aprobado", "label-rechazado");
 
         // 🔹 Asignar clase según estado
@@ -41,7 +40,7 @@ public class DatosFormatoController implements Initializable{
             case "rechazado" -> lblEstado.getStyleClass().addAll("label-pill", "label-rechazado");
             default -> lblEstado.getStyleClass().add("label-pill"); // fallback
         }
->>>>>>> origin/Nicor
+
     }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
