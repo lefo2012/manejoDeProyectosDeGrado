@@ -23,7 +23,11 @@ public class Main extends Application {
     private static Parent loginRoot;
     private static Parent registerRoot;
 <<<<<<< HEAD
+<<<<<<< HEAD
     private static Parent profesorFormatosRoot;
+=======
+    private static Parent cordinadorRoot;
+>>>>>>> origin/Nicor
 =======
     private static Parent cordinadorRoot;
 >>>>>>> origin/Nicor
@@ -59,9 +63,14 @@ public class Main extends Application {
         registerRoot = loader.load(); 
         
 <<<<<<< HEAD
+<<<<<<< HEAD
         loader = new FXMLLoader(Main.class.getResource("/fxml/ProfesorFormatos.fxml"));
         profesorFormatosRoot = loader.load();  
         
+=======
+        loader = new FXMLLoader(Main.class.getResource("/fxml/UserLogin.fxml"));
+        cordinadorRoot = loader.load();  
+>>>>>>> origin/Nicor
 =======
         loader = new FXMLLoader(Main.class.getResource("/fxml/UserLogin.fxml"));
         cordinadorRoot = loader.load();  
