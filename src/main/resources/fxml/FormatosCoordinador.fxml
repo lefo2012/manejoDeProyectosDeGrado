@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: radial-gradient(center 50% 50%,radius 200%, #001282,black);" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: radial-gradient(center 50% 50%,radius 200%, #001282,black);" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.unicauca.Vista.FormatosCoordinador">
    <children>
       <Pane prefHeight="1080.0" prefWidth="150.0" style="-fx-background-color: white;">
          <children>
@@ -19,32 +23,99 @@
             </ImageView>
             <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="50.0" layoutY="240.0">
                <image>
-                  <Image url="@../imagenes/archivo.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="50.0" layoutY="330.0">
-               <image>
                   <Image url="@../imagenes/folder.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="50.0" layoutY="420.0">
+            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="50.0" layoutY="340.0">
                <image>
                   <Image url="@../imagenes/bell.png" />
                </image>
             </ImageView>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" height="100.0" layoutY="215.0" opacity="0.1" stroke="BLACK" strokeType="INSIDE" width="150.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Rectangle>
          </children>
       </Pane>
-      <ScrollPane layoutX="210.0" layoutY="40.0" prefHeight="1000.0" prefWidth="1650.0">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1000.0" prefWidth="1650.0">
+      <Label layoutX="216.0" layoutY="6.0" text="Previsualización de Formatos" textFill="WHITE">
+         <font>
+            <Font size="48.0" />
+         </font>
+      </Label>
+      <HBox layoutX="210.0" layoutY="142.71" prefHeight="897.29" prefWidth="1650.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px;">
+         <children>
+            <Pane prefHeight="896.0" prefWidth="1656.0" style="-fx-background-radius: 20;">
                <children>
-                  <Label layoutX="539.0" layoutY="475.0" text="NO SE ENCUENTRA INFORMACION">
-                     <font>
-                        <Font size="35.0" />
-                     </font>
-                  </Label>
-               </children></AnchorPane>
-        </content>
-      </ScrollPane>
+                  <ScrollPane fitToHeight="false" fitToWidth="true" prefHeight="898.0" prefWidth="1656.0" style="-fx-background-color: White;" styleClass="rounded-scroll" stylesheets="@../css/scroll.css">
+                     <content>
+                        <VBox fx:id="contactsLayout" fillWidth="true" minHeight="100" prefWidth="1650.0" spacing="6" style="-fx-background-radius: 20;">
+                           <children>
+                              <HBox maxHeight="100.0" prefHeight="100.0" prefWidth="1650.0" style="-fx-background-color: white;">
+                                 <children>
+                                    <Label fx:id="lblFormato" alignment="CENTER" prefHeight="100.0" prefWidth="300.0">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="lblName" alignment="CENTER" prefHeight="100.0" prefWidth="368.0">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="lblFecha" alignment="CENTER" prefHeight="100.0" prefWidth="274.0">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="lblEstado" alignment="CENTER" prefHeight="100.0" prefWidth="300.0">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="lblDetalles" alignment="CENTER" prefHeight="100.0" prefWidth="300.0" textFill="#9f0e13">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
+                  <HBox fx:id="row" maxHeight="100" minHeight="100" prefHeight="100.0" style="-fx-background-radius: 20;">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="100.0" prefWidth="300.0" style="-fx-background-color: white; -fx-background-radius: 20;" text="ID Formato" textFill="#001282">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" prefHeight="100.0" prefWidth="368.0" style="-fx-background-color: white; -fx-background-radius: 20;" text="Estudiante" textFill="#001282">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" prefHeight="100.0" prefWidth="274.0" style="-fx-background-color: white; -fx-background-radius: 20;" text="Fecha de envío" textFill="#001282">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" prefHeight="100.0" prefWidth="300.0" style="-fx-background-color: white; -fx-background-radius: 20;" text="Estado" textFill="#001282">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" prefHeight="100.0" prefWidth="300.0" style="-fx-background-color: white; -fx-background-radius: 20;" text="Detalle" textFill="#001282">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+            </Pane>
+         </children>
+      </HBox>
    </children>
 </AnchorPane>

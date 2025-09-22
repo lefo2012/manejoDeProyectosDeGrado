@@ -188,7 +188,7 @@ public class UserRegisterController {
                 
                 limpiarCampos();
                 
-                Main.setRoot("UserLogin");
+                Main.goLogin();
                 
             }if(resultado.equals("Formato de contrasenia invalido recuerde que debe llevar por lo menos un caracter especial una mayuscula y un digito"))
             {
