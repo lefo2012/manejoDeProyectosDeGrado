@@ -18,6 +18,7 @@ C:\Users\PixelBot Gaming\Desktop\ING SOFT 2\manejoDeProyectosDeGrado-master\src\
 C:\Users\PixelBot Gaming\Desktop\ING SOFT 2\manejoDeProyectosDeGrado-master\src\main\java\co\edu\unicauca\Services\PersonaService.java
 C:\Users\PixelBot Gaming\Desktop\ING SOFT 2\manejoDeProyectosDeGrado-master\src\main\java\co\edu\unicauca\Models\Estudiante.java
 C:\Users\PixelBot Gaming\Desktop\ING SOFT 2\manejoDeProyectosDeGrado-master\src\main\java\co\edu\unicauca\Repository\DepartamentoRepository.java
+C:\Users\PixelBot Gaming\Desktop\ING SOFT 2\manejoDeProyectosDeGrado-master\src\main\java\co\edu\unicauca\Util\ArchivosProyecto.java
 C:\Users\PixelBot Gaming\Desktop\ING SOFT 2\manejoDeProyectosDeGrado-master\src\main\java\co\edu\unicauca\Factorys\RepositoryFactory.java
 C:\Users\PixelBot Gaming\Desktop\ING SOFT 2\manejoDeProyectosDeGrado-master\src\main\java\co\edu\unicauca\Vista\UserLoginController.java
 C:\Users\PixelBot Gaming\Desktop\ING SOFT 2\manejoDeProyectosDeGrado-master\src\main\java\co\edu\unicauca\Builders\Builder.java
@@ -31,6 +32,7 @@ C:\Users\PixelBot Gaming\Desktop\ING SOFT 2\manejoDeProyectosDeGrado-master\src\
 C:\Users\PixelBot Gaming\Desktop\ING SOFT 2\manejoDeProyectosDeGrado-master\src\main\java\co\edu\unicauca\Models\Persona.java
 C:\Users\PixelBot Gaming\Desktop\ING SOFT 2\manejoDeProyectosDeGrado-master\src\main\java\co\edu\unicauca\Repository\Repository.java
 C:\Users\PixelBot Gaming\Desktop\ING SOFT 2\manejoDeProyectosDeGrado-master\src\main\java\co\edu\unicauca\Models\Coordinador.java
+C:\Users\PixelBot Gaming\Desktop\ING SOFT 2\manejoDeProyectosDeGrado-master\src\main\java\co\edu\unicauca\Vista\ProfesorFormatos.java
 C:\Users\PixelBot Gaming\Desktop\ING SOFT 2\manejoDeProyectosDeGrado-master\src\main\java\co\edu\unicauca\Repository\PersonaRepository.java
 C:\Users\PixelBot Gaming\Desktop\ING SOFT 2\manejoDeProyectosDeGrado-master\src\main\java\co\edu\unicauca\Util\Encriptador.java
 C:\Users\PixelBot Gaming\Desktop\ING SOFT 2\manejoDeProyectosDeGrado-master\src\main\java\co\edu\unicauca\Services\DepartamentoService.java

@@ -22,6 +22,7 @@ public class Main extends Application {
     private static Parent profesorRoot;
     private static Parent loginRoot;
     private static Parent registerRoot;
+    private static Parent profesorFormatosRoot;
     private ProfesorSubirFormatoA profesorSubirFormatoCrtl;
 
     public static Parent getProfesorRoot() {
@@ -52,6 +53,9 @@ public class Main extends Application {
         loader = new FXMLLoader(Main.class.getResource("/fxml/UserRegister.fxml"));
         registerRoot = loader.load();  
         
+        loader = new FXMLLoader(Main.class.getResource("/fxml/ProfesorFormatos.fxml"));
+        profesorFormatosRoot = loader.load();  
+        
         
         scene.setRoot(loginRoot);
 
@@ -75,6 +79,10 @@ public class Main extends Application {
     public static void goRegister()
     {
         scene.setRoot(registerRoot);
+    }
+    public static void goFormatosProfesor()
+    {
+        scene.setRoot(profesorFormatosRoot);
     }
     private static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/fxml/"+fxml + ".fxml"));

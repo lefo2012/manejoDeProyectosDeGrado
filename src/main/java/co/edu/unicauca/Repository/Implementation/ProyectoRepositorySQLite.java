@@ -51,7 +51,7 @@ public class ProyectoRepositorySQLite implements ProyectoRepository{
                             idProyecto = generatedKeys.getInt(1);
                         } else {
                             System.out.println("error al obtener id");
-                            throw new SQLException("Error al obtener ID de persona.");
+                            throw new SQLException("Error al obtener ID del proyecto.");
                         }
                     }
             
@@ -70,8 +70,9 @@ public class ProyectoRepositorySQLite implements ProyectoRepository{
         }catch(Exception e)
         {
             conexionBaseDatos.rollback();
-            e.printStackTrace();
-            return false;
+            
+            throw e;
+            
         }finally
         {
             ConexionSQLite.desconectar();
@@ -82,6 +83,15 @@ public class ProyectoRepositorySQLite implements ProyectoRepository{
     {
         
         Connection conexionBaseDatos = ConexionSQLite.getInstance();
+        PreparedStatement statementEstudiante = conexionBaseDatos.prepareStatement("Select idPersona from persona where correoElectronico = ?");
+        statementEstudiante.setString(1, e.getCorreoElectronico());
+        ResultSet rs = statementEstudiante.executeQuery();
+        if(!rs.next())
+        {
+            throw new Exception("Error al obtener el estudiante con correo "+e.getCorreoElectronico());
+        }
+        e.setId(rs.getInt("idPersona"));
+        
         PreparedStatement statamentProyecto = conexionBaseDatos.prepareStatement("insert into ProyectosEstudiante(idEstudiante,idProyecto) values(?,?)");
         statamentProyecto.setInt(1,e.getId());
         statamentProyecto.setInt(2, idProyecto);
@@ -124,7 +134,15 @@ public class ProyectoRepositorySQLite implements ProyectoRepository{
         PreparedStatement statamentProyecto;
         if(p.size()>1)
         {
-        
+            PreparedStatement statementEstudiante = conexionBaseDatos.prepareStatement("Select idPersona from persona where correoElectronico = ?");
+            statementEstudiante.setString(1, p.get(1).getCorreoElectronico());
+            ResultSet rs = statementEstudiante.executeQuery();
+            if(!rs.next())
+            {
+                throw new Exception("Error al obtener el profesor con correo "+p.get(1).getCorreoElectronico());
+            }
+            p.get(1).setId(rs.getInt("idPersona"));
+            
             statamentProyecto = conexionBaseDatos.prepareStatement("insert into ProyectosProfesor(idDirector,idCodirector,idProyecto) values(?,?,?)");
             statamentProyecto.setInt(1,p.get(0).getId());
             statamentProyecto.setInt(2, p.get(1).getId());

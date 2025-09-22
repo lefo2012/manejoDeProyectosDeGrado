@@ -26,11 +26,13 @@ co\edu\unicauca\Util\Cargo.class
 co\edu\unicauca\Services\ProyectoService.class
 co\edu\unicauca\Repository\Implementation\PersonaRepositorySQLite$1.class
 co\edu\unicauca\Util\Tipo.class
+co\edu\unicauca\Util\ArchivosProyecto.class
 co\edu\unicauca\Vista\UserRegisterController$1.class
 co\edu\unicauca\Builders\Director.class
 co\edu\unicauca\Repository\DepartamentoRepository.class
 co\edu\unicauca\Repository\Repository.class
 co\edu\unicauca\Models\FormatoA.class
+co\edu\unicauca\Vista\ProfesorFormatos.class
 co\edu\unicauca\Builders\InvestigacionBuilder.class
 co\edu\unicauca\Vista\UserRegisterController.class
 co\edu\unicauca\Vista\UserRegisterController$4.class

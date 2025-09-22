@@ -25,6 +25,7 @@ public class PersonaService extends Subject{
     
     public Persona iniciarSesion(String correoElectronico, String contrasenia) throws UnsupportedEncodingException, Exception {
         System.out.println(correoElectronico);
+        correoElectronico=correoElectronico.toLowerCase();
         if (!Validador.esCorreoValido("unicauca.edu.co", correoElectronico))
             return null;
         
@@ -69,6 +70,7 @@ public class PersonaService extends Subject{
     }
     
     public String registrar(Persona persona) throws UnsupportedEncodingException, Exception {
+        persona.setCorreoElectronico(persona.getCorreoElectronico().toLowerCase());
         if (!Validador.esCorreoValido("unicauca.edu.co", persona.getCorreoElectronico()))
             return "Correo invalido";
 
