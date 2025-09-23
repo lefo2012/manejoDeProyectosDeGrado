@@ -106,13 +106,13 @@ public class ProfesorSubirFormatoA implements Observer{
         ProyectoService proyectoService = new ProyectoService(repositoryFactory.getInstance("SQLite"));
         LocalDate hoy = LocalDate.now();
         String fecha = hoy.format(DateTimeFormatter.ISO_DATE);
-        if(textFieldTituloProyecto.getText()=="")
+        if(textFieldTituloProyecto.getText().isEmpty())
         {
             textFieldTituloProyecto.setStyle("-fx-prompt-text-fill: red;-fx-alignment: center;");
             
             bandera = false;
         }
-        if(textFieldEstudiante.getText() == "" && bandera)
+        if(textFieldEstudiante.getText().isEmpty() && bandera)
         {
             textFieldEstudiante.setStyle("-fx-prompt-text-fill: red;-fx-alignment: center;");
             
@@ -123,24 +123,24 @@ public class ProfesorSubirFormatoA implements Observer{
             estudiante1 = new Estudiante();
             estudiante1.setCorreoElectronico(textFieldEstudiante.getText().toLowerCase());
         }
-        if(textAreaObjetivoGeneral.getText()=="" && bandera)
+        if(textAreaObjetivoGeneral.getText().isEmpty() && bandera)
         {
             textAreaObjetivoGeneral.setStyle("-fx-prompt-text-fill: red;-fx-alignment: center;");
             bandera=false;
         }
-        if(textAreaObjetivosEspecificos.getText()=="" && bandera)
+        if(textAreaObjetivosEspecificos.getText().isEmpty() && bandera)
         {
             textAreaObjetivosEspecificos.setStyle("-fx-prompt-text-fill: red;-fx-alignment: center;");
             bandera=false;
         }
-        if(textFieldEstudiante1.getText() != "" && bandera)
+        if(!textFieldEstudiante1.getText().isEmpty() && bandera)
         {
             estudiante2 = new Estudiante();
             
             estudiante2.setCorreoElectronico(textFieldEstudiante1.getText().toLowerCase());
         }
         
-        if(textFieldCoodirector.getText()!="" && bandera)
+        if(!textFieldCoodirector.getText().isEmpty() && bandera)
         {
             coodirector = new Profesor();
             
@@ -148,15 +148,16 @@ public class ProfesorSubirFormatoA implements Observer{
         }
         if(bandera)
         {
+            
+            
+            try{
+            director.build(textFieldTituloProyecto.getText(), this.profesor, coodirector, fecha, textAreaObjetivoGeneral.getText(), textAreaObjetivosEspecificos.getText(), estudiante1, estudiante2, comboBoxModalidad.getValue(),nombreNuevoArchivo);
+            proyectoService.subirFormato(director.getObject());
             if(archivo!=null)
             {
                 nombreNuevoArchivo = profesor.getId()+estudiante1.getCorreoElectronico();
                 nombreNuevoArchivo=ArchivosProyecto.guardarArchivoEnProyecto(archivo, nombreNuevoArchivo, "src/main/resources/documentos");
             }
-            
-            try{
-            director.build(textFieldTituloProyecto.getText(), this.profesor, coodirector, fecha, textAreaObjetivoGeneral.getText(), textAreaObjetivosEspecificos.getText(), estudiante1, estudiante2, comboBoxModalidad.getValue(),nombreNuevoArchivo);
-            proyectoService.subirFormato(director.getObject());
             informacionOk();
             archivo = null;
             
