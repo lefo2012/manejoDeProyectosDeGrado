@@ -22,7 +22,7 @@
             <Pane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" opacity="0.8" prefHeight="400.0" prefWidth="400.0" rotate="3.0" style="-fx-background-color: #FFFFFF; -fx-max-height: 400; -fx-pref-height: 400; -fx-max-width: 400; -fx-pref-width: 400;" />
             <Pane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" style="-fx-background-color: #FFFFFF; -fx-max-height: 400; -fx-pref-height: 400; -fx-max-width: 400; -fx-pref-width: 400;">
                <children>
-                  <Hyperlink fx:id="linkOlvideMiContrasenia" layoutX="174.0" layoutY="262.0" prefHeight="25.0" prefWidth="71.0" text="Contraseña" textFill="#9f0e13" />
+                  <Hyperlink fx:id="linkOlvideMiContrasenia" layoutX="174.0" layoutY="262.0" prefHeight="25.0" prefWidth="71.0" text="Contraseña" textFill="#9f0e13" focusTraversable="false" />
                   <Button id="botonRegistrarse" fx:id="botonRegistrarse" layoutX="189.0" layoutY="305.0" mnemonicParsing="false" onAction="#irARegistrarse" prefWidth="97.0" style="-fx-background-color: #9F0E13; -fx-background-radius: 10px;" stylesheets="@../css/sombraBoton.css" text="REGISTRARSE" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />

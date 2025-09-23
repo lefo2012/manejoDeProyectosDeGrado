@@ -9,8 +9,7 @@ import javafx.scene.control.Label;
 
 public class DatosFormatoController implements Initializable{
 
-    @FXML
-    private Label lblDetalles;
+    
 
     @FXML
     private Label lblEstado;

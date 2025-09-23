@@ -16,6 +16,12 @@ public class ProyectoService {
     
     public boolean subirFormato(FormatoA formato) throws Exception
     {
+        proyectoRepository.consultarPosibilidad(formato);
         return proyectoRepository.save(formato);
     }
+    public boolean consultarPosibilidad(FormatoA formato) throws Exception
+    {
+        return true;
+    }
+    
 }

@@ -159,13 +159,13 @@ public class ProfesorSubirFormatoA implements Observer{
             proyectoService.subirFormato(director.getObject());
             informacionOk();
             archivo = null;
-            imagenArchivoPlano.setVisible(true);
-            imagenPdf.setVisible(false);
-            textNombreArchivo.setText("Agrega un archivo PDF de maximo 20MB");
+            
             vaciarCampos();
             }catch(Exception e)
             {
+                
                 advertencia.setText(e.getMessage());
+                e.printStackTrace();
             }
             
         }
@@ -180,6 +180,10 @@ public class ProfesorSubirFormatoA implements Observer{
         textFieldCoodirector.setText("");
         textFieldEstudiante.setText("");
         textFieldEstudiante1.setText("");
+        imagenArchivoPlano.setVisible(true);
+        imagenPdf.setVisible(false);
+        textNombreArchivo.setText("Agrega un archivo PDF de maximo 20MB");
+        advertencia.setText("");
     }
     public void informacionOk()
     {

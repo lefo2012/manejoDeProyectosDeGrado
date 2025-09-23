@@ -4,6 +4,7 @@ import co.edu.unicauca.Models.Estudiante;
 import co.edu.unicauca.Models.FormatoA;
 import co.edu.unicauca.Models.Profesor;
 import co.edu.unicauca.Repository.ProyectoRepository;
+import co.edu.unicauca.Util.Tipo;
 import co.edu.unicauca.database.ConexionSQLite;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -83,14 +84,14 @@ public class ProyectoRepositorySQLite implements ProyectoRepository{
     {
         
         Connection conexionBaseDatos = ConexionSQLite.getInstance();
-        PreparedStatement statementEstudiante = conexionBaseDatos.prepareStatement("Select idPersona from persona where correoElectronico = ?");
+        PreparedStatement statementEstudiante = conexionBaseDatos.prepareStatement("Select idEstudiante from Estudiante where correoElectronico = ?");
         statementEstudiante.setString(1, e.getCorreoElectronico());
         ResultSet rs = statementEstudiante.executeQuery();
         if(!rs.next())
         {
             throw new Exception("Error al obtener el estudiante con correo "+e.getCorreoElectronico());
         }
-        e.setId(rs.getInt("idPersona"));
+        e.setId(rs.getInt("idEstudiante"));
         
         PreparedStatement statamentProyecto = conexionBaseDatos.prepareStatement("insert into ProyectosEstudiante(idEstudiante,idProyecto) values(?,?)");
         statamentProyecto.setInt(1,e.getId());
@@ -134,14 +135,14 @@ public class ProyectoRepositorySQLite implements ProyectoRepository{
         PreparedStatement statamentProyecto;
         if(p.size()>1)
         {
-            PreparedStatement statementEstudiante = conexionBaseDatos.prepareStatement("Select idPersona from persona where correoElectronico = ?");
+            PreparedStatement statementEstudiante = conexionBaseDatos.prepareStatement("Select idProfesor from Profesor where correoElectronico = ?");
             statementEstudiante.setString(1, p.get(1).getCorreoElectronico());
             ResultSet rs = statementEstudiante.executeQuery();
             if(!rs.next())
             {
                 throw new Exception("Error al obtener el profesor con correo "+p.get(1).getCorreoElectronico());
             }
-            p.get(1).setId(rs.getInt("idPersona"));
+            p.get(1).setId(rs.getInt("idProfesor"));
             
             statamentProyecto = conexionBaseDatos.prepareStatement("insert into ProyectosProfesor(idDirector,idCodirector,idProyecto) values(?,?,?)");
             statamentProyecto.setInt(1,p.get(0).getId());
@@ -166,6 +167,95 @@ public class ProyectoRepositorySQLite implements ProyectoRepository{
         }
     
     }
+    @Override
+    public boolean consultarPosibilidad(FormatoA formatoa) throws Exception
+    {
+        
+        if(formatoa.getTipo().equals(Tipo.PracticaProfesional))
+        {
+            consultarPosibilidadEstudiante(formatoa.getEstudiantes().get(0),formatoa.getTipo());
+        }
+        else if(formatoa.getTipo().equals(Tipo.Investigacion))
+        {
+            System.out.println(formatoa.getEstudiantes().size());
+            if(formatoa.getEstudiantes().size()>1)
+            {
+                consultarPosibilidadEstudiante(formatoa.getEstudiantes().get(0),formatoa.getTipo());
+                if(formatoa.getEstudiantes().get(1)!=null)
+                {
+                    consultarPosibilidadEstudiante(formatoa.getEstudiantes().get(1),formatoa.getTipo());
+                    
+                }
+                
+            }
+            consultarPosibilidadEstudiante(formatoa.getEstudiantes().get(0),formatoa.getTipo());
+        }
+        return false;
+    }
     
-    
+    public void consultarPosibilidadEstudiante(Estudiante estudiante,Tipo tipo) throws Exception
+    {
+        if(!esNuevo(estudiante)){
+            Connection conexionBaseDatos = ConexionSQLite.getInstance();
+            PreparedStatement statementEstudiante = conexionBaseDatos.prepareStatement("Select idPersona from persona where correoElectronico = ?");
+            statementEstudiante.setString(1, estudiante.getCorreoElectronico());
+            ResultSet rs = statementEstudiante.executeQuery();
+            if(!rs.next())
+            {
+                throw new Exception("Error al obtener el estudiante con correo "+estudiante.getCorreoElectronico());
+            }
+            estudiante.setId(rs.getInt("idPersona"));
+            PreparedStatement statementConsultaPosibilidad = conexionBaseDatos.prepareStatement("Select Estudiante.cantidadIntentosPractica,Estudiante.cantidadIntentosInvestigacion,Proyecto.estado from Estudiante inner join ProyectosEstudiante on Estudiante.idEstudiante = ProyectosEstudiante.idEstudiante "
+                    + "inner join Proyecto on ProyectosEstudiante.idProyecto = Proyecto.idProyecto where Estudiante.idEstudiante = ?");
+            statementConsultaPosibilidad.setInt(1, estudiante.getId());
+            rs = statementConsultaPosibilidad.executeQuery();
+            if(!rs.next())
+            {
+            
+                throw new Exception("Error al obtener la consulta de verificacion con el correo del estudiante  "+estudiante.getCorreoElectronico());
+            
+            }
+            int cantidadIntentosPractica = rs.getInt("cantidadIntentosPractica");
+            int cantidadIntentosInvestigacion = rs.getInt("cantidadIntentosInvestigacion");
+            String estado = rs.getString("estado");
+            
+            if(estado.equals("PENDIENTE"))
+            {
+                throw new Exception("El estudiante con correo "+estudiante.getCorreoElectronico()+" tiene actualmente un formato pendiente de revisar");
+            }
+            if(tipo.equals(Tipo.PracticaProfesional)){
+                if(cantidadIntentosPractica==3)
+                {
+
+                    throw new Exception("El estudiante con correo "+estudiante.getCorreoElectronico()+"supero la cantidad de intentos en la modalidad de practica profesional");
+
+                }
+            }else if(tipo.equals(Tipo.Investigacion))
+            {
+                if(cantidadIntentosInvestigacion==3)
+                {
+
+                    throw new Exception("El estudiante con correo "+estudiante.getCorreoElectronico()+"supero la cantidad de intentos en la modalidad de investigacion");
+
+                }
+            
+            }
+        }
+    }
+    public boolean esNuevo(Estudiante estudiante) throws Exception
+    {
+        Connection conexionBaseDatos = ConexionSQLite.getInstance();
+        PreparedStatement statementEstudiante = conexionBaseDatos.prepareStatement("Select idPersona from persona where correoElectronico = ?");
+        statementEstudiante.setString(1, estudiante.getCorreoElectronico());
+        ResultSet rs = statementEstudiante.executeQuery();
+        if(!rs.next())
+        {
+            throw new Exception("Error al obtener el estudiante con correo "+estudiante.getCorreoElectronico());
+        }
+        estudiante.setId(rs.getInt("idPersona"));
+            PreparedStatement statementConsultaPosibilidad = conexionBaseDatos.prepareStatement("Select * from Estudiante inner join ProyectosEstudiante on Estudiante.idEstudiante = ProyectosEstudiante.idEstudiante where Estudiante.idEstudiante=?");
+            statementConsultaPosibilidad.setInt(1, estudiante.getId());
+            rs = statementConsultaPosibilidad.executeQuery();
+            return !rs.next();
+    }
 }
