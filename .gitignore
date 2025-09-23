@@ -1,2 +1,4 @@
 /target/
 /mi_base.db
+/mi_base.db-shm
+/mi_base.db-wal
