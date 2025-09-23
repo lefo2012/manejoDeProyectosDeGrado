@@ -58,7 +58,7 @@ public class UserLoginController {
             }
             if(persona instanceof Coordinador)
             {
-               Main.setRoot("FormatosCoordinador");
+               Main.goCoordinador();
             }
             
         }

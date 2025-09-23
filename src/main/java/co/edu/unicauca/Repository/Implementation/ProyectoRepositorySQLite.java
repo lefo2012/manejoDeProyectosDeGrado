@@ -4,12 +4,16 @@ import co.edu.unicauca.Models.Estudiante;
 import co.edu.unicauca.Models.FormatoA;
 import co.edu.unicauca.Models.Profesor;
 import co.edu.unicauca.Repository.ProyectoRepository;
+import co.edu.unicauca.Util.Tipo;
 import co.edu.unicauca.database.ConexionSQLite;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -51,7 +55,7 @@ public class ProyectoRepositorySQLite implements ProyectoRepository{
                             idProyecto = generatedKeys.getInt(1);
                         } else {
                             System.out.println("error al obtener id");
-                            throw new SQLException("Error al obtener ID de persona.");
+                            throw new SQLException("Error al obtener ID del proyecto.");
                         }
                     }
             
@@ -70,8 +74,9 @@ public class ProyectoRepositorySQLite implements ProyectoRepository{
         }catch(Exception e)
         {
             conexionBaseDatos.rollback();
-            e.printStackTrace();
-            return false;
+            
+            throw e;
+            
         }finally
         {
             ConexionSQLite.desconectar();
@@ -82,6 +87,15 @@ public class ProyectoRepositorySQLite implements ProyectoRepository{
     {
         
         Connection conexionBaseDatos = ConexionSQLite.getInstance();
+        PreparedStatement statementEstudiante = conexionBaseDatos.prepareStatement("Select idEstudiante from Estudiante where correoElectronico = ?");
+        statementEstudiante.setString(1, e.getCorreoElectronico());
+        ResultSet rs = statementEstudiante.executeQuery();
+        if(!rs.next())
+        {
+            throw new Exception("Error al obtener el estudiante con correo "+e.getCorreoElectronico());
+        }
+        e.setId(rs.getInt("idEstudiante"));
+        
         PreparedStatement statamentProyecto = conexionBaseDatos.prepareStatement("insert into ProyectosEstudiante(idEstudiante,idProyecto) values(?,?)");
         statamentProyecto.setInt(1,e.getId());
         statamentProyecto.setInt(2, idProyecto);
@@ -124,7 +138,15 @@ public class ProyectoRepositorySQLite implements ProyectoRepository{
         PreparedStatement statamentProyecto;
         if(p.size()>1)
         {
-        
+            PreparedStatement statementEstudiante = conexionBaseDatos.prepareStatement("Select idProfesor from Profesor where correoElectronico = ?");
+            statementEstudiante.setString(1, p.get(1).getCorreoElectronico());
+            ResultSet rs = statementEstudiante.executeQuery();
+            if(!rs.next())
+            {
+                throw new Exception("Error al obtener el profesor con correo "+p.get(1).getCorreoElectronico());
+            }
+            p.get(1).setId(rs.getInt("idProfesor"));
+            
             statamentProyecto = conexionBaseDatos.prepareStatement("insert into ProyectosProfesor(idDirector,idCodirector,idProyecto) values(?,?,?)");
             statamentProyecto.setInt(1,p.get(0).getId());
             statamentProyecto.setInt(2, p.get(1).getId());
@@ -148,6 +170,153 @@ public class ProyectoRepositorySQLite implements ProyectoRepository{
         }
     
     }
+    @Override
+    public boolean consultarPosibilidad(FormatoA formatoa) throws Exception
+    {
+        
+        if(formatoa.getTipo().equals(Tipo.PracticaProfesional))
+        {
+            consultarPosibilidadEstudiante(formatoa.getEstudiantes().get(0),formatoa.getTipo());
+        }
+        else if(formatoa.getTipo().equals(Tipo.Investigacion))
+        {
+            System.out.println(formatoa.getEstudiantes().size());
+            if(formatoa.getEstudiantes().size()>1)
+            {
+                consultarPosibilidadEstudiante(formatoa.getEstudiantes().get(0),formatoa.getTipo());
+                if(formatoa.getEstudiantes().get(1)!=null)
+                {
+                    consultarPosibilidadEstudiante(formatoa.getEstudiantes().get(1),formatoa.getTipo());
+                    
+                }
+                
+            }
+            consultarPosibilidadEstudiante(formatoa.getEstudiantes().get(0),formatoa.getTipo());
+        }
+        return false;
+    }
     
+    public void consultarPosibilidadEstudiante(Estudiante estudiante,Tipo tipo) throws Exception
+    {
+        if(!esNuevo(estudiante)){
+            Connection conexionBaseDatos = ConexionSQLite.getInstance();
+            PreparedStatement statementEstudiante = conexionBaseDatos.prepareStatement("Select idPersona from persona where correoElectronico = ?");
+            statementEstudiante.setString(1, estudiante.getCorreoElectronico());
+            ResultSet rs = statementEstudiante.executeQuery();
+            if(!rs.next())
+            {
+                throw new Exception("Error al obtener el estudiante con correo "+estudiante.getCorreoElectronico());
+            }
+            estudiante.setId(rs.getInt("idPersona"));
+            PreparedStatement statementConsultaPosibilidad = conexionBaseDatos.prepareStatement("Select Estudiante.cantidadIntentosPractica,Estudiante.cantidadIntentosInvestigacion,Proyecto.estado from Estudiante inner join ProyectosEstudiante on Estudiante.idEstudiante = ProyectosEstudiante.idEstudiante "
+                    + "inner join Proyecto on ProyectosEstudiante.idProyecto = Proyecto.idProyecto where Estudiante.idEstudiante = ?");
+            statementConsultaPosibilidad.setInt(1, estudiante.getId());
+            rs = statementConsultaPosibilidad.executeQuery();
+            if(!rs.next())
+            {
+            
+                throw new Exception("Error al obtener la consulta de verificacion con el correo del estudiante  "+estudiante.getCorreoElectronico());
+            
+            }
+            int cantidadIntentosPractica = rs.getInt("cantidadIntentosPractica");
+            int cantidadIntentosInvestigacion = rs.getInt("cantidadIntentosInvestigacion");
+            String estado = rs.getString("estado");
+            
+            if(estado.equals("PENDIENTE"))
+            {
+                throw new Exception("El estudiante con correo "+estudiante.getCorreoElectronico()+" tiene actualmente un formato pendiente de revisar");
+            }
+            if(tipo.equals(Tipo.PracticaProfesional)){
+                if(cantidadIntentosPractica==3)
+                {
+
+                    throw new Exception("El estudiante con correo "+estudiante.getCorreoElectronico()+"supero la cantidad de intentos en la modalidad de practica profesional");
+
+                }
+            }else if(tipo.equals(Tipo.Investigacion))
+            {
+                if(cantidadIntentosInvestigacion==3)
+                {
+
+                    throw new Exception("El estudiante con correo "+estudiante.getCorreoElectronico()+"supero la cantidad de intentos en la modalidad de investigacion");
+
+                }
+            
+            }
+        }
+    }
+    public boolean esNuevo(Estudiante estudiante) throws Exception
+    {
+        Connection conexionBaseDatos = ConexionSQLite.getInstance();
+        PreparedStatement statementEstudiante = conexionBaseDatos.prepareStatement("Select idPersona from persona where correoElectronico = ?");
+        statementEstudiante.setString(1, estudiante.getCorreoElectronico());
+        ResultSet rs = statementEstudiante.executeQuery();
+        if(!rs.next())
+        {
+            throw new Exception("Error al obtener el estudiante con correo "+estudiante.getCorreoElectronico());
+        }
+        estudiante.setId(rs.getInt("idPersona"));
+            PreparedStatement statementConsultaPosibilidad = conexionBaseDatos.prepareStatement("Select * from Estudiante inner join ProyectosEstudiante on Estudiante.idEstudiante = ProyectosEstudiante.idEstudiante where Estudiante.idEstudiante=?");
+            statementConsultaPosibilidad.setInt(1, estudiante.getId());
+            rs = statementConsultaPosibilidad.executeQuery();
+            return !rs.next();
+    }
+    @Override
+    public List<FormatoA> getProyectosCoordinador(int idCoordinador) throws Exception {
+        List<FormatoA> proyectos = new ArrayList<>();
+
+        String sql = "SELECT p.idProyecto, p.titulo, p.objetivo, p.objetivoEspecifico, " +
+                     "p.estado, p.tipo, p.fechaDeSubida, p.archivoAdjunto, " +
+                     "e.idEstudiante, per.nombre || ' ' || per.apellido AS nombreEstudiante " +
+                     "FROM Proyecto p " +
+                     "INNER JOIN ProyectosCoordinador pc ON p.idProyecto = pc.idProyecto " +
+                     "LEFT JOIN ProyectosEstudiante pe ON p.idProyecto = pe.idProyecto " +
+                     "LEFT JOIN Estudiante e ON pe.idEstudiante = e.idEstudiante " +
+                     "LEFT JOIN Persona per ON e.idEstudiante = per.idPersona " +
+                     "WHERE pc.idCoordinador = ? " +
+                     "ORDER BY p.idProyecto";
+
+        try (Connection conn = ConexionSQLite.getInstance();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, idCoordinador);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                Map<Integer, FormatoA> mapProyectos = new HashMap<>();
+
+                while (rs.next()) {
+                    int idProyecto = rs.getInt("idProyecto");
+
+                    FormatoA proyecto = mapProyectos.get(idProyecto);
+                    if (proyecto == null) {
+                        proyecto = new FormatoA();
+                        proyecto.setIdProyecto(idProyecto);
+                        proyecto.setTitulo(rs.getString("titulo"));
+                        proyecto.setObjetivo(rs.getString("objetivo"));
+                        proyecto.setObjetivoEspecifico(rs.getString("objetivoEspecifico"));
+                        proyecto.setEstado(rs.getString("estado"));
+                        proyecto.setTipo(Tipo.valueOf(rs.getString("tipo")));
+                        proyecto.setFechaDeSubida(rs.getString("fechaDeSubida"));
+                        proyecto.setArchivoAdjunto(rs.getString("archivoAdjunto"));
+                        proyecto.setEstudiantes(new ArrayList<>());
+
+                        mapProyectos.put(idProyecto, proyecto);
+                    }
+
+                    int idEstudiante = rs.getInt("idEstudiante");
+                    if (idEstudiante != 0) {
+                        Estudiante est = new Estudiante();
+                        est.setId(idEstudiante);
+                        est.setNombre(rs.getString("nombreEstudiante"));
+                        proyecto.getEstudiantes().add(est);
+                    }
+                }
+
+                proyectos.addAll(mapProyectos.values());
+            }
+        }
+
+        return proyectos;
+    }
     
 }

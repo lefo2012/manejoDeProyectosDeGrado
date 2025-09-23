@@ -1,0 +1,39 @@
+/* estado normal: sin sombra */
+.btn-hover-shadow {
+  -fx-background-radius: 10;
+  -fx-background-color: #9F0E13;
+  -fx-text-fill: white;
+  -fx-effect: none;
+  -fx-cursor: hand;
+}
+
+/* al pasar el mouse: aplica sombra (y opcional: leve zoom) */
+.btn-hover-shadow:hover {
+  -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 16, 0.35, 0, 4);
+  /* opcional: quitar si no quieres que crezca */
+  /* -fx-scale-x: 1.03;
+     -fx-scale-y: 1.03; */
+}
+.btn-hover-scale {
+  -fx-background-radius: 10;
+  -fx-background-color: #9F0E13;
+  -fx-text-fill: white;
+  -fx-cursor: hand;
+
+  /* Estado normal */
+  -fx-scale-x: 1;
+  -fx-scale-y: 1;
+  -fx-effect: none;
+
+  /* Transición suave (JavaFX 17+ soporta esto) */
+  -fx-transition: all 0.2s ease;
+}
+
+.btn-hover-scale:hover {
+  /* Crece un poquito */
+  -fx-scale-x: 1.05;
+  -fx-scale-y: 1.05;
+
+  /* Sombra para resaltar */
+  -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 16, 0.35, 0, 4);
+}

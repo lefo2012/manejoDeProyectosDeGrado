@@ -13,10 +13,13 @@ import co.edu.unicauca.Observer.Observer;
 import co.edu.unicauca.Repository.ProyectoRepository;
 import co.edu.unicauca.Services.PersonaService;
 import co.edu.unicauca.Services.ProyectoService;
+import co.edu.unicauca.Util.ArchivosProyecto;
 import co.edu.unicauca.Util.Tipo;
 import co.edu.unicauca.Util.Validador;
+import co.edu.unicauca.main.Main;
 
 import java.io.File;
+
 
 
 import javafx.collections.FXCollections;
@@ -25,6 +28,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
+import javafx.animation.PauseTransition;
 
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -32,6 +36,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import javafx.util.Duration;
 
 
 /**
@@ -43,22 +48,22 @@ public class ProfesorSubirFormatoA implements Observer{
     @FXML
     Button botonSubirArchivo;
     @FXML
-    Pane PanelSubirFormatoA,PaneSeleccionarModalidad;
+    Pane PanelSubirFormatoA,PaneSeleccionarModalidad,panelInformacionOk,panelInformacion;
     @FXML
     ComboBox<Tipo> comboBoxModalidad;
     @FXML
-    Text textNombreArchivo;
+    Text textNombreArchivo,advertencia;
     @FXML
     ImageView imagenArchivoPlano,imagenPdf;
     @FXML
-    TextField textFieldTituloProyecto,textFieldCoodirector,textFieldObjetivoGeneral,textFieldEstudiante,textFieldEstudiante1;
+    TextField textFieldTituloProyecto,textFieldCoodirector,textFieldEstudiante,textFieldEstudiante1;
     @FXML
-    TextArea textAreaObjetivosEspecificos;
+    TextArea textAreaObjetivosEspecificos,textAreaObjetivoGeneral;
     Profesor profesor=null;
+    
     File archivo;
     
     
-    private File archivoSubido;
     
     public void initialize()
     {
@@ -87,7 +92,7 @@ public class ProfesorSubirFormatoA implements Observer{
         Estudiante estudiante1 = null;
         Estudiante estudiante2 = null;
         Profesor coodirector = null;
-        String nombreArchivo = "";
+        String nombreNuevoArchivo=null;
         Director director = new Director();
         if(comboBoxModalidad.getValue().equals(Tipo.Investigacion))
         {
@@ -101,54 +106,100 @@ public class ProfesorSubirFormatoA implements Observer{
         ProyectoService proyectoService = new ProyectoService(repositoryFactory.getInstance("SQLite"));
         LocalDate hoy = LocalDate.now();
         String fecha = hoy.format(DateTimeFormatter.ISO_DATE);
-        if(textFieldEstudiante.getText() == "")
+        if(textFieldTituloProyecto.getText().isEmpty())
+        {
+            textFieldTituloProyecto.setStyle("-fx-prompt-text-fill: red;-fx-alignment: center;");
+            
+            bandera = false;
+        }
+        if(textFieldEstudiante.getText().isEmpty() && bandera)
         {
             textFieldEstudiante.setStyle("-fx-prompt-text-fill: red;-fx-alignment: center;");
+            
             bandera = false;
             
         }else
         {
             estudiante1 = new Estudiante();
-            estudiante1.setId(Integer.parseInt( textFieldEstudiante.getText()));
+            estudiante1.setCorreoElectronico(textFieldEstudiante.getText().toLowerCase());
         }
-        
-        if(textFieldEstudiante1.getText() != "")
+        if(textAreaObjetivoGeneral.getText().isEmpty() && bandera)
+        {
+            textAreaObjetivoGeneral.setStyle("-fx-prompt-text-fill: red;-fx-alignment: center;");
+            bandera=false;
+        }
+        if(textAreaObjetivosEspecificos.getText().isEmpty() && bandera)
+        {
+            textAreaObjetivosEspecificos.setStyle("-fx-prompt-text-fill: red;-fx-alignment: center;");
+            bandera=false;
+        }
+        if(!textFieldEstudiante1.getText().isEmpty() && bandera)
         {
             estudiante2 = new Estudiante();
             
-            estudiante2.setId(Integer.parseInt(textFieldEstudiante1.getText()));
+            estudiante2.setCorreoElectronico(textFieldEstudiante1.getText().toLowerCase());
         }
         
-        if(textFieldCoodirector.getText()!="")
+        if(!textFieldCoodirector.getText().isEmpty() && bandera)
         {
             coodirector = new Profesor();
             
-            coodirector.setId(Integer.parseInt(textFieldCoodirector.getText()));
-        }
-        if(archivo!=null)
-        {
-            nombreArchivo = archivo.getName();
+            coodirector.setCorreoElectronico(textFieldCoodirector.getText().toLowerCase());
         }
         if(bandera)
         {
-            director.build(textFieldTituloProyecto.getText(), this.profesor, coodirector, fecha, textFieldObjetivoGeneral.getText(), textAreaObjetivosEspecificos.getText(), estudiante1, estudiante2, comboBoxModalidad.getValue(),nombreArchivo);
+            
+            
+            try{
+            director.build(textFieldTituloProyecto.getText(), this.profesor, coodirector, fecha, textAreaObjetivoGeneral.getText(), textAreaObjetivosEspecificos.getText(), estudiante1, estudiante2, comboBoxModalidad.getValue(),nombreNuevoArchivo);
             proyectoService.subirFormato(director.getObject());
+            if(archivo!=null)
+            {
+                nombreNuevoArchivo = profesor.getId()+estudiante1.getCorreoElectronico();
+                nombreNuevoArchivo=ArchivosProyecto.guardarArchivoEnProyecto(archivo, nombreNuevoArchivo, "src/main/resources/documentos");
+            }
+            informacionOk();
+            archivo = null;
+            
+            vaciarCampos();
+            }catch(Exception e)
+            {
+                
+                advertencia.setText(e.getMessage());
+                e.printStackTrace();
+            }
+            
         }
         
-        archivo = null;
-        imagenArchivoPlano.setVisible(true);
-        imagenPdf.setVisible(false);
-        textNombreArchivo.setText("Agrega un archivo PDF de maximo 20MB");
-        vaciarCampos();
+        
     }
     public void vaciarCampos()
     {
         textFieldTituloProyecto.setText("");
-        textFieldObjetivoGeneral.setText("");
+        textAreaObjetivoGeneral.setText("");
         textAreaObjetivosEspecificos.setText("");
         textFieldCoodirector.setText("");
         textFieldEstudiante.setText("");
         textFieldEstudiante1.setText("");
+        imagenArchivoPlano.setVisible(true);
+        imagenPdf.setVisible(false);
+        textNombreArchivo.setText("Agrega un archivo PDF de maximo 20MB");
+        advertencia.setText("");
+    }
+    public void informacionOk()
+    {
+        panelInformacion.setVisible(true);
+        panelInformacionOk.setVisible(true);
+
+        PauseTransition delay = new PauseTransition(Duration.seconds(1));
+        delay.setOnFinished(e -> {
+            panelInformacion.setVisible(false);
+            panelInformacionOk.setVisible(false);
+            panelInformacion.setManaged(false);
+            panelInformacionOk.setManaged(false);
+        });
+        delay.play();
+    
     }
     public void verificarProyecto()
     {
@@ -192,6 +243,10 @@ public class ProfesorSubirFormatoA implements Observer{
             
             this.archivo=archivo;
         }
+    }
+    public void goProfesorFormatos()
+    {
+        Main.goFormatosProfesor();
     }
     @Override
     public void update(Object o) {

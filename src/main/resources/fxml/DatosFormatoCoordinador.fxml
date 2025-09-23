@@ -22,7 +22,7 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <Label fx:id="lblEstado" alignment="CENTER" prefHeight="100.0" prefWidth="300.0" style="-fx-background-color: white; -fx-background-radius: 20;">
+      <Label fx:id="lblEstado" alignment="CENTER" prefHeight="100.0" prefWidth="300.0"  >
          <font>
             <Font size="24.0" />
          </font>

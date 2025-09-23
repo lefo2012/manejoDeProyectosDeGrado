@@ -43,10 +43,11 @@ public class UserRegisterController {
     ComboBox<Departamento> comboBoxDepartamento;
     @FXML
     Text textoAviso;
+    @FXML
     
     
-    
-    
+    ProgramaService programaService;
+    DepartamentoService departamentoService;
     
     public void irALogin() throws IOException
     {
@@ -58,14 +59,14 @@ public class UserRegisterController {
         RepositoryFactory<ProgramaRepository> repositoryProgramaFactory = new RepositoryFactory(ProgramaRepository.class);
         RepositoryFactory<DepartamentoRepository> repositoryDepartamentoFactory = new RepositoryFactory(DepartamentoRepository.class);
         
-        DepartamentoService departamentoService = new DepartamentoService(repositoryDepartamentoFactory.getInstance("SQLite"));
+        departamentoService = new DepartamentoService(repositoryDepartamentoFactory.getInstance("SQLite"));
         
-        ProgramaService programaService = new ProgramaService(repositoryProgramaFactory.getInstance("SQLite"));
+        programaService = new ProgramaService(repositoryProgramaFactory.getInstance("SQLite"));
         
         try{
         
         comboBoxCargo.setItems(FXCollections.observableArrayList(Cargo.values()));
-        comboBoxCargo.getSelectionModel().selectFirst(); // opcional
+        comboBoxCargo.getSelectionModel().selectFirst();
         comboBoxPrograma.setItems(FXCollections.observableArrayList(programaService.obtenerTodos()));
         
         comboBoxPrograma.setCellFactory(param -> new ListCell<Programa>() {

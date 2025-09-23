@@ -1,0 +1,27 @@
+.label-pendiente {
+    -fx-background-color: #fff59d;
+    -fx-text-fill: black;
+    -fx-padding: 3 8 3 8;
+    -fx-background-radius: 20px;
+}
+
+.label-revision {
+    -fx-background-color: #81d4fa;
+    -fx-text-fill: black;
+    -fx-padding:  3 8 3 8;
+    -fx-background-radius: 20px;
+}
+
+.label-aprobado {
+    -fx-background-color: #81c784;
+    -fx-text-fill: black;
+    -fx-padding: 3 8 3 8;
+    -fx-background-radius: 20px;
+}
+
+.label-rechazado {
+    -fx-background-color: #e57373;
+    -fx-text-fill: black;
+    -fx-padding: 3 8 3 8;
+    -fx-background-radius: 20px;
+}
