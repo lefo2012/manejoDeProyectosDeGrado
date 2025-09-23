@@ -1,2 +1,7 @@
 /target/
-/mi_base.db
+*.db
+*.db-wal
+*.db-shm
+
+# Logs
+*.log
