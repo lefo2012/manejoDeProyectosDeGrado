@@ -93,6 +93,7 @@ public class ProfesorSubirFormatoA implements Observer{
         Estudiante estudiante2 = null;
         Profesor coodirector = null;
         String nombreNuevoArchivo=null;
+        String pathArchivo=null;
         Director director = new Director();
         if(comboBoxModalidad.getValue().equals(Tipo.Investigacion))
         {
@@ -146,22 +147,24 @@ public class ProfesorSubirFormatoA implements Observer{
             
             coodirector.setCorreoElectronico(textFieldCoodirector.getText().toLowerCase());
         }
+        if(archivo!=null)
+            {
+                 
+                nombreNuevoArchivo = profesor.getId()+estudiante1.getCorreoElectronico();
+                pathArchivo=ArchivosProyecto.verificarNombreArchivo(nombreNuevoArchivo, "src/main/resources/documentos");
+            }
         if(bandera)
         {
             
             
             try{
-            director.build(textFieldTituloProyecto.getText(), this.profesor, coodirector, fecha, textAreaObjetivoGeneral.getText(), textAreaObjetivosEspecificos.getText(), estudiante1, estudiante2, comboBoxModalidad.getValue(),nombreNuevoArchivo);
-            proyectoService.subirFormato(director.getObject());
-            if(archivo!=null)
-            {
-                nombreNuevoArchivo = profesor.getId()+estudiante1.getCorreoElectronico();
-                nombreNuevoArchivo=ArchivosProyecto.guardarArchivoEnProyecto(archivo, nombreNuevoArchivo, "src/main/resources/documentos");
-            }
-            informacionOk();
-            archivo = null;
-            
-            vaciarCampos();
+                director.build(textFieldTituloProyecto.getText(), this.profesor, coodirector, fecha, textAreaObjetivoGeneral.getText(), textAreaObjetivosEspecificos.getText(), estudiante1, estudiante2, comboBoxModalidad.getValue(),pathArchivo);
+                proyectoService.subirFormato(director.getObject());
+                if(archivo!=null){
+                   ArchivosProyecto.guardarArchivoEnProyecto(archivo, nombreNuevoArchivo, "src/main/resources/documentos"); 
+                }  
+                informacionOk();
+                vaciarCampos();
             }catch(Exception e)
             {
                 
@@ -185,6 +188,7 @@ public class ProfesorSubirFormatoA implements Observer{
         imagenPdf.setVisible(false);
         textNombreArchivo.setText("Agrega un archivo PDF de maximo 20MB");
         advertencia.setText("");
+        archivo = null;
     }
     public void informacionOk()
     {
@@ -232,7 +236,7 @@ public class ProfesorSubirFormatoA implements Observer{
         
         File archivo = fc.showOpenDialog(botonSubirArchivo.getScene().getWindow());
         
-        if (!Validador.validarArchivo(archivo)){
+        if (!ArchivosProyecto.validarArchivo(archivo)){
             
             System.out.println("El archivo elegido no cumple con los parametros requeridos");
         }else

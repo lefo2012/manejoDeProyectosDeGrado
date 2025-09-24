@@ -223,9 +223,10 @@ public class ProyectoRepositorySQLite implements ProyectoRepository{
             String estado = rs.getString("estado");
             
             if(estado.equals("PENDIENTE"))
-            {
                 throw new Exception("El estudiante con correo "+estudiante.getCorreoElectronico()+" tiene actualmente un formato pendiente de revisar");
-            }
+            else if(estado.equals("APROBADO"))
+                throw new Exception("El estudiante con correo "+estudiante.getCorreoElectronico()+" tiene actualmente un formato aprobado");
+            
             if(tipo.equals(Tipo.PracticaProfesional)){
                 if(cantidadIntentosPractica==3)
                 {
@@ -265,16 +266,25 @@ public class ProyectoRepositorySQLite implements ProyectoRepository{
     public List<FormatoA> getProyectosCoordinador(int idCoordinador) throws Exception {
         List<FormatoA> proyectos = new ArrayList<>();
 
-        String sql = "SELECT p.idProyecto, p.titulo, p.objetivo, p.objetivoEspecifico, " +
-                     "p.estado, p.tipo, p.fechaDeSubida, p.archivoAdjunto, " +
-                     "e.idEstudiante, per.nombre || ' ' || per.apellido AS nombreEstudiante " +
-                     "FROM Proyecto p " +
-                     "INNER JOIN ProyectosCoordinador pc ON p.idProyecto = pc.idProyecto " +
-                     "LEFT JOIN ProyectosEstudiante pe ON p.idProyecto = pe.idProyecto " +
-                     "LEFT JOIN Estudiante e ON pe.idEstudiante = e.idEstudiante " +
-                     "LEFT JOIN Persona per ON e.idEstudiante = per.idPersona " +
-                     "WHERE pc.idCoordinador = ? " +
-                     "ORDER BY p.idProyecto";
+        String sql ="SELECT p.idProyecto, p.titulo, p.objetivo, p.objetivoEspecifico, " +
+                    "p.estado, p.tipo, p.fechaDeSubida, p.archivoAdjunto, " +
+                    "e.idEstudiante, per.nombre || ' ' || per.apellido AS nombreEstudiante, " +
+                    "pp.idDirector, perDir.nombre || ' ' || perDir.apellido AS nombreDirector, " +
+                    "pp.idCodirector, perCo.nombre || ' ' || perCo.apellido AS nombreCodirector " +
+                    "FROM Proyecto p " +
+                    "INNER JOIN ProyectosCoordinador pc ON p.idProyecto = pc.idProyecto " +
+                    "LEFT JOIN ProyectosEstudiante pe ON p.idProyecto = pe.idProyecto " +
+                    "LEFT JOIN Estudiante e ON pe.idEstudiante = e.idEstudiante " +
+                    "LEFT JOIN Persona per ON e.idEstudiante = per.idPersona " +
+                
+                    "LEFT JOIN ProyectosProfesor pp ON p.idProyecto = pp.idProyecto " +
+                    "LEFT JOIN Profesor profDir ON pp.idDirector = profDir.idProfesor " +
+                    "LEFT JOIN Persona perDir ON profDir.idProfesor = perDir.idPersona " +
+                
+                    "LEFT JOIN Profesor profCo ON pp.idCodirector = profCo.idProfesor " +
+                    "LEFT JOIN Persona perCo ON profCo.idProfesor = perCo.idPersona " +
+                    "WHERE pc.idCoordinador = ? " +
+                    "ORDER BY p.idProyecto";
 
         try (Connection conn = ConexionSQLite.getInstance();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -299,7 +309,8 @@ public class ProyectoRepositorySQLite implements ProyectoRepository{
                         proyecto.setFechaDeSubida(rs.getString("fechaDeSubida"));
                         proyecto.setArchivoAdjunto(rs.getString("archivoAdjunto"));
                         proyecto.setEstudiantes(new ArrayList<>());
-
+                        proyecto.setProfesores(new ArrayList<>());
+                        
                         mapProyectos.put(idProyecto, proyecto);
                     }
 
@@ -310,8 +321,23 @@ public class ProyectoRepositorySQLite implements ProyectoRepository{
                         est.setNombre(rs.getString("nombreEstudiante"));
                         proyecto.getEstudiantes().add(est);
                     }
-                }
+                    
+                    int idDirector = rs.getInt("idDirector");
+                    if (idDirector != 0) {
+                        Profesor director = new Profesor();
+                        director.setId(idDirector);
+                        director.setNombre(rs.getString("nombreDirector"));
+                        proyecto.getProfesores().add(director);
+                    }
 
+                    int idCodirector = rs.getInt("idCodirector");
+                    if (idCodirector != 0) {
+                        Profesor codirector = new Profesor();
+                        codirector.setId(idCodirector);
+                        codirector.setNombre(rs.getString("nombreCodirector"));
+                        proyecto.getProfesores().add(codirector);
+                    }
+                }
                 proyectos.addAll(mapProyectos.values());
             }
         }
@@ -319,4 +345,71 @@ public class ProyectoRepositorySQLite implements ProyectoRepository{
         return proyectos;
     }
     
+    @Override
+    public boolean aceptarProyecto(int idProyecto, int idCoordinador, String comentario, String fecha) throws Exception {
+        try (Connection conn = ConexionSQLite.getInstance()) {
+            conn.setAutoCommit(false);
+
+            String sql = "UPDATE Proyecto SET estado = ?, fechaRevision = ? WHERE idProyecto = ?";
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setString(1, "APROBADO");
+                ps.setString(2, fecha);
+                ps.setInt(3, idProyecto);
+                ps.executeUpdate();
+            }
+
+            insertarComentario(conn, comentario != null ? comentario : "Proyecto aceptado", idProyecto, idCoordinador);
+
+            conn.commit();
+            return true;
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+    
+    @Override
+    public boolean rechazarProyecto(FormatoA formato, int idCoordinador, String comentario, String fecha) throws Exception {
+        try (Connection conn = ConexionSQLite.getInstance()) {
+            conn.setAutoCommit(false);
+
+            String sql = "UPDATE Proyecto SET estado = ?, fechaRevision = ? WHERE idProyecto = ?";
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setString(1, "RECHAZADO");
+                ps.setString(2, fecha);
+                ps.setInt(3, formato.getIdProyecto());
+                ps.executeUpdate();
+            }
+
+            String sqlIntentos;
+            if (formato.getTipo().equals(Tipo.Investigacion)) {
+                sqlIntentos = "UPDATE Estudiante SET cantidadIntentosInvestigacion = cantidadIntentosInvestigacion + 1 " +
+                              "WHERE idEstudiante IN (SELECT idEstudiante FROM ProyectosEstudiante WHERE idProyecto = ?)";
+            } else {
+                sqlIntentos = "UPDATE Estudiante SET cantidadIntentosPractica = cantidadIntentosPractica + 1 " +
+                              "WHERE idEstudiante IN (SELECT idEstudiante FROM ProyectosEstudiante WHERE idProyecto = ?)";
+            }
+
+            try (PreparedStatement ps2 = conn.prepareStatement(sqlIntentos)) {
+                ps2.setInt(1, formato.getIdProyecto());
+                ps2.executeUpdate();
+            }
+
+            insertarComentario(conn, comentario != null ? comentario : "Proyecto rechazado", formato.getIdProyecto(), idCoordinador);
+
+            conn.commit();
+            return true;
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+    private void insertarComentario(Connection conn, String contenido, int idProyecto, int idCoordinador) throws Exception {
+        String sql = "INSERT INTO Comentario (contenido, fecha, idProyecto, idCoordinador) " +
+                     "VALUES (?, DATE('now'), ?, ?)";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, contenido);
+            ps.setInt(2, idProyecto);
+            ps.setInt(3, idCoordinador);
+            ps.executeUpdate();
+        }
+    }
 }

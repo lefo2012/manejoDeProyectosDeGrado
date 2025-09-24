@@ -1,14 +1,15 @@
 package co.edu.unicauca.Vista;
 
 import co.edu.unicauca.Models.Estudiante;
-import co.edu.unicauca.Models.FormatoA;
-import co.edu.unicauca.Models.Prueba;
+import co.edu.unicauca.Models.FormatoA; 
+import co.edu.unicauca.main.Main;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Background;
+
 
 public class DatosFormatoController implements Initializable{
 
@@ -26,8 +27,14 @@ public class DatosFormatoController implements Initializable{
 
     @FXML
     private Label lblName;
-
-    public void setData(FormatoA formato) {
+    private FormatoA formatoSeleccionado;
+    private int idCordinador;
+    
+    
+    
+    public void setData(FormatoA formato, int idCordinador) {
+        this.idCordinador=idCordinador;
+        this.formatoSeleccionado = formato;
         lblFormato.setText(String.valueOf(formato.getIdProyecto()));
         lblFecha.setText(formato.getFechaDeSubida());
         lblEstado.setText(formato.getEstado());
@@ -51,7 +58,10 @@ public class DatosFormatoController implements Initializable{
             default -> {} // sin estilo extra
         }
     }
-
+    
+    public void verDetalles() throws IOException{
+        Main.goCoordinadorEvaluar(this.formatoSeleccionado,idCordinador);
+    }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 

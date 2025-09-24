@@ -14,52 +14,47 @@ public class ArchivosProyecto {
      * Copia un archivo a una subcarpeta del proyecto con el nombre indicado.
      * Retorna la ruta relativa final guardada (por ejemplo: "uploads/proyectos/mi_formato.pdf").
      */
-    public static String guardarArchivoEnProyecto(File origen,
-                                                  String nombreDestinoSinExt,
-                                                  String subcarpetaRelativa) throws IOException {
-        if (origen == null || !origen.exists()) {
-            throw new IllegalArgumentException("No hay archivo de origen.");
+    public static boolean validarArchivo(File archivoAValidar)
+    {
+
+       if (archivoAValidar == null || !archivoAValidar.exists() || !archivoAValidar.isFile()) {
+           return false;
+       }
+       
+       String nombreArchivo = archivoAValidar.getName().toLowerCase();
+       if (!nombreArchivo.endsWith(".pdf")) {
+           return false;
+       }
+       
+       
+       long tamañoMaximo = 20 * 1024 * 1024;
+       long tamañoArchivo = archivoAValidar.length();
+       
+       if (tamañoArchivo > tamañoMaximo) {
+           return false;
+       }
+       return true;
+       
+    }
+    public static boolean guardarArchivoEnProyecto(File origen,String nombreDestinoSinExt,String subcarpetaRelativa) throws Exception {
+        if(!validarArchivo(origen))
+        {
+            throw new Exception("Archivo no valido"); 
         }
 
-        // Validaciones (PDF y tamaño)
-        String ext = obtenerExtension(origen.getName()).toLowerCase();
-        if (!ext.equals(".pdf")) {
-            throw new IllegalArgumentException("El archivo debe ser un PDF.");
-        }
-        if (origen.length() > MAX_BYTES) {
-            throw new IllegalArgumentException("El PDF supera los 20 MB.");
-        }
-
-        // Normaliza el nombre destino y asegura extensión .pdf
-        String base = normalizarNombre(nombreDestinoSinExt);
-        if (base.isBlank()) base = "formato";
-        String nombreFinal = base + ".pdf";
-
-        // Carpeta del proyecto (directorio de trabajo) + subcarpeta deseada
+        // Asegura la carpeta destino
         Path dirProyecto = Paths.get(System.getProperty("user.dir"));
-        Path dirDestino = dirProyecto.resolve(subcarpetaRelativa);
+        Path dirDestino  = dirProyecto.resolve(subcarpetaRelativa);
         Files.createDirectories(dirDestino);
 
-        // Evita colisiones de nombre
-        Path destino = dirDestino.resolve(nombreFinal);
-        int i = 1;
-        while (Files.exists(destino)) {
-            nombreFinal = base + "_" + i + ".pdf";
-            destino = dirDestino.resolve(nombreFinal);
-            i++;
-        }
+        
+        String nombreFinal = verificarDuplicidad(nombreDestinoSinExt, subcarpetaRelativa);
 
-        // Copia
+        Path destino = dirDestino.resolve(nombreFinal);
+        
         Files.copy(origen.toPath(), destino, StandardCopyOption.COPY_ATTRIBUTES);
 
-        // Devuelve ruta relativa (útil para guardar en BD)
-        Path rutaRelativa = dirProyecto.relativize(destino);
-        return rutaRelativa.toString().replace("\\", "/");
-    }
-
-    private static String obtenerExtension(String fileName) {
-        int dot = fileName.lastIndexOf('.');
-        return (dot >= 0) ? fileName.substring(dot) : "";
+        return true;
     }
 
     private static String normalizarNombre(String s) {
@@ -73,5 +68,44 @@ public class ArchivosProyecto {
         // sin extensión aquí; solo base
         int dot = n.lastIndexOf('.');
         return (dot > 0) ? n.substring(0, dot) : n;
+    }
+    public static String verificarNombreArchivo(String nombreDestinoSinExt,String subcarpetaRelativa) throws IOException {
+        String base = normalizarNombre(nombreDestinoSinExt);
+        if (base.isBlank()) base = "formato";
+
+        Path dirProyecto = Paths.get(System.getProperty("user.dir"));
+        Path dirDestino  = dirProyecto.resolve(subcarpetaRelativa);
+        Files.createDirectories(dirDestino);
+
+        String nombreFinal = base + ".pdf";
+        Path destino = dirDestino.resolve(nombreFinal);
+
+        int i = 1;
+        while (Files.exists(destino)) {
+            nombreFinal = base + "_" + i + ".pdf";
+            destino = dirDestino.resolve(nombreFinal);
+            i++;
+        }
+        Path rutaRelativa = dirProyecto.relativize(destino);
+        return rutaRelativa.toString().replace("\\", "/");
+    }
+    private static String verificarDuplicidad(String nombreDestinoSinExt,String subcarpetaRelativa) throws IOException {
+        String base = normalizarNombre(nombreDestinoSinExt);
+        if (base.isBlank()) base = "formato";
+
+        Path dirProyecto = Paths.get(System.getProperty("user.dir"));
+        Path dirDestino  = dirProyecto.resolve(subcarpetaRelativa);
+        Files.createDirectories(dirDestino);
+
+        String nombreFinal = base + ".pdf";
+        Path destino = dirDestino.resolve(nombreFinal);
+
+        int i = 1;
+        while (Files.exists(destino)) {
+            nombreFinal = base + "_" + i + ".pdf";
+            destino = dirDestino.resolve(nombreFinal);
+            i++;
+        }
+        return nombreFinal;
     }
 }

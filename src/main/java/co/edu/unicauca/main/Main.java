@@ -3,8 +3,12 @@ package co.edu.unicauca.main;
 
 
 import co.edu.unicauca.Factorys.RepositoryFactory;
+import co.edu.unicauca.Models.FormatoA;
 import co.edu.unicauca.Repository.PersonaRepository;
+import co.edu.unicauca.Repository.ProyectoRepository;
 import co.edu.unicauca.Services.PersonaService;
+import co.edu.unicauca.Services.ProyectoService;
+import co.edu.unicauca.Vista.EvaluarFormatosA;
 import co.edu.unicauca.Vista.FormatosCoordinador;
 import co.edu.unicauca.Vista.ProfesorSubirFormatoA;
 import co.edu.unicauca.Vista.UserLoginController;
@@ -25,12 +29,14 @@ public class Main extends Application {
     private static Parent registerRoot;
 
     private static Parent profesorFormatosRoot;
-
+    private static Parent cordinadorEvaluarRoot;
     private static Parent cordinadorRoot;
 
     
     private ProfesorSubirFormatoA profesorSubirFormatoCrtl;
     private FormatosCoordinador coordinadorController;
+    private static EvaluarFormatosA coordinadorEvaluar;
+    
     public static Parent getProfesorRoot() {
         return profesorRoot;
     }
@@ -48,6 +54,9 @@ public class Main extends Application {
         RepositoryFactory<PersonaRepository> factoryPersona = new RepositoryFactory<>(PersonaRepository.class);
         PersonaService personaService = new PersonaService(factoryPersona.getInstance("SQLite"));
         
+        RepositoryFactory<ProyectoRepository> repoFactory = new RepositoryFactory<>(ProyectoRepository.class);
+        ProyectoService proyectoService = new ProyectoService(repoFactory.getInstance("SQLite"));
+        
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("/fxml/ProfesorSubirFormatoA.fxml"));
         profesorRoot = loader.load();          
         profesorSubirFormatoCrtl = loader.getController();
@@ -58,6 +67,12 @@ public class Main extends Application {
         cordinadorRoot = loader.load();  
         coordinadorController=loader.getController();
         personaService.addObserver(coordinadorController);
+        proyectoService.addObserver(coordinadorController);
+        
+        loader = new FXMLLoader(Main.class.getResource("/fxml/EvaluarFormatosA.fxml"));
+        cordinadorEvaluarRoot = loader.load(); 
+        coordinadorEvaluar=loader.getController();
+        coordinadorEvaluar.setProyectoService(proyectoService);
         
         loader = new FXMLLoader(Main.class.getResource("/fxml/UserLogin.fxml"));
         loginRoot = loader.load();              
@@ -103,6 +118,13 @@ public class Main extends Application {
     public static void goCoordinador()
     {
         scene.setRoot(cordinadorRoot);
+    }
+    public static void goCoordinadorEvaluar(FormatoA formato, int idCoordinador) throws IOException
+    {  
+
+        coordinadorEvaluar.setFormato(formato,idCoordinador);
+        scene.setRoot(cordinadorEvaluarRoot);
+
     }
     private static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/fxml/"+fxml + ".fxml"));

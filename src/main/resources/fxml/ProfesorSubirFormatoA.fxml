@@ -71,6 +71,7 @@
                   <TextField fx:id="textFieldCoodirector" layoutX="125.0" layoutY="165.0" prefHeight="40.0" prefWidth="400.0" promptText="CODIRECTOR DE PROYECTO" style="-fx-border-color: gray; -fx-alignment: center;" />
                   <TextField fx:id="textFieldEstudiante" layoutX="125.0" layoutY="245.0" prefHeight="40.0" prefWidth="400.0" promptText="ESTUDIANTE*" style="-fx-border-color: gray; -fx-alignment: center;" />
                   <TextField fx:id="textFieldEstudiante1" layoutX="125.0" layoutY="325.0" prefHeight="40.0" prefWidth="400.0" promptText="ESTUDIANTE" style="-fx-border-color: gray; -fx-alignment: center;" />
+                  <TextArea fx:id="textAreaObjetivoGeneral" layoutX="125.0" layoutY="485.0" prefHeight="150.0" prefWidth="400.0" style="-fx-border-color: gray; -fx-alignment: center;" />
                   <TextArea fx:id="textAreaObjetivosEspecificos" layoutX="125.0" layoutY="675.0" prefHeight="150.0" prefWidth="400.0" style="-fx-border-color: gray; -fx-alignment: center;" />
                   <Text layoutX="125.0" layoutY="390.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-text-alignment: CENTER;" text="Modalidad">
                      <font>
@@ -108,7 +109,6 @@
                         <Font size="10.0" />
                      </font>
                   </Text>
-                  <TextArea fx:id="textAreaObjetivoGeneral" layoutX="125.0" layoutY="485.0" prefHeight="150.0" prefWidth="400.0" style="-fx-border-color: gray; -fx-alignment: center;" />
                </children>
             </Pane>
             <Pane layoutX="980.0" layoutY="225.0" prefHeight="550.0" prefWidth="450.0" style="-fx-border-color: black; -fx-border-radius: 30;">
