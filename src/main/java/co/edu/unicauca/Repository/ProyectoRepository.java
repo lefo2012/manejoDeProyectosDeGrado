@@ -12,5 +12,5 @@ public interface ProyectoRepository extends Repository<FormatoA,Integer>{
     public List<FormatoA> getProyectosCoordinador(int idCoordinador) throws Exception;
     public boolean aceptarProyecto(int idProyecto, int idCoordinador, String comentario, String fecha) throws Exception;
     public boolean rechazarProyecto(FormatoA formato, int idCoordinador, String comentario, String fecha) throws Exception;
-   
+    public String obtenerComentarioProyecto(int idProyecto) throws Exception;
 }
