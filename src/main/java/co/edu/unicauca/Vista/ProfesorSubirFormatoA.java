@@ -156,7 +156,7 @@ public class ProfesorSubirFormatoA implements Observer{
             if(archivo!=null)
             {
                 nombreNuevoArchivo = profesor.getId()+estudiante1.getCorreoElectronico();
-                nombreNuevoArchivo=ArchivosProyecto.guardarArchivoEnProyecto(archivo, nombreNuevoArchivo, "src/main/resources/documentos");
+                ArchivosProyecto.guardarArchivoEnProyecto(archivo, nombreNuevoArchivo, "src/main/resources/documentos");
             }
             informacionOk();
             archivo = null;
@@ -232,7 +232,7 @@ public class ProfesorSubirFormatoA implements Observer{
         
         File archivo = fc.showOpenDialog(botonSubirArchivo.getScene().getWindow());
         
-        if (!Validador.validarArchivo(archivo)){
+        if (!ArchivosProyecto.validarArchivo(archivo)){
             
             System.out.println("El archivo elegido no cumple con los parametros requeridos");
         }else
