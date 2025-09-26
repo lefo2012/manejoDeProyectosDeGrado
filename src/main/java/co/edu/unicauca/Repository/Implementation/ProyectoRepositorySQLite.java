@@ -493,4 +493,27 @@ public class ProyectoRepositorySQLite implements ProyectoRepository{
             ps.executeUpdate();
         }
     }
+    @Override
+    public String obtenerComentarioProyecto(int idProyecto) throws Exception {
+        String comentario = null;
+
+        String sql = "SELECT contenido " +
+                     "FROM Comentario " +
+                     "WHERE idProyecto = ? " +
+                     "ORDER BY fecha DESC LIMIT 1"; 
+
+        try (Connection conn = ConexionSQLite.getInstance();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, idProyecto);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    comentario = rs.getString("contenido");
+                }
+            }
+        }
+
+        return comentario;
+    }
 }

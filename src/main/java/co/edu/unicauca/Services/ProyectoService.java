@@ -12,6 +12,7 @@ import java.util.List;
 public class ProyectoService extends Subject {
     ProyectoRepository proyectoRepository;
     Boolean bandera;
+    
     public ProyectoService(ProyectoRepository proyectoRepository) {
         this.proyectoRepository = proyectoRepository;
     }
@@ -45,5 +46,12 @@ public class ProyectoService extends Subject {
         this.notifyAllObserves();
         return bandera;
     }
-    
+    public String obtenerComentarioProyecto(int idProyecto) throws Exception{
+        return proyectoRepository.obtenerComentarioProyecto(idProyecto);
+    }
+    public boolean verificarEStado(String estado){
+        if (!estado.equals("PENDIENTE"))
+            return true;
+        return false;
+    }
 }
