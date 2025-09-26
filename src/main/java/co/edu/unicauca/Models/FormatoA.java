@@ -23,11 +23,20 @@ public class FormatoA {
     private List<Estudiante> estudiantes;
     private List<Profesor> profesores;
     private Coordinador coordinador;
+    private String observaciones;
 
     public FormatoA() {
         profesores = new LinkedList();
         estudiantes = new LinkedList();
         estado = "PENDIENTE";
+    }
+
+    public String getObservaciones() {
+        return observaciones;
+    }
+
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
     }
     
     public FormatoA(int idProyecto, String titulo, String objetivo, String objetivoEspecifico, String estado, Tipo tipo, String fechaDeSubida, String fechaRevision, String archivoAdjunto, List<Estudiante> estudiantes, List<Profesor> profesores, Coordinador coordinador) {

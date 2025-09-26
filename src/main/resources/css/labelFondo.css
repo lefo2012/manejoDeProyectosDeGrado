@@ -1,28 +1,27 @@
-/* === Estilo general para todos los estados === */
-.label-pill {
-    -fx-padding: 4px 12px;      /* espacio interno horizontal y vertical */
-    -fx-background-radius: 15;  /* bordes redondeados para efecto ovalado */
-    -fx-font-weight: bold;      /* texto en negrita */
-    -fx-text-fill: black;       /* color del texto por defecto */
-}
-
-/* === Estados específicos === */
 .label-pendiente {
-    -fx-background-color: #fff59d;  /* amarillo claro */
-    -fx-text-fill: #000000;
+    -fx-background-color: #fff59d;
+    -fx-text-fill: black;
+    -fx-padding: 3 8 3 8;
+    -fx-background-radius: 20px;
 }
 
 .label-revision {
-    -fx-background-color: #81d4fa;  /* azul claro */
-    -fx-text-fill: #000000;
+    -fx-background-color: #81d4fa;
+    -fx-text-fill: black;
+    -fx-padding:  3 8 3 8;
+    -fx-background-radius: 20px;
 }
 
 .label-aprobado {
-    -fx-background-color: #81c784;  /* verde claro */
-    -fx-text-fill: #000000;
+    -fx-background-color: #81c784;
+    -fx-text-fill: black;
+    -fx-padding: 3 8 3 8;
+    -fx-background-radius: 20px;
 }
 
 .label-rechazado {
-    -fx-background-color: #e57373;  /* rojo claro */
-    -fx-text-fill: #000000;
+    -fx-background-color: #e57373;
+    -fx-text-fill: black;
+    -fx-padding: 3 8 3 8;
+    -fx-background-radius: 20px;
 }

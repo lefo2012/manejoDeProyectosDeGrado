@@ -37,7 +37,8 @@ public class ArchivosProyecto {
        
     }
     public static boolean guardarArchivoEnProyecto(File origen,String nombreDestinoSinExt,String subcarpetaRelativa) throws Exception {
-        if(validarArchivo(origen))
+
+        if(!validarArchivo(origen))
         {
             throw new Exception("Archivo no valido"); 
         }

@@ -3,8 +3,15 @@ package co.edu.unicauca.main;
 
 
 import co.edu.unicauca.Factorys.RepositoryFactory;
+import co.edu.unicauca.Models.FormatoA;
 import co.edu.unicauca.Repository.PersonaRepository;
+import co.edu.unicauca.Repository.ProyectoRepository;
 import co.edu.unicauca.Services.PersonaService;
+import co.edu.unicauca.Services.ProyectoService;
+import co.edu.unicauca.Vista.EstudianteFormatosController;
+import co.edu.unicauca.Vista.EstudianteVerFormatoAController;
+import co.edu.unicauca.Vista.EvaluarFormatosA;
+import co.edu.unicauca.Vista.FormatosCoordinador;
 import co.edu.unicauca.Vista.ProfesorSubirFormatoA;
 import co.edu.unicauca.Vista.UserLoginController;
 import java.io.IOException;
@@ -24,12 +31,19 @@ public class Main extends Application {
     private static Parent registerRoot;
 
     private static Parent profesorFormatosRoot;
-
+    
+    private static Parent cordinadorEvaluarRoot;
     private static Parent cordinadorRoot;
 
+    private static Parent estudianteFormatos;
+    private static Parent estudianteVerFormatoA;
     
     private ProfesorSubirFormatoA profesorSubirFormatoCrtl;
-
+    private FormatosCoordinador coordinadorController;
+    private static EvaluarFormatosA coordinadorEvaluar;
+    private static EstudianteFormatosController estudianteController;
+    private static EstudianteVerFormatoAController estudianteVerFormatoAController;
+    
     public static Parent getProfesorRoot() {
         return profesorRoot;
     }
@@ -38,6 +52,8 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         scene = new Scene(new javafx.scene.Group(), 1920, 1080);
+        scene.getStylesheets().add(getClass().getResource("/css/labelFondo.css").toExternalForm());
+        stage.setScene(scene);
         stage.setScene(scene);
         stage.show();
 
@@ -45,11 +61,25 @@ public class Main extends Application {
         RepositoryFactory<PersonaRepository> factoryPersona = new RepositoryFactory<>(PersonaRepository.class);
         PersonaService personaService = new PersonaService(factoryPersona.getInstance("SQLite"));
         
+        RepositoryFactory<ProyectoRepository> repoFactory = new RepositoryFactory<>(ProyectoRepository.class);
+        ProyectoService proyectoService = new ProyectoService(repoFactory.getInstance("SQLite"));
+        
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("/fxml/ProfesorSubirFormatoA.fxml"));
         profesorRoot = loader.load();          
         profesorSubirFormatoCrtl = loader.getController();
         personaService.addObserver(profesorSubirFormatoCrtl);
         
+        
+        loader = new FXMLLoader(Main.class.getResource("/fxml/FormatosCoordinador.fxml"));
+        cordinadorRoot = loader.load();  
+        coordinadorController=loader.getController();
+        personaService.addObserver(coordinadorController);
+        proyectoService.addObserver(coordinadorController);
+        
+        loader = new FXMLLoader(Main.class.getResource("/fxml/EvaluarFormatosA.fxml"));
+        cordinadorEvaluarRoot = loader.load(); 
+        coordinadorEvaluar=loader.getController();
+        coordinadorEvaluar.setProyectoService(proyectoService);
         
         loader = new FXMLLoader(Main.class.getResource("/fxml/UserLogin.fxml"));
         loginRoot = loader.load();              
@@ -63,10 +93,17 @@ public class Main extends Application {
         loader = new FXMLLoader(Main.class.getResource("/fxml/ProfesorFormatos.fxml"));
         profesorFormatosRoot = loader.load();  
         
-
-        loader = new FXMLLoader(Main.class.getResource("/fxml/UserLogin.fxml"));
-        cordinadorRoot = loader.load();  
-
+        loader = new FXMLLoader(Main.class.getResource("/fxml/EstudianteFormatos.fxml"));
+        estudianteFormatos = loader.load();  
+        estudianteController=loader.getController();
+        personaService.addObserver(estudianteController);
+        proyectoService.addObserver(estudianteController);
+        
+        loader = new FXMLLoader(Main.class.getResource("/fxml/VerFormatoA.fxml"));
+        estudianteVerFormatoA = loader.load();
+        estudianteVerFormatoAController = loader.getController();
+        
+        
         
         scene.setRoot(loginRoot);
 
@@ -94,6 +131,26 @@ public class Main extends Application {
     public static void goFormatosProfesor()
     {
         scene.setRoot(profesorFormatosRoot);
+    }
+    public static void goCoordinador()
+    {
+        scene.setRoot(cordinadorRoot);
+    }
+    public static void goCoordinadorEvaluar(FormatoA formato, int idCoordinador) throws IOException
+    {  
+
+        coordinadorEvaluar.setFormato(formato,idCoordinador);
+        scene.setRoot(cordinadorEvaluarRoot);
+
+    }
+    public static void goVerFormatoA(FormatoA formato)
+    {
+        estudianteVerFormatoAController.setFormato(formato);
+        scene.setRoot(estudianteVerFormatoA);
+    }
+    public static void goEstudianteFormatos()
+    {
+        scene.setRoot(estudianteFormatos);
     }
     private static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/fxml/"+fxml + ".fxml"));

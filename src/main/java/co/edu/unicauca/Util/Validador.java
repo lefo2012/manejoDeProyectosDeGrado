@@ -1,6 +1,5 @@
 package co.edu.unicauca.Util;
 
-import java.io.File;
 import java.util.regex.Pattern;
 /**
  *
@@ -46,5 +45,5 @@ public class Validador {
     private static boolean tieneDigito(String contrasenia) {
         return Pattern.compile("[0-9]").matcher(contrasenia).find();
     }
-    
+
 }

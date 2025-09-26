@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<HBox maxHeight="100.0" prefHeight="100.0" prefWidth="1650.0" style="-fx-background-color: white; -fx-background-radius: 20;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.unicauca.Vista.DatosFormatoController">
+<HBox maxHeight="100.0" prefHeight="100.0" prefWidth="1650.0" style="-fx-background-color: white; -fx-background-radius: 20;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.unicauca.Vista.DatosFormatoEstudianteController">
    <children>
       <Label fx:id="lblFormato" alignment="CENTER" prefHeight="100.0" prefWidth="300.0" style="-fx-background-color: white; -fx-background-radius: 20;">
          <font>
