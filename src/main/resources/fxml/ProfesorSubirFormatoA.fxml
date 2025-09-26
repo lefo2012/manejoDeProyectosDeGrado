@@ -23,13 +23,13 @@
                   <Image url="@../imagenes/logoUnicaucaVertical.png" />
                </image>
             </ImageView>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" height="100.0" layoutY="215.0" opacity="0.1" stroke="BLACK" strokeType="INSIDE" width="150.0" />
-            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="50.0" layoutY="240.0">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" height="100.0" layoutY="315.0" opacity="0.1" stroke="BLACK" strokeType="INSIDE" width="150.0" />
+            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="50.0" layoutY="340.0">
                <image>
                   <Image url="@../imagenes/archivo.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="50.0" layoutY="340.0">
+            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="50.0" layoutY="240.0">
                <image>
                   <Image url="@../imagenes/folder.png" />
                </image>
@@ -37,7 +37,7 @@
                   <Cursor fx:constant="DEFAULT" />
                </cursor>
             </ImageView>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="50.0" layoutY="340.0" onMouseClicked="#goProfesorFormatos" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="150.0">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="50.0" layoutY="240.0" onMouseClicked="#goProfesorFormatos" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="150.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Rectangle>

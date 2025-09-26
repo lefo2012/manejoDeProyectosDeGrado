@@ -6,7 +6,9 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
@@ -19,7 +21,7 @@
                   <Image url="@../imagenes/logoUnicaucaVertical.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="50.0" layoutY="240.0">
+            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="50.0" layoutY="340.0">
                <image>
                   <Image url="@../imagenes/archivo.png" />
                </image>
@@ -27,8 +29,8 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" height="100.0" layoutY="315.0" opacity="0.1" stroke="BLACK" strokeType="INSIDE" width="150.0" />
-            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="50.0" layoutY="340.0">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" height="100.0" layoutY="215.0" opacity="0.1" stroke="BLACK" strokeType="INSIDE" width="150.0" />
+            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="50.0" layoutY="240.0">
                <image>
                   <Image url="@../imagenes/folder.png" />
                </image>
@@ -44,7 +46,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="50.0" layoutY="240.0" onMouseClicked="#goSubirFormato" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="150.0">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="50.0" layoutY="340.0" onMouseClicked="#goSubirFormato" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="150.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -56,17 +58,88 @@
             </Rectangle>
          </children>
       </Pane>
-      <ScrollPane layoutX="210.0" layoutY="40.0" prefHeight="1000.0" prefWidth="1650.0">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1000.0" prefWidth="1650.0">
+      <Label layoutX="216.0" layoutY="6.0" text="Previsualización de Formatos" textFill="WHITE">
+         <font>
+            <Font size="48.0" />
+         </font>
+      </Label>
+      <Pane layoutX="210.0" layoutY="142.71" prefHeight="896.0" prefWidth="1656.0" style="-fx-background-color: white; -fx-background-radius: 20px;">
+         <children>
+            <HBox layoutX="64.0" prefHeight="896.0" prefWidth="1528.0" style="-fx-background-color: white;">
                <children>
-                  <Label layoutX="539.0" layoutY="475.0" text="NO SE ENCUENTRA INFORMACION">
-                     <font>
-                        <Font size="35.0" />
-                     </font>
-                  </Label>
-               </children></AnchorPane>
-        </content>
-      </ScrollPane>
+                  <Pane prefHeight="896.0" prefWidth="1528.0">
+                     <children>
+                        <ScrollPane fx:id="miTabla" fitToHeight="false" fitToWidth="true" focusTraversable="false" layoutY="10.0" prefHeight="885.0" prefWidth="1528.0" styleClass="table-row-cell" stylesheets="@../css/scroll.css">
+                           <content>
+                              <VBox fx:id="contactsLayout" fillWidth="true" focusTraversable="false" minHeight="100" prefWidth="1528.0" style="-fx-background-radius: 20; -fx-background-color: white;">
+                                 <children>
+                                    <HBox maxHeight="100.0" prefHeight="100.0" prefWidth="1650.0" style="-fx-background-color: white;">
+                                       <children>
+                                          <Label fx:id="lblFormato" alignment="CENTER" prefHeight="100.0" prefWidth="300.0">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="lblName" alignment="CENTER" prefHeight="100.0" prefWidth="368.0">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="lblFecha" alignment="CENTER" prefHeight="100.0" prefWidth="274.0">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="lblEstado" alignment="CENTER" prefHeight="100.0" prefWidth="300.0">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="lblDetalles" alignment="CENTER" prefHeight="100.0" prefWidth="300.0" textFill="#9f0e13">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </content>
+                        </ScrollPane>
+                        <HBox fx:id="row" layoutY="3.0" maxHeight="100" minHeight="100" prefHeight="896.0" prefWidth="1528.0" style="-fx-background-color: white;" styleClass="hbox-borde" stylesheets="@../css/hBoxBorde.css">
+                           <children>
+                              <Label alignment="CENTER" prefHeight="100.0" prefWidth="300.0" style="-fx-background-color: white;" stylesheets="@../css/labelBorde.css" text="ID Formato" textFill="#001282">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="CENTER" prefHeight="100.0" prefWidth="368.0" style="-fx-background-color: white;" stylesheets="@../css/labelBorde.css" text="Estudiante" textFill="#001282">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="CENTER" prefHeight="100.0" prefWidth="274.0" style="-fx-background-color: white;" stylesheets="@../css/labelBorde.css" text="Fecha de envío" textFill="#001282">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="CENTER" prefHeight="100.0" prefWidth="300.0" style="-fx-background-color: white;" stylesheets="@../css/labelBorde.css" text="Estado" textFill="#001282">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="CENTER" prefHeight="100.0" prefWidth="300.0" style="-fx-background-color: white;" stylesheets="@../css/labelBorde.css" text="Detalle" textFill="#001282">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </children>
+                  </Pane>
+               </children>
+            </HBox>
+         </children>
+      </Pane>
    </children>
 </AnchorPane>
