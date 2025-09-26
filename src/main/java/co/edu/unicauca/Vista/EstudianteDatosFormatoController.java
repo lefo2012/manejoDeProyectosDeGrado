@@ -1,20 +1,22 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package co.edu.unicauca.Vista;
 
 import co.edu.unicauca.Models.Estudiante;
-import co.edu.unicauca.Models.FormatoA; 
+import co.edu.unicauca.Models.FormatoA;
 import co.edu.unicauca.main.Main;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 
-
-public class DatosFormatoController implements Initializable{
-
-    @FXML
-    private Label lblDetalles;
+/**
+ *
+ * @author PixelBot Gaming
+ */
+public class EstudianteDatosFormatoController {
+    
 
     @FXML
     private Label lblEstado;
@@ -28,12 +30,11 @@ public class DatosFormatoController implements Initializable{
     @FXML
     private Label lblName,lblName1;
     private FormatoA formatoSeleccionado;
-    private int idCordinador;
     
     
-    
-    public void setData(FormatoA formato, int idCordinador) {
-        this.idCordinador=idCordinador;
+   
+    public void setData(FormatoA formato) {
+
         this.formatoSeleccionado = formato;
         lblFormato.setText(String.valueOf(formato.getIdProyecto()));
         lblFecha.setText(formato.getFechaDeSubida());
@@ -56,7 +57,7 @@ public class DatosFormatoController implements Initializable{
         }else
         {
             lblName1.setManaged(false);
-            lblName.setLayoutY(25);
+            lblName.setLayoutY(22.5);
             lblName.setText("1. "+formato.getEstudiantes().get(0).getNombre());
         }
         
@@ -72,12 +73,9 @@ public class DatosFormatoController implements Initializable{
         }
     }
     
+    
     public void verDetalles() throws IOException{
-        Main.goCoordinadorEvaluar(this.formatoSeleccionado,idCordinador);
+        Main.goVerFormatoA(formatoSeleccionado);
     }
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-
-    }
-
+    
 }

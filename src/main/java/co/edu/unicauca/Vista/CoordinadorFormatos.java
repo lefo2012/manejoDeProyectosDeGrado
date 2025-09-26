@@ -19,7 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class FormatosCoordinador implements Initializable, Observer{
+public class CoordinadorFormatos implements Initializable, Observer{
     @FXML
     private VBox contactsLayout;
     private Coordinador coordinador=null;
@@ -58,10 +58,10 @@ public class FormatosCoordinador implements Initializable, Observer{
             List<FormatoA> formatos = proyectoService.obtenerProyectosCoordinador(coordinador.getId());
 
             for (FormatoA formato : formatos) {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/DatosFormatoCoordinador.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/CoordinadorDatosFormato.fxml"));
                 HBox hBox = loader.load();
 
-                DatosFormatoController datosFormatosContoller = loader.getController();
+                CoordinadorDatosFormatoController datosFormatosContoller = loader.getController();
                 datosFormatosContoller.setData(formato,coordinador.getId());
                 contactsLayout.getChildren().add(hBox);
                 }

@@ -10,9 +10,9 @@ import co.edu.unicauca.Services.PersonaService;
 import co.edu.unicauca.Services.ProyectoService;
 import co.edu.unicauca.Vista.EstudianteFormatosController;
 import co.edu.unicauca.Vista.EstudianteVerFormatoAController;
-import co.edu.unicauca.Vista.EvaluarFormatosA;
-import co.edu.unicauca.Vista.FormatosCoordinador;
-import co.edu.unicauca.Vista.ProfesorSubirFormatoA;
+import co.edu.unicauca.Vista.CoordinadorEvaluarFormatosAController;
+import co.edu.unicauca.Vista.CoordinadorFormatos;
+import co.edu.unicauca.Vista.ProfesorSubirFormatoAController;
 import co.edu.unicauca.Vista.UserLoginController;
 import java.io.IOException;
 import javafx.application.Application;
@@ -38,9 +38,9 @@ public class Main extends Application {
     private static Parent estudianteFormatos;
     private static Parent estudianteVerFormatoA;
     
-    private ProfesorSubirFormatoA profesorSubirFormatoCrtl;
-    private FormatosCoordinador coordinadorController;
-    private static EvaluarFormatosA coordinadorEvaluar;
+    private ProfesorSubirFormatoAController profesorSubirFormatoCrtl;
+    private CoordinadorFormatos coordinadorController;
+    private static CoordinadorEvaluarFormatosAController coordinadorEvaluar;
     private static EstudianteFormatosController estudianteController;
     private static EstudianteVerFormatoAController estudianteVerFormatoAController;
     
@@ -70,13 +70,13 @@ public class Main extends Application {
         personaService.addObserver(profesorSubirFormatoCrtl);
         
         
-        loader = new FXMLLoader(Main.class.getResource("/fxml/FormatosCoordinador.fxml"));
+        loader = new FXMLLoader(Main.class.getResource("/fxml/CoordinadorFormatos.fxml"));
         cordinadorRoot = loader.load();  
         coordinadorController=loader.getController();
         personaService.addObserver(coordinadorController);
         proyectoService.addObserver(coordinadorController);
         
-        loader = new FXMLLoader(Main.class.getResource("/fxml/EvaluarFormatosA.fxml"));
+        loader = new FXMLLoader(Main.class.getResource("/fxml/CoordinadorEvaluarFormatosA.fxml"));
         cordinadorEvaluarRoot = loader.load(); 
         coordinadorEvaluar=loader.getController();
         coordinadorEvaluar.setProyectoService(proyectoService);
@@ -99,7 +99,7 @@ public class Main extends Application {
         personaService.addObserver(estudianteController);
         proyectoService.addObserver(estudianteController);
         
-        loader = new FXMLLoader(Main.class.getResource("/fxml/VerFormatoA.fxml"));
+        loader = new FXMLLoader(Main.class.getResource("/fxml/EstudianteVerFormatoA.fxml"));
         estudianteVerFormatoA = loader.load();
         estudianteVerFormatoAController = loader.getController();
         

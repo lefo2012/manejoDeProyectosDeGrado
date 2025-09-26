@@ -7,7 +7,6 @@ import co.edu.unicauca.Builders.InvestigacionBuilder;
 import co.edu.unicauca.Builders.PracticaBuilder;
 import co.edu.unicauca.Factorys.RepositoryFactory;
 import co.edu.unicauca.Models.Estudiante;
-import co.edu.unicauca.Models.FormatoA;
 import co.edu.unicauca.Models.Profesor;
 import co.edu.unicauca.Observer.Observer;
 import co.edu.unicauca.Repository.ProyectoRepository;
@@ -15,7 +14,6 @@ import co.edu.unicauca.Services.PersonaService;
 import co.edu.unicauca.Services.ProyectoService;
 import co.edu.unicauca.Util.ArchivosProyecto;
 import co.edu.unicauca.Util.Tipo;
-import co.edu.unicauca.Util.Validador;
 import co.edu.unicauca.main.Main;
 
 import java.io.File;
@@ -44,7 +42,7 @@ import javafx.util.Duration;
  * 
  * @author LEFO
  */
-public class ProfesorSubirFormatoA implements Observer{
+public class ProfesorSubirFormatoAController implements Observer{
     @FXML
     Button botonSubirArchivo;
     @FXML

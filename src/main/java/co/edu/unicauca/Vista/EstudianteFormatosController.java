@@ -5,7 +5,6 @@
 package co.edu.unicauca.Vista;
 
 import co.edu.unicauca.Factorys.RepositoryFactory;
-import co.edu.unicauca.Models.Coordinador;
 import co.edu.unicauca.Models.Estudiante;
 import co.edu.unicauca.Models.FormatoA;
 import co.edu.unicauca.Observer.Observer;
@@ -64,10 +63,10 @@ public class EstudianteFormatosController implements Observer{
             List<FormatoA> formatos = proyectoService.obtenerProyectosEstudiante(estudiante.getId());
 
             for (FormatoA formato : formatos) {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/DatosFormatoEstudiante.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/EstudianteDatosFormato.fxml"));
                 HBox hBox = loader.load();
 
-                DatosFormatoEstudianteController datosFormatosContoller = loader.getController();
+                EstudianteDatosFormatoController datosFormatosContoller = loader.getController();
                 datosFormatosContoller.setData(formato);
                 contactsLayout.getChildren().add(hBox);
                 }

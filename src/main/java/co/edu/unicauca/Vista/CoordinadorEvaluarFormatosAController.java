@@ -1,15 +1,12 @@
 package co.edu.unicauca.Vista;
 
-import co.edu.unicauca.Factorys.RepositoryFactory;
 import co.edu.unicauca.Models.Estudiante;
 import co.edu.unicauca.Models.FormatoA;
 import co.edu.unicauca.Models.Profesor;
-import co.edu.unicauca.Repository.ProyectoRepository;
 import co.edu.unicauca.Services.ProyectoService;
 import co.edu.unicauca.main.Main;
 import java.awt.Desktop;
 import java.io.File;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -19,7 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 
-public class EvaluarFormatosA {
+public class CoordinadorEvaluarFormatosAController {
 
     @FXML
     private Label textAreaObjetivoGeneral;

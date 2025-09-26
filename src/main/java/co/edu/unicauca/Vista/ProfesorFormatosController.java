@@ -6,7 +6,7 @@ import co.edu.unicauca.main.Main;
  *
  * @author LEFO
  */
-public class ProfesorFormatos {
+public class ProfesorFormatosController {
     public void goSubirFormato()
     {
         Main.goProfesor();
