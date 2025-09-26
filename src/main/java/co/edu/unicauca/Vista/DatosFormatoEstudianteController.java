@@ -30,11 +30,13 @@ public class DatosFormatoEstudianteController {
     private Label lblFormato;
 
     @FXML
-    private Label lblName;
+    private Label lblName,lblName1;
     private FormatoA formatoSeleccionado;
     
     
+   
     public void setData(FormatoA formato) {
+
         this.formatoSeleccionado = formato;
         lblFormato.setText(String.valueOf(formato.getIdProyecto()));
         lblFecha.setText(formato.getFechaDeSubida());
@@ -47,7 +49,20 @@ public class DatosFormatoEstudianteController {
             }
             nombres.append(est.getNombre());
         }
-        lblName.setText(nombres.toString());
+        if(formato.getEstudiantes().size()>1)
+        {
+            if(formato.getEstudiantes().get(1)!=null)
+            {
+               lblName.setText("1. "+formato.getEstudiantes().get(0).getNombre());
+               lblName1.setText("2. "+formato.getEstudiantes().get(1).getNombre());
+            }
+        }else
+        {
+            lblName1.setManaged(false);
+            lblName.setLayoutY(25);
+            lblName.setText("1. "+formato.getEstudiantes().get(0).getNombre());
+        }
+        
 
 
         lblEstado.getStyleClass().removeAll("label-pendiente", "label-revision", "label-aprobado", "label-rechazado");
@@ -59,6 +74,7 @@ public class DatosFormatoEstudianteController {
             default -> {} // sin estilo extra
         }
     }
+    
     
     public void verDetalles() throws IOException{
         Main.goVerFormatoA(formatoSeleccionado);

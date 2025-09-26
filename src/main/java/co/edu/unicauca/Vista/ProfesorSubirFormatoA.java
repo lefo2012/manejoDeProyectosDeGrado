@@ -154,22 +154,9 @@ public class ProfesorSubirFormatoA implements Observer{
                 pathArchivo=ArchivosProyecto.verificarNombreArchivo(nombreNuevoArchivo, "src/main/resources/documentos");
             }
         if(bandera)
-        {
-            
-            
-            try{
+        {    
 
-            director.build(textFieldTituloProyecto.getText(), this.profesor, coodirector, fecha, textAreaObjetivoGeneral.getText(), textAreaObjetivosEspecificos.getText(), estudiante1, estudiante2, comboBoxModalidad.getValue(),nombreNuevoArchivo);
-            proyectoService.subirFormato(director.getObject());
-            if(archivo!=null)
-            {
-                nombreNuevoArchivo = profesor.getId()+estudiante1.getCorreoElectronico();
-                ArchivosProyecto.guardarArchivoEnProyecto(archivo, nombreNuevoArchivo, "src/main/resources/documentos");
-            }
-            informacionOk();
-            archivo = null;
-            
-            vaciarCampos();
+            try{
 
                 director.build(textFieldTituloProyecto.getText(), this.profesor, coodirector, fecha, textAreaObjetivoGeneral.getText(), textAreaObjetivosEspecificos.getText(), estudiante1, estudiante2, comboBoxModalidad.getValue(),pathArchivo);
                 proyectoService.subirFormato(director.getObject());

@@ -55,7 +55,7 @@
                </cursor></Rectangle>
          </children>
       </Pane>
-      <Pane fx:id="PanelSubirFormatoA" layoutX="199.0" layoutY="40.0" prefHeight="1000.0" prefWidth="1650.0" style="-fx-background-color: white; visibility: true;">
+      <Pane fx:id="PanelSubirFormatoA" layoutX="210.0" layoutY="40.0" prefHeight="1000.0" prefWidth="1650.0" style="-fx-background-color: white; visibility: true;">
          <children>
             <Pane layoutX="110.0" layoutY="65.0" prefHeight="850.0" prefWidth="650.0" style="-fx-border-color: black;">
                <children>
@@ -109,10 +109,8 @@
                         <Font size="10.0" />
                      </font>
                   </Text>
-<<<<<<< HEAD
                   <TextArea fx:id="textAreaObjetivoGeneral" layoutX="125.0" layoutY="485.0" prefHeight="150.0" prefWidth="400.0" promptText="Objetivo general" style="-fx-border-color: gray; -fx-alignment: center;" />
-=======
->>>>>>> 21a006940309ab9c99c9612304e39a70b7b62a03
+
                </children>
             </Pane>
             <Pane layoutX="980.0" layoutY="225.0" prefHeight="550.0" prefWidth="450.0" style="-fx-border-color: black; -fx-border-radius: 30;">

@@ -47,7 +47,7 @@
             </Button>
          </children>
       </Pane>
-      <Pane fx:id="PanelSubirFormatoA" layoutX="267.0" layoutY="95.0" prefHeight="1000.0" prefWidth="1650.0" style="-fx-background-color: white; visibility: true;">
+      <Pane fx:id="PanelSubirFormatoA" layoutX="210.0" layoutY="40.0" prefHeight="1000.0" prefWidth="1650.0" style="-fx-background-color: white; visibility: true;">
          <children>
             <Pane layoutX="110.0" layoutY="65.0" prefHeight="883.0" prefWidth="650.0" style="-fx-border-color: black;">
                <children>

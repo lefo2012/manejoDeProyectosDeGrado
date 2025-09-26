@@ -19,6 +19,7 @@ public class ProyectoService extends Subject {
     
     public boolean subirFormato(FormatoA formato) throws Exception
     {
+        //HAY QUE VALIDAR LOS FORMATOS
         proyectoRepository.consultarPosibilidad(formato);
         return proyectoRepository.save(formato);
     }

@@ -13,11 +13,20 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <Label fx:id="lblName" alignment="CENTER" prefHeight="100.0" prefWidth="368.0" style="-fx-background-color: white; -fx-background-radius: 20;">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
+      <Pane prefHeight="100.0" prefWidth="368.0">
+         <children>
+            <Label fx:id="lblName" alignment="CENTER" prefHeight="50.0" prefWidth="368.0" style="-fx-background-color: white; -fx-background-radius: 20;">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblName1" alignment="CENTER" layoutY="50.0" prefHeight="50.0" prefWidth="368.0" style="-fx-background-color: white; -fx-background-radius: 20;">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
       <Label fx:id="lblFecha" alignment="CENTER" prefHeight="100.0" prefWidth="274.0" style="-fx-background-color: white; -fx-background-radius: 20;">
          <font>
             <Font size="24.0" />

@@ -12,8 +12,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  *
@@ -264,90 +266,44 @@ public class ProyectoRepositorySQLite implements ProyectoRepository{
     }
     @Override
     public List<FormatoA> getProyectosCoordinador(int idCoordinador) throws Exception {
-        List<FormatoA> proyectos = new ArrayList<>();
-
-        String sql ="SELECT p.idProyecto, p.titulo, p.objetivo, p.objetivoEspecifico, " +
-                    "p.estado, p.tipo, p.fechaDeSubida, p.archivoAdjunto, " +
-                    "e.idEstudiante, per.nombre || ' ' || per.apellido AS nombreEstudiante, " +
-                    "pp.idDirector, perDir.nombre || ' ' || perDir.apellido AS nombreDirector, " +
-                    "pp.idCodirector, perCo.nombre || ' ' || perCo.apellido AS nombreCodirector " +
-                    "FROM Proyecto p " +
-                    "INNER JOIN ProyectosCoordinador pc ON p.idProyecto = pc.idProyecto " +
-                    "LEFT JOIN ProyectosEstudiante pe ON p.idProyecto = pe.idProyecto " +
-                    "LEFT JOIN Estudiante e ON pe.idEstudiante = e.idEstudiante " +
-                    "LEFT JOIN Persona per ON e.idEstudiante = per.idPersona " +
-                
-                    "LEFT JOIN ProyectosProfesor pp ON p.idProyecto = pp.idProyecto " +
-                    "LEFT JOIN Profesor profDir ON pp.idDirector = profDir.idProfesor " +
-                    "LEFT JOIN Persona perDir ON profDir.idProfesor = perDir.idPersona " +
-                
-                    "LEFT JOIN Profesor profCo ON pp.idCodirector = profCo.idProfesor " +
-                    "LEFT JOIN Persona perCo ON profCo.idProfesor = perCo.idPersona " +
-                    "WHERE pc.idCoordinador = ? " +
-                    "ORDER BY p.idProyecto";
+        String sql = "SELECT idProyecto FROM ProyectosCoordinador WHERE idCoordinador = ?";
+        List<Integer> ids = new ArrayList<>();
 
         try (Connection conn = ConexionSQLite.getInstance();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-
             stmt.setInt(1, idCoordinador);
-
             try (ResultSet rs = stmt.executeQuery()) {
-                Map<Integer, FormatoA> mapProyectos = new HashMap<>();
-
-                while (rs.next()) {
-                    int idProyecto = rs.getInt("idProyecto");
-
-                    FormatoA proyecto = mapProyectos.get(idProyecto);
-                    if (proyecto == null) {
-                        proyecto = new FormatoA();
-                        proyecto.setIdProyecto(idProyecto);
-                        proyecto.setTitulo(rs.getString("titulo"));
-                        proyecto.setObjetivo(rs.getString("objetivo"));
-                        proyecto.setObjetivoEspecifico(rs.getString("objetivoEspecifico"));
-                        proyecto.setEstado(rs.getString("estado"));
-                        proyecto.setTipo(Tipo.valueOf(rs.getString("tipo")));
-                        proyecto.setFechaDeSubida(rs.getString("fechaDeSubida"));
-                        proyecto.setArchivoAdjunto(rs.getString("archivoAdjunto"));
-                        proyecto.setEstudiantes(new ArrayList<>());
-                        proyecto.setProfesores(new ArrayList<>());
-                        
-                        mapProyectos.put(idProyecto, proyecto);
-                    }
-
-                    int idEstudiante = rs.getInt("idEstudiante");
-                    if (idEstudiante != 0) {
-                        Estudiante est = new Estudiante();
-                        est.setId(idEstudiante);
-                        est.setNombre(rs.getString("nombreEstudiante"));
-                        proyecto.getEstudiantes().add(est);
-                    }
-                    
-                    int idDirector = rs.getInt("idDirector");
-                    if (idDirector != 0) {
-                        Profesor director = new Profesor();
-                        director.setId(idDirector);
-                        director.setNombre(rs.getString("nombreDirector"));
-                        proyecto.getProfesores().add(director);
-                    }
-
-                    int idCodirector = rs.getInt("idCodirector");
-                    if (idCodirector != 0) {
-                        Profesor codirector = new Profesor();
-                        codirector.setId(idCodirector);
-                        codirector.setNombre(rs.getString("nombreCodirector"));
-                        proyecto.getProfesores().add(codirector);
-                    }
-                }
-                proyectos.addAll(mapProyectos.values());
+                while (rs.next()) ids.add(rs.getInt("idProyecto"));
             }
-        }
+        } // <-- aquí se cierran conn/stmt/rs
 
-        return proyectos;
+        List<FormatoA> formatos = new ArrayList<>();
+        for (int idProyecto : ids) {
+            formatos.add(getProyecto(idProyecto)); // abre su propia conexión interna
+        }
+        return formatos;
     }
     @Override
     public List<FormatoA> getProyectosEstudiante(int idEstudiante) throws Exception {
-        List<FormatoA> proyectos = new ArrayList<>();
+        String sql = "SELECT idProyecto FROM ProyectosEstudiante WHERE idEstudiante = ?";
+        List<Integer> ids = new ArrayList<>();
 
+        try (Connection conn = ConexionSQLite.getInstance();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, idEstudiante);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) ids.add(rs.getInt("idProyecto"));
+            }
+        } // <-- aquí se cierran conn/stmt/rs
+
+        List<FormatoA> formatos = new ArrayList<>();
+        for (int idProyecto : ids) {
+            formatos.add(getProyecto(idProyecto)); // abre su propia conexión interna
+        }
+        return formatos;
+    }
+    public FormatoA getProyecto(int idProyecto) throws Exception {
+        FormatoA proyecto = null;
         String sql ="SELECT p.idProyecto, p.titulo, p.objetivo, p.objetivoEspecifico, " +
                     "p.estado, p.tipo, p.fechaDeSubida, p.archivoAdjunto, " +
                     "e.idEstudiante, per.nombre || ' ' || per.apellido AS nombreEstudiante, " +
@@ -365,21 +321,18 @@ public class ProyectoRepositorySQLite implements ProyectoRepository{
                 
                     "LEFT JOIN Profesor profCo ON pp.idCodirector = profCo.idProfesor " +
                     "LEFT JOIN Persona perCo ON profCo.idProfesor = perCo.idPersona " +
-                    "WHERE pe.idEstudiante = ? " +
+                    "WHERE pe.idProyecto = ? " +
                     "ORDER BY p.idProyecto";
 
         try (Connection conn = ConexionSQLite.getInstance();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setInt(1, idEstudiante);
-
+            PreparedStatement stmt = conn.prepareStatement(sql)) {
+            
+            stmt.setInt(1, idProyecto);
+            
             try (ResultSet rs = stmt.executeQuery()) {
-                Map<Integer, FormatoA> mapProyectos = new HashMap<>();
-
-                while (rs.next()) {
-                    int idProyecto = rs.getInt("idProyecto");
-
-                    FormatoA proyecto = mapProyectos.get(idProyecto);
+                Set<Integer> estAgregados  = new HashSet<>();
+                Set<Integer> profAgregados = new HashSet<>();
+                while(rs.next()){
                     if (proyecto == null) {
                         proyecto = new FormatoA();
                         proyecto.setIdProyecto(idProyecto);
@@ -392,20 +345,19 @@ public class ProyectoRepositorySQLite implements ProyectoRepository{
                         proyecto.setArchivoAdjunto(rs.getString("archivoAdjunto"));
                         proyecto.setEstudiantes(new ArrayList<>());
                         proyecto.setProfesores(new ArrayList<>());
-                        
-                        mapProyectos.put(idProyecto, proyecto);
-                    }
-
                     
-                    if (idEstudiante != 0) {
+                        
+                    }
+                    int idEst = rs.getInt("idEstudiante");
+                    if (idEst != 0 && estAgregados.add(idEst)) {
                         Estudiante est = new Estudiante();
-                        est.setId(idEstudiante);
+                        est.setId(idEst);
                         est.setNombre(rs.getString("nombreEstudiante"));
                         proyecto.getEstudiantes().add(est);
                     }
                     
                     int idDirector = rs.getInt("idDirector");
-                    if (idDirector != 0) {
+                    if (idDirector != 0 && profAgregados.add(idDirector)) {
                         Profesor director = new Profesor();
                         director.setId(idDirector);
                         director.setNombre(rs.getString("nombreDirector"));
@@ -413,19 +365,19 @@ public class ProyectoRepositorySQLite implements ProyectoRepository{
                     }
 
                     int idCodirector = rs.getInt("idCodirector");
-                    if (idCodirector != 0) {
+                    if (idCodirector != 0 && profAgregados.add(idDirector)) {
                         Profesor codirector = new Profesor();
                         codirector.setId(idCodirector);
                         codirector.setNombre(rs.getString("nombreCodirector"));
                         proyecto.getProfesores().add(codirector);
                     }
                 }
-                proyectos.addAll(mapProyectos.values());
             }
         }
 
-        return proyectos;
+        return proyecto;
     }
+
     @Override
     public boolean aceptarProyecto(int idProyecto, int idCoordinador, String comentario, String fecha) throws Exception {
         try (Connection conn = ConexionSQLite.getInstance()) {
