@@ -1,30 +1,33 @@
 package co.edu.unicauca.Vista;
 
-import co.edu.unicauca.Factorys.RepositoryFactory;
 import co.edu.unicauca.Models.Estudiante;
 import co.edu.unicauca.Models.FormatoA;
 import co.edu.unicauca.Models.Profesor;
-import co.edu.unicauca.Observer.Subject;
-import co.edu.unicauca.Repository.ProyectoRepository;
 import co.edu.unicauca.Services.ProyectoService;
 import co.edu.unicauca.main.Main;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 
-public class EvaluarFormatosA {
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 
+/**
+ *
+ * @author PixelBot Gaming
+ */
+public class EstudianteVerFormatoAController {
+    
     @FXML
     private Label textAreaObjetivoGeneral;
 
@@ -52,67 +55,14 @@ public class EvaluarFormatosA {
     @FXML
     private TextArea textAreaObservaciones;
     
-    private Button botonAceptarFormato,botonRechazarFormato;
     
     
     private FormatoA formato;
-    int idCoordinador;
-    Boolean bandera=false;
-    LocalDate hoy = LocalDate.now();
-    String fecha = hoy.format(DateTimeFormatter.ISO_DATE);
-    private ProyectoService proyectoService;
 
-    public void setProyectoService(ProyectoService proyectoService) {
-        this.proyectoService = proyectoService;
-    }
-    
-    @FXML
-    void aceptarFormato(ActionEvent event) {
-        try {
-            if(formato.getEstado().equals("ACPETADO")||formato.getEstado().equals("RECHAZADO"))
-            {
-                botonAceptarFormato.setVisible(false);
-                botonRechazarFormato.setVisible(false);
-            }else
-            {
-                bandera=proyectoService.aceptarProyecto(formato.getIdProyecto(), idCoordinador, textAreaObservaciones.getText(), fecha);
-            }
-            
-            System.out.println("Proyecto aceptado con comentario");
-            textAreaObservaciones.setText("");
-            if(bandera){
-                Main.goCoordinador();
-            }
-        }catch (Exception e) {
-           e.printStackTrace();
-        }
-    }
-    
-    @FXML
-    void rechazarFormato(ActionEvent event) {
-        try {
-            if(formato.getEstado().equals("ACPETADO")||formato.getEstado().equals("RECHAZADO"))
-            {
-                botonAceptarFormato.setVisible(false);
-                botonRechazarFormato.setVisible(false);
-            }else
-            {
-                 bandera=proyectoService.rechazarProyecto(formato, idCoordinador, textAreaObservaciones.getText(),fecha);
-            }
-           
-            System.out.println("Proyecto rechazado con comentario");
-            textAreaObservaciones.setText("");
-            if(bandera){
-                Main.goCoordinador();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     @FXML
     void salir(ActionEvent event) {
-        Main.goCoordinador();
+        Main.goEstudianteFormatos();
     }
 
     @FXML
@@ -137,9 +87,9 @@ public class EvaluarFormatosA {
 
 
     
-    public void setFormato(FormatoA formato, int idCoordinador) {
+    public void setFormato(FormatoA formato) {
         this.formato = formato;
-        this.idCoordinador=idCoordinador;
+        
 
         textFieldTituloProyecto.setText(formato.getTitulo());
         textFieldModalidad.setText(formato.getTipo().name());
@@ -154,7 +104,5 @@ public class EvaluarFormatosA {
         if (ests.size() > 1) textFieldEstudiante1.setText(ests.get(1).getNombre());
   
     }
-
-
 
 }

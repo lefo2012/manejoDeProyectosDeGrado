@@ -344,7 +344,88 @@ public class ProyectoRepositorySQLite implements ProyectoRepository{
 
         return proyectos;
     }
-    
+    @Override
+    public List<FormatoA> getProyectosEstudiante(int idEstudiante) throws Exception {
+        List<FormatoA> proyectos = new ArrayList<>();
+
+        String sql ="SELECT p.idProyecto, p.titulo, p.objetivo, p.objetivoEspecifico, " +
+                    "p.estado, p.tipo, p.fechaDeSubida, p.archivoAdjunto, " +
+                    "e.idEstudiante, per.nombre || ' ' || per.apellido AS nombreEstudiante, " +
+                    "pp.idDirector, perDir.nombre || ' ' || perDir.apellido AS nombreDirector, " +
+                    "pp.idCodirector, perCo.nombre || ' ' || perCo.apellido AS nombreCodirector " +
+                    "FROM Proyecto p " +
+                    "INNER JOIN ProyectosCoordinador pc ON p.idProyecto = pc.idProyecto " +
+                    "LEFT JOIN ProyectosEstudiante pe ON p.idProyecto = pe.idProyecto " +
+                    "LEFT JOIN Estudiante e ON pe.idEstudiante = e.idEstudiante " +
+                    "LEFT JOIN Persona per ON e.idEstudiante = per.idPersona " +
+                
+                    "LEFT JOIN ProyectosProfesor pp ON p.idProyecto = pp.idProyecto " +
+                    "LEFT JOIN Profesor profDir ON pp.idDirector = profDir.idProfesor " +
+                    "LEFT JOIN Persona perDir ON profDir.idProfesor = perDir.idPersona " +
+                
+                    "LEFT JOIN Profesor profCo ON pp.idCodirector = profCo.idProfesor " +
+                    "LEFT JOIN Persona perCo ON profCo.idProfesor = perCo.idPersona " +
+                    "WHERE pe.idEstudiante = ? " +
+                    "ORDER BY p.idProyecto";
+
+        try (Connection conn = ConexionSQLite.getInstance();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, idEstudiante);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                Map<Integer, FormatoA> mapProyectos = new HashMap<>();
+
+                while (rs.next()) {
+                    int idProyecto = rs.getInt("idProyecto");
+
+                    FormatoA proyecto = mapProyectos.get(idProyecto);
+                    if (proyecto == null) {
+                        proyecto = new FormatoA();
+                        proyecto.setIdProyecto(idProyecto);
+                        proyecto.setTitulo(rs.getString("titulo"));
+                        proyecto.setObjetivo(rs.getString("objetivo"));
+                        proyecto.setObjetivoEspecifico(rs.getString("objetivoEspecifico"));
+                        proyecto.setEstado(rs.getString("estado"));
+                        proyecto.setTipo(Tipo.valueOf(rs.getString("tipo")));
+                        proyecto.setFechaDeSubida(rs.getString("fechaDeSubida"));
+                        proyecto.setArchivoAdjunto(rs.getString("archivoAdjunto"));
+                        proyecto.setEstudiantes(new ArrayList<>());
+                        proyecto.setProfesores(new ArrayList<>());
+                        
+                        mapProyectos.put(idProyecto, proyecto);
+                    }
+
+                    
+                    if (idEstudiante != 0) {
+                        Estudiante est = new Estudiante();
+                        est.setId(idEstudiante);
+                        est.setNombre(rs.getString("nombreEstudiante"));
+                        proyecto.getEstudiantes().add(est);
+                    }
+                    
+                    int idDirector = rs.getInt("idDirector");
+                    if (idDirector != 0) {
+                        Profesor director = new Profesor();
+                        director.setId(idDirector);
+                        director.setNombre(rs.getString("nombreDirector"));
+                        proyecto.getProfesores().add(director);
+                    }
+
+                    int idCodirector = rs.getInt("idCodirector");
+                    if (idCodirector != 0) {
+                        Profesor codirector = new Profesor();
+                        codirector.setId(idCodirector);
+                        codirector.setNombre(rs.getString("nombreCodirector"));
+                        proyecto.getProfesores().add(codirector);
+                    }
+                }
+                proyectos.addAll(mapProyectos.values());
+            }
+        }
+
+        return proyectos;
+    }
     @Override
     public boolean aceptarProyecto(int idProyecto, int idCoordinador, String comentario, String fecha) throws Exception {
         try (Connection conn = ConexionSQLite.getInstance()) {

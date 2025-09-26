@@ -28,6 +28,11 @@ public class ProyectoService extends Subject {
     public List<FormatoA> obtenerProyectosCoordinador(int idCoordinador) throws Exception{
         return  proyectoRepository.getProyectosCoordinador(idCoordinador);
     }
+    public List<FormatoA> obtenerProyectosEstudiante(int idEstudiante) throws Exception
+    {
+        return proyectoRepository.getProyectosEstudiante(idEstudiante);
+    
+    }
     public boolean aceptarProyecto(int idProyecto, int idCoordinador, String comentario, String fecha) throws Exception{
         bandera=proyectoRepository.aceptarProyecto(idProyecto, idCoordinador, comentario,fecha);
         System.out.println("[ProyectoService] Proyecto aceptado, notificando observers...");
