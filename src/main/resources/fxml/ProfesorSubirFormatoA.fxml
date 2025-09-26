@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: radial-gradient(center 50% 50%,radius 200%, #001282,black);" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.unicauca.Vista.ProfesorSubirFormatoA">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: radial-gradient(center 50% 50%,radius 200%, #001282,black);" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.unicauca.Vista.ProfesorSubirFormatoAController">
    <children>
       <Pane layoutX="428.0" layoutY="142.0" prefHeight="1080.0" prefWidth="150.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -23,16 +23,13 @@
                   <Image url="@../imagenes/logoUnicaucaVertical.png" />
                </image>
             </ImageView>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" height="100.0" layoutY="215.0" opacity="0.1" stroke="BLACK" strokeType="INSIDE" width="150.0" />
-            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="50.0" layoutY="240.0">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" height="100.0" layoutY="315.0" opacity="0.1" stroke="BLACK" strokeType="INSIDE" width="150.0" />
+            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="50.0" layoutY="340.0">
                <image>
                   <Image url="@../imagenes/archivo.png" />
                </image>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
             </ImageView>
-            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="50.0" layoutY="340.0">
+            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="50.0" layoutY="240.0">
                <image>
                   <Image url="@../imagenes/folder.png" />
                </image>
@@ -40,7 +37,7 @@
                   <Cursor fx:constant="DEFAULT" />
                </cursor>
             </ImageView>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="50.0" layoutY="340.0" onMouseClicked="#goProfesorFormatos" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="150.0">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="50.0" layoutY="240.0" onMouseClicked="#goProfesorFormatos" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="150.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Rectangle>
@@ -58,7 +55,7 @@
                </cursor></Rectangle>
          </children>
       </Pane>
-      <Pane fx:id="PanelSubirFormatoA" layoutX="199.0" layoutY="40.0" prefHeight="1000.0" prefWidth="1650.0" style="-fx-background-color: white; visibility: true;">
+      <Pane fx:id="PanelSubirFormatoA" layoutX="210.0" layoutY="40.0" prefHeight="1000.0" prefWidth="1650.0" style="-fx-background-color: white; visibility: true;">
          <children>
             <Pane layoutX="110.0" layoutY="65.0" prefHeight="850.0" prefWidth="650.0" style="-fx-border-color: black;">
                <children>
@@ -71,7 +68,11 @@
                   <TextField fx:id="textFieldCoodirector" layoutX="125.0" layoutY="165.0" prefHeight="40.0" prefWidth="400.0" promptText="CODIRECTOR DE PROYECTO" style="-fx-border-color: gray; -fx-alignment: center;" />
                   <TextField fx:id="textFieldEstudiante" layoutX="125.0" layoutY="245.0" prefHeight="40.0" prefWidth="400.0" promptText="ESTUDIANTE*" style="-fx-border-color: gray; -fx-alignment: center;" />
                   <TextField fx:id="textFieldEstudiante1" layoutX="125.0" layoutY="325.0" prefHeight="40.0" prefWidth="400.0" promptText="ESTUDIANTE" style="-fx-border-color: gray; -fx-alignment: center;" />
+                  <TextArea fx:id="textAreaObjetivosEspecificos" layoutX="125.0" layoutY="675.0" prefHeight="150.0" prefWidth="400.0" promptText="Objetivos especificos" style="-fx-border-color: gray; -fx-alignment: center;" />
+
+                  <TextArea fx:id="textAreaObjetivoGeneral" layoutX="125.0" layoutY="485.0" prefHeight="150.0" prefWidth="400.0" style="-fx-border-color: gray; -fx-alignment: center;" />
                   <TextArea fx:id="textAreaObjetivosEspecificos" layoutX="125.0" layoutY="675.0" prefHeight="150.0" prefWidth="400.0" style="-fx-border-color: gray; -fx-alignment: center;" />
+
                   <Text layoutX="125.0" layoutY="390.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-text-alignment: CENTER;" text="Modalidad">
                      <font>
                         <Font size="10.0" />
@@ -108,7 +109,8 @@
                         <Font size="10.0" />
                      </font>
                   </Text>
-                  <TextArea fx:id="textAreaObjetivoGeneral" layoutX="125.0" layoutY="485.0" prefHeight="150.0" prefWidth="400.0" style="-fx-border-color: gray; -fx-alignment: center;" />
+                  <TextArea fx:id="textAreaObjetivoGeneral" layoutX="125.0" layoutY="485.0" prefHeight="150.0" prefWidth="400.0" promptText="Objetivo general" style="-fx-border-color: gray; -fx-alignment: center;" />
+
                </children>
             </Pane>
             <Pane layoutX="980.0" layoutY="225.0" prefHeight="550.0" prefWidth="450.0" style="-fx-border-color: black; -fx-border-radius: 30;">

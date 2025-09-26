@@ -2,6 +2,7 @@ package co.edu.unicauca.Vista;
 
 
 import co.edu.unicauca.Models.Coordinador;
+import co.edu.unicauca.Models.Estudiante;
 import co.edu.unicauca.Models.Persona;
 import co.edu.unicauca.Models.Profesor;
 import co.edu.unicauca.Services.PersonaService;
@@ -56,9 +57,13 @@ public class UserLoginController {
             {
                 Main.goProfesor();
             }
-            if(persona instanceof Coordinador)
+            else if(persona instanceof Coordinador)
             {
-               Main.setRoot("FormatosCoordinador");
+               Main.goCoordinador();
+            }
+            else if(persona instanceof Estudiante)
+            {
+                Main.goEstudianteFormatos();
             }
             
         }

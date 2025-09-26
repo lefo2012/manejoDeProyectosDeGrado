@@ -20,3 +20,18 @@
   -fx-background-color: rgba(0,0,0,0.25);
   -fx-background-radius: 6;
 }
+
+.table-view {
+    -fx-background-color: white;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: white;
+}
+
+.table-view .filler {
+    -fx-background-color: white;
+}
+.table-row-cell:empty {
+    -fx-background-color: white;
+}

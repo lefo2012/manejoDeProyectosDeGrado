@@ -1,6 +1,5 @@
 package co.edu.unicauca.Models;
 
-import co.edu.unicauca.Models.Departamento;
 /**
  *
  * @author LEFO

@@ -7,7 +7,6 @@ import co.edu.unicauca.Builders.InvestigacionBuilder;
 import co.edu.unicauca.Builders.PracticaBuilder;
 import co.edu.unicauca.Factorys.RepositoryFactory;
 import co.edu.unicauca.Models.Estudiante;
-import co.edu.unicauca.Models.FormatoA;
 import co.edu.unicauca.Models.Profesor;
 import co.edu.unicauca.Observer.Observer;
 import co.edu.unicauca.Repository.ProyectoRepository;
@@ -15,7 +14,6 @@ import co.edu.unicauca.Services.PersonaService;
 import co.edu.unicauca.Services.ProyectoService;
 import co.edu.unicauca.Util.ArchivosProyecto;
 import co.edu.unicauca.Util.Tipo;
-import co.edu.unicauca.Util.Validador;
 import co.edu.unicauca.main.Main;
 
 import java.io.File;
@@ -44,7 +42,7 @@ import javafx.util.Duration;
  * 
  * @author LEFO
  */
-public class ProfesorSubirFormatoA implements Observer{
+public class ProfesorSubirFormatoAController implements Observer{
     @FXML
     Button botonSubirArchivo;
     @FXML
@@ -93,6 +91,7 @@ public class ProfesorSubirFormatoA implements Observer{
         Estudiante estudiante2 = null;
         Profesor coodirector = null;
         String nombreNuevoArchivo=null;
+        String pathArchivo=null;
         Director director = new Director();
         if(comboBoxModalidad.getValue().equals(Tipo.Investigacion))
         {
@@ -106,13 +105,13 @@ public class ProfesorSubirFormatoA implements Observer{
         ProyectoService proyectoService = new ProyectoService(repositoryFactory.getInstance("SQLite"));
         LocalDate hoy = LocalDate.now();
         String fecha = hoy.format(DateTimeFormatter.ISO_DATE);
-        if(textFieldTituloProyecto.getText()=="")
+        if(textFieldTituloProyecto.getText().isEmpty())
         {
             textFieldTituloProyecto.setStyle("-fx-prompt-text-fill: red;-fx-alignment: center;");
             
             bandera = false;
         }
-        if(textFieldEstudiante.getText() == "" && bandera)
+        if(textFieldEstudiante.getText().isEmpty() && bandera)
         {
             textFieldEstudiante.setStyle("-fx-prompt-text-fill: red;-fx-alignment: center;");
             
@@ -123,49 +122,52 @@ public class ProfesorSubirFormatoA implements Observer{
             estudiante1 = new Estudiante();
             estudiante1.setCorreoElectronico(textFieldEstudiante.getText().toLowerCase());
         }
-        if(textAreaObjetivoGeneral.getText()=="" && bandera)
+        if(textAreaObjetivoGeneral.getText().isEmpty() && bandera)
         {
             textAreaObjetivoGeneral.setStyle("-fx-prompt-text-fill: red;-fx-alignment: center;");
             bandera=false;
         }
-        if(textAreaObjetivosEspecificos.getText()=="" && bandera)
+        if(textAreaObjetivosEspecificos.getText().isEmpty() && bandera)
         {
             textAreaObjetivosEspecificos.setStyle("-fx-prompt-text-fill: red;-fx-alignment: center;");
             bandera=false;
         }
-        if(textFieldEstudiante1.getText() != "" && bandera)
+        if(!textFieldEstudiante1.getText().isEmpty() && bandera)
         {
             estudiante2 = new Estudiante();
             
             estudiante2.setCorreoElectronico(textFieldEstudiante1.getText().toLowerCase());
         }
         
-        if(textFieldCoodirector.getText()!="" && bandera)
+        if(!textFieldCoodirector.getText().isEmpty() && bandera)
         {
             coodirector = new Profesor();
             
             coodirector.setCorreoElectronico(textFieldCoodirector.getText().toLowerCase());
         }
-        if(bandera)
-        {
-            if(archivo!=null)
+        if(archivo!=null)
             {
+                 
                 nombreNuevoArchivo = profesor.getId()+estudiante1.getCorreoElectronico();
-                nombreNuevoArchivo=ArchivosProyecto.guardarArchivoEnProyecto(archivo, nombreNuevoArchivo, "src/main/resources/documentos");
+                pathArchivo=ArchivosProyecto.verificarNombreArchivo(nombreNuevoArchivo, "src/main/resources/documentos");
             }
-            
+        if(bandera)
+        {    
+
             try{
-            director.build(textFieldTituloProyecto.getText(), this.profesor, coodirector, fecha, textAreaObjetivoGeneral.getText(), textAreaObjetivosEspecificos.getText(), estudiante1, estudiante2, comboBoxModalidad.getValue(),nombreNuevoArchivo);
-            proyectoService.subirFormato(director.getObject());
-            informacionOk();
-            archivo = null;
-            imagenArchivoPlano.setVisible(true);
-            imagenPdf.setVisible(false);
-            textNombreArchivo.setText("Agrega un archivo PDF de maximo 20MB");
-            vaciarCampos();
+
+                director.build(textFieldTituloProyecto.getText(), this.profesor, coodirector, fecha, textAreaObjetivoGeneral.getText(), textAreaObjetivosEspecificos.getText(), estudiante1, estudiante2, comboBoxModalidad.getValue(),pathArchivo);
+                proyectoService.subirFormato(director.getObject());
+                if(archivo!=null){
+                   ArchivosProyecto.guardarArchivoEnProyecto(archivo, nombreNuevoArchivo, "src/main/resources/documentos"); 
+                }  
+                informacionOk();
+                vaciarCampos();
             }catch(Exception e)
             {
+                
                 advertencia.setText(e.getMessage());
+                e.printStackTrace();
             }
             
         }
@@ -180,6 +182,11 @@ public class ProfesorSubirFormatoA implements Observer{
         textFieldCoodirector.setText("");
         textFieldEstudiante.setText("");
         textFieldEstudiante1.setText("");
+        imagenArchivoPlano.setVisible(true);
+        imagenPdf.setVisible(false);
+        textNombreArchivo.setText("Agrega un archivo PDF de maximo 20MB");
+        advertencia.setText("");
+        archivo = null;
     }
     public void informacionOk()
     {
@@ -227,7 +234,7 @@ public class ProfesorSubirFormatoA implements Observer{
         
         File archivo = fc.showOpenDialog(botonSubirArchivo.getScene().getWindow());
         
-        if (!Validador.validarArchivo(archivo)){
+        if (!ArchivosProyecto.validarArchivo(archivo)){
             
             System.out.println("El archivo elegido no cumple con los parametros requeridos");
         }else

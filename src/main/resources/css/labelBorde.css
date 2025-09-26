@@ -1,0 +1,13 @@
+
+.label-linea-normal {
+    -fx-border-color: transparent transparent black transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-style: solid;
+}
+
+
+.label-linea-discontinua {
+    -fx-border-color: transparent transparent black transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-style: dashed;
+}

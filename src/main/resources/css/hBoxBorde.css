@@ -1,0 +1,4 @@
+.hbox-borde {
+    -fx-border-color: transparent transparent black transparent;
+    -fx-border-width: 0 0 1 0; 
+}

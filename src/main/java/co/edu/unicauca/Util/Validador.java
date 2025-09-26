@@ -1,6 +1,5 @@
 package co.edu.unicauca.Util;
 
-import java.io.File;
 import java.util.regex.Pattern;
 /**
  *
@@ -46,26 +45,5 @@ public class Validador {
     private static boolean tieneDigito(String contrasenia) {
         return Pattern.compile("[0-9]").matcher(contrasenia).find();
     }
-    public static boolean validarArchivo(File archivoAValidar)
-    {
 
-       if (archivoAValidar == null || !archivoAValidar.exists() || !archivoAValidar.isFile()) {
-           return false;
-       }
-       
-       String nombreArchivo = archivoAValidar.getName().toLowerCase();
-       if (!nombreArchivo.endsWith(".pdf")) {
-           return false;
-       }
-       
-       
-       long tamañoMaximo = 20 * 1024 * 1024;
-       long tamañoArchivo = archivoAValidar.length();
-       
-       if (tamañoArchivo > tamañoMaximo) {
-           return false;
-       }
-       return true;
-       
-    }
 }

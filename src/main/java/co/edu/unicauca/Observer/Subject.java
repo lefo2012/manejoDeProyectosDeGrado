@@ -6,8 +6,8 @@ public abstract class Subject {
 
     ArrayList<Observer> observers;
 
-    public void Subject() {
-
+     public Subject() {
+        this.observers = new ArrayList<>();
     }
 
     /**
