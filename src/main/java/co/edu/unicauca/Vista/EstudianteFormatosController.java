@@ -53,6 +53,11 @@ public class EstudianteFormatosController implements Observer{
     }
     
     public void actualizarFormatos(){
+        if(estudiante == null)
+        {
+        
+            return;
+        }
         RepositoryFactory<ProyectoRepository> repositoryProgramaFactory = new RepositoryFactory(ProyectoRepository.class);
         ProyectoService proyectoService = new ProyectoService(repositoryProgramaFactory.getInstance("SQLite"));
             

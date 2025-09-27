@@ -58,8 +58,12 @@ public class ProfesorSubirFormatoAController implements Observer{
     @FXML
     TextArea textAreaObjetivosEspecificos,textAreaObjetivoGeneral;
     Profesor profesor=null;
-    
+    ProyectoService proyectoService;
     File archivo;
+
+    public void setProyectoService(ProyectoService proyectoService) {
+        this.proyectoService = proyectoService;
+    }
     
     
     
@@ -101,8 +105,6 @@ public class ProfesorSubirFormatoAController implements Observer{
             director.SetBuilder(new PracticaBuilder());
         }
         
-        RepositoryFactory<ProyectoRepository> repositoryFactory = new RepositoryFactory(ProyectoRepository.class);
-        ProyectoService proyectoService = new ProyectoService(repositoryFactory.getInstance("SQLite"));
         LocalDate hoy = LocalDate.now();
         String fecha = hoy.format(DateTimeFormatter.ISO_DATE);
         if(textFieldTituloProyecto.getText().isEmpty())

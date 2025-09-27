@@ -21,7 +21,13 @@ public class ProyectoService extends Subject {
     {
         //HAY QUE VALIDAR LOS FORMATOS
         proyectoRepository.consultarPosibilidad(formato);
-        return proyectoRepository.save(formato);
+        
+        var bandera = proyectoRepository.save(formato);
+        if(bandera)
+        {
+            this.notifyAllObserves();
+        }
+        return bandera;
     }
     public boolean consultarPosibilidad(FormatoA formato) throws Exception
     {

@@ -73,6 +73,7 @@ public class Main extends Application {
         profesorSubirFormatoRoot = loader.load();          
         profesorSubirFormatoCrtl = loader.getController();
         personaService.addObserver(profesorSubirFormatoCrtl);
+        profesorSubirFormatoCrtl.setProyectoService(proyectoService);
         
         
         loader = new FXMLLoader(Main.class.getResource("/fxml/CoordinadorFormatos.fxml"));
