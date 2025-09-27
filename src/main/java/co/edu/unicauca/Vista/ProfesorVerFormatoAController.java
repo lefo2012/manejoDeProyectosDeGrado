@@ -1,3 +1,7 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package co.edu.unicauca.Vista;
 
 import co.edu.unicauca.Models.Estudiante;
@@ -17,8 +21,7 @@ import javafx.scene.control.TextArea;
  *
  * @author LEFO
  */
-public class EstudianteVerFormatoAController {
-    
+public class ProfesorVerFormatoAController {
     @FXML
     private Label textAreaObjetivoGeneral;
 
@@ -53,7 +56,7 @@ public class EstudianteVerFormatoAController {
 
     @FXML
     void salir(ActionEvent event) {
-        Main.goEstudianteFormatos();
+        Main.goProfesorFormatos();
     }
 
     @FXML
@@ -93,5 +96,4 @@ public class EstudianteVerFormatoAController {
         if (ests.size() > 1) textFieldEstudiante1.setText(ests.get(1).getNombre());
   
     }
-
 }

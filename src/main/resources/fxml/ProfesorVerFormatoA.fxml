@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: radial-gradient(center 50% 50%,radius 200%, #001282,black);" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.unicauca.Vista.ProfesorVerFormatoAController">
+   <children>
+      <Pane layoutX="428.0" layoutY="142.0" prefHeight="1080.0" prefWidth="150.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ImageView fitHeight="200.0" fitWidth="130.0" layoutX="10.0">
+               <image>
+                  <Image url="@../imagenes/logoUnicaucaVertical.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="50.0" layoutY="240.0">
+               <image>
+                  <Image url="@../imagenes/folder.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="50.0" layoutY="340.0">
+               <image>
+                  <Image url="@../imagenes/bell.png" />
+               </image>
+            </ImageView>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" height="100.0" layoutY="215.0" opacity="0.1" stroke="BLACK" strokeType="INSIDE" width="150.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Rectangle>
+            <Button fx:id="botonSalir" layoutX="25.0" layoutY="1000.0" mnemonicParsing="false" onAction="#salir" prefHeight="30.0" prefWidth="100.0" style="-fx-background-radius: 10px; -fx-background-color: #9F0E13;" stylesheets="@../css/sombraBoton.css" text="Cerrar sesion" textFill="WHITE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <styleClass>
+                  <String fx:value="btn-hover-shadow" />
+                  <String fx:value="btn-hover-scale" />
+               </styleClass>
+            </Button>
+         </children>
+      </Pane>
+      <Pane fx:id="PanelSubirFormatoA" layoutX="210.0" layoutY="40.0" prefHeight="1000.0" prefWidth="1650.0" style="-fx-background-color: white; visibility: true;">
+         <children>
+            <Pane layoutX="110.0" layoutY="65.0" prefHeight="883.0" prefWidth="650.0" style="-fx-border-color: black;">
+               <children>
+                  <Text layoutX="126.0" layoutY="413.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-text-alignment: CENTER;" text="Modalidad">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="126.0" layoutY="683.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-text-alignment: CENTER;" text="Objetivos especificos">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="126.0" layoutY="333.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-text-alignment: CENTER;" text="Estudiante:">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="126.0" layoutY="253.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-text-alignment: CENTER;" text="Estudiante :">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="126.0" layoutY="493.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-text-alignment: CENTER;" text="Objetivo general">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="125.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-text-alignment: CENTER;" text="Director del proyecto">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="125.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-text-alignment: CENTER;" text="Titulo de proyecto">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="126.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-text-alignment: CENTER;" text="Codirector de proyecto">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Text>
+                  <Label fx:id="textFieldTituloProyecto" alignment="CENTER" layoutX="125.0" layoutY="31.0" prefHeight="40.0" prefWidth="400.0" style="-fx-border-color: gray;" />
+                  <Label fx:id="textFieldDirector" alignment="CENTER" layoutX="126.0" layoutY="110.0" prefHeight="40.0" prefWidth="400.0" style="-fx-border-color: gray;" />
+                  <Label fx:id="textFieldCodirector" alignment="CENTER" layoutX="126.0" layoutY="189.0" prefHeight="40.0" prefWidth="400.0" style="-fx-border-color: gray;" />
+                  <Label fx:id="textFieldEstudiante" alignment="CENTER" layoutX="126.0" layoutY="268.0" prefHeight="40.0" prefWidth="400.0" style="-fx-border-color: gray;" />
+                  <Label fx:id="textFieldEstudiante1" alignment="CENTER" layoutX="126.0" layoutY="348.0" prefHeight="40.0" prefWidth="400.0" style="-fx-border-color: gray;" />
+                  <Label fx:id="textFieldModalidad" alignment="CENTER" layoutX="126.0" layoutY="428.0" prefHeight="40.0" prefWidth="400.0" style="-fx-border-color: gray;" />
+                  <Label fx:id="textAreaObjetivoGeneral" alignment="TOP_LEFT" layoutX="126.0" layoutY="508.0" prefHeight="150.0" prefWidth="400.0" style="-fx-border-color: gray;" />
+                  <Label fx:id="textAreaObjetivosEspecificos" alignment="TOP_LEFT" layoutX="126.0" layoutY="698.0" prefHeight="150.0" prefWidth="400.0" style="-fx-border-color: gray;" />
+               </children>
+            </Pane>
+            <Pane layoutX="981.0" layoutY="101.0" prefHeight="854.0" prefWidth="455.0" style="-fx-border-radius: 30;">
+               <children>
+                  <ImageView fx:id="imagenPdf" fitHeight="200.0" fitWidth="200.0" layoutY="-71.0" x="125.0" y="175.0">
+                     <image>
+                        <Image url="@../imagenes/expediente.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="botonVerArchivo" layoutX="168.0" layoutY="316.0" mnemonicParsing="false" onAction="#verDocumento" prefHeight="47.0" prefWidth="118.0" style="-fx-background-color: #1B21D4; -fx-background-radius: 30px;" stylesheets="@../css/sombraBoton.css" text="Ver documento" textFill="WHITE">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <styleClass>
+                        <String fx:value="btn-hover-scale" />
+                        <String fx:value="btn-hover-shadow" />
+                     </styleClass>
+                  </Button>
+                  <Text layoutX="28.0" layoutY="403.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-text-alignment: CENTER;" text="Observaciones">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Text>
+                  <Label fx:id="labelObservaciones" layoutX="15.0" layoutY="423.0" prefHeight="188.0" prefWidth="418.0" style="-fx-border-color: gray;" />
+               </children>
+            </Pane>
+            <Text fx:id="advertencia" fill="RED" layoutX="1007.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="396.1029052734375">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+         </children>
+      </Pane>
+      <Pane fx:id="panelInformacion" layoutX="64.0" layoutY="38.0" opacity="0.2" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: black; visibility: false;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <Pane fx:id="panelInformacionOk" layoutX="710.0" layoutY="415.0" prefHeight="250.0" prefWidth="500.0" style="-fx-background-color: white; visibility: false;">
+         <children>
+            <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="201.0" layoutY="131.0">
+               <image>
+                  <Image url="@../imagenes/check-gif.gif" />
+               </image>
+            </ImageView>
+            <Text layoutX="54.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Formato A subido con exito">
+               <font>
+                  <Font size="32.0" />
+               </font>
+            </Text>
+         </children>
+      </Pane>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-text-alignment: CENTER;" text="Observaciones">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

@@ -15,9 +15,8 @@ import javafx.scene.control.Label;
  *
  * @author LEFO
  */
-public class EstudianteDatosFormatoController {
+public class ProfesorDatosFormatoController {
     
-
     @FXML
     private Label lblEstado;
 
@@ -69,13 +68,12 @@ public class EstudianteDatosFormatoController {
             case "en revisión" -> lblEstado.getStyleClass().add("label-revision");
             case "aprobado" -> lblEstado.getStyleClass().add("label-aprobado");
             case "rechazado" -> lblEstado.getStyleClass().add("label-rechazado");
-            default -> {} // sin estilo extra
+            default -> {} 
         }
     }
     
     
     public void verDetalles() throws IOException{
-        Main.goVerFormatoA(formatoSeleccionado);
+        Main.goVerFormatoAProfesor(formatoSeleccionado);
     }
-    
 }

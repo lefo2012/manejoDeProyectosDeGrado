@@ -35,6 +35,12 @@ public class ProyectoService extends Subject {
         return proyectoRepository.getProyectosEstudiante(idEstudiante);
     
     }
+    public List<FormatoA> obtenerProyectosProfesor(int idProfesor) throws Exception
+    {
+    
+        return proyectoRepository.getProyectosProfesor(idProfesor);
+    
+    }
     public boolean aceptarProyecto(int idProyecto, int idCoordinador, String comentario, String fecha) throws Exception{
         bandera=proyectoRepository.aceptarProyecto(idProyecto, idCoordinador, comentario,fecha);
         System.out.println("[ProyectoService] Proyecto aceptado, notificando observers...");
@@ -55,4 +61,6 @@ public class ProyectoService extends Subject {
             return true;
         return false;
     }
+
+    
 }

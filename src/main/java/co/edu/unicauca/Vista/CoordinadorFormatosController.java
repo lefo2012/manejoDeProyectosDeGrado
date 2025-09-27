@@ -19,7 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class CoordinadorFormatos implements Initializable, Observer{
+public class CoordinadorFormatosController implements Initializable, Observer{
     @FXML
     private VBox contactsLayout;
     private Coordinador coordinador=null;

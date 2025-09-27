@@ -11,8 +11,10 @@ import co.edu.unicauca.Services.ProyectoService;
 import co.edu.unicauca.Vista.EstudianteFormatosController;
 import co.edu.unicauca.Vista.EstudianteVerFormatoAController;
 import co.edu.unicauca.Vista.CoordinadorEvaluarFormatosAController;
-import co.edu.unicauca.Vista.CoordinadorFormatos;
+import co.edu.unicauca.Vista.CoordinadorFormatosController;
+import co.edu.unicauca.Vista.ProfesorFormatosController;
 import co.edu.unicauca.Vista.ProfesorSubirFormatoAController;
+import co.edu.unicauca.Vista.ProfesorVerFormatoAController;
 import co.edu.unicauca.Vista.UserLoginController;
 import java.io.IOException;
 import javafx.application.Application;
@@ -31,6 +33,7 @@ public class Main extends Application {
     private static Parent registerRoot;
 
     private static Parent profesorFormatosRoot;
+    private static Parent profesorVerFormatoA;
     
     private static Parent cordinadorEvaluarRoot;
     private static Parent cordinadorRoot;
@@ -39,10 +42,12 @@ public class Main extends Application {
     private static Parent estudianteVerFormatoA;
     
     private ProfesorSubirFormatoAController profesorSubirFormatoCrtl;
-    private CoordinadorFormatos coordinadorController;
+    private CoordinadorFormatosController coordinadorController;
     private static CoordinadorEvaluarFormatosAController coordinadorEvaluar;
     private static EstudianteFormatosController estudianteController;
     private static EstudianteVerFormatoAController estudianteVerFormatoAController;
+    private static ProfesorVerFormatoAController profesorVerFormatoAController;
+    private static ProfesorFormatosController profesorFormatosController;
     
     public static Parent getProfesorRoot() {
         return profesorRoot;
@@ -92,6 +97,10 @@ public class Main extends Application {
 
         loader = new FXMLLoader(Main.class.getResource("/fxml/ProfesorFormatos.fxml"));
         profesorFormatosRoot = loader.load();  
+        profesorFormatosController = loader.getController( );
+        personaService.addObserver(profesorFormatosController);
+        proyectoService.addObserver(profesorFormatosController);
+        
         
         loader = new FXMLLoader(Main.class.getResource("/fxml/EstudianteFormatos.fxml"));
         estudianteFormatos = loader.load();  
@@ -103,7 +112,9 @@ public class Main extends Application {
         estudianteVerFormatoA = loader.load();
         estudianteVerFormatoAController = loader.getController();
         
-        
+        loader = new FXMLLoader(Main.class.getResource("/fxml/ProfesorVerFormatoA.fxml"));
+        profesorVerFormatoA = loader.load();
+        profesorVerFormatoAController = loader.getController();
         
         scene.setRoot(loginRoot);
 
@@ -128,7 +139,7 @@ public class Main extends Application {
     {
         scene.setRoot(registerRoot);
     }
-    public static void goFormatosProfesor()
+    public static void goProfesorFormatos()
     {
         scene.setRoot(profesorFormatosRoot);
     }
@@ -147,6 +158,11 @@ public class Main extends Application {
     {
         estudianteVerFormatoAController.setFormato(formato);
         scene.setRoot(estudianteVerFormatoA);
+    }
+    public static void goVerFormatoAProfesor(FormatoA formato)
+    {
+        profesorVerFormatoAController.setFormato(formato);
+        scene.setRoot(profesorVerFormatoA);
     }
     public static void goEstudianteFormatos()
     {

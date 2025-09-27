@@ -300,6 +300,25 @@ public class ProyectoRepositorySQLite implements ProyectoRepository{
         }
         return formatos;
     }
+    @Override
+    public List<FormatoA> getProyectosProfesor(int idProfesor) throws Exception {
+        String sql = "SELECT idProyecto FROM ProyectosProfesor WHERE idDirector = ?";
+        List<Integer> ids = new ArrayList<>();
+
+        try (Connection conn = ConexionSQLite.getInstance();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, idProfesor);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) ids.add(rs.getInt("idProyecto"));
+            }
+        } 
+
+        List<FormatoA> formatos = new ArrayList<>();
+        for (int idProyecto : ids) {
+            formatos.add(getProyecto(idProyecto)); 
+        }
+        return formatos;
+    }
     public FormatoA getProyecto(int idProyecto) throws Exception {
         FormatoA proyecto = null;
         String sql ="SELECT p.idProyecto, p.titulo, p.objetivo, p.objetivoEspecifico, " +
@@ -466,4 +485,6 @@ public class ProyectoRepositorySQLite implements ProyectoRepository{
 
         return comentario;
     }
+
+    
 }

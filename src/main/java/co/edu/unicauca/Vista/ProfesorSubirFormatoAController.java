@@ -248,7 +248,7 @@ public class ProfesorSubirFormatoAController implements Observer{
     }
     public void goProfesorFormatos()
     {
-        Main.goFormatosProfesor();
+        Main.goProfesorFormatos();
     }
     @Override
     public void update(Object o) {
