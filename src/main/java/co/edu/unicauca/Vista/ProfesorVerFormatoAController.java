@@ -55,11 +55,6 @@ public class ProfesorVerFormatoAController {
 
 
     @FXML
-    void salir(ActionEvent event) {
-        Main.goProfesorFormatos();
-    }
-
-    @FXML
     void verDocumento(ActionEvent event) {
         if (formato != null && formato.getArchivoAdjunto() != null) {
             try {
@@ -95,5 +90,19 @@ public class ProfesorVerFormatoAController {
         if (!ests.isEmpty()) textFieldEstudiante.setText(ests.get(0).getNombre());
         if (ests.size() > 1) textFieldEstudiante1.setText(ests.get(1).getNombre());
   
+    }
+    
+    public void salir() {
+        Main.goProfesorFormatos();
+    }
+    
+    public void goProfesorSubirFormato()
+    {
+        Main.goProfesorSubirFormato();
+    }
+    
+    public void cerrarSesion()
+    {
+        Main.goLogin();
     }
 }

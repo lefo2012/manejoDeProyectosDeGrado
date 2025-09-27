@@ -27,17 +27,13 @@
                   <Image url="@../imagenes/folder.png" />
                </image>
             </ImageView>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" height="100.0" layoutY="215.0" opacity="0.1" stroke="BLACK" strokeType="INSIDE" width="150.0" />
             <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="50.0" layoutY="340.0">
                <image>
                   <Image url="@../imagenes/bell.png" />
                </image>
             </ImageView>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" height="100.0" layoutY="215.0" opacity="0.1" stroke="BLACK" strokeType="INSIDE" width="150.0">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Rectangle>
-            <Button fx:id="botonSalir" layoutX="25.0" layoutY="1000.0" mnemonicParsing="false" onAction="#salir" prefHeight="30.0" prefWidth="100.0" style="-fx-background-radius: 10px; -fx-background-color: #9F0E13;" stylesheets="@../css/sombraBoton.css" text="Cerrar sesion" textFill="WHITE">
+            <Button fx:id="botonSalir" layoutX="25.0" layoutY="1000.0" mnemonicParsing="false" onAction="#cerrarSesion" prefHeight="30.0" prefWidth="100.0" style="-fx-background-radius: 10px; -fx-background-color: #9F0E13;" stylesheets="@../css/sombraBoton.css" text="Cerrar sesion" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -46,6 +42,11 @@
                   <String fx:value="btn-hover-scale" />
                </styleClass>
             </Button>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="50.0" layoutY="340.0" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="150.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Rectangle>
          </children>
       </Pane>
       <Pane fx:id="PanelSubirFormatoA" layoutX="199.0" layoutY="40.0" prefHeight="1000.0" prefWidth="1650.0" style="-fx-background-color: white; visibility: true;">
@@ -131,6 +132,19 @@
                </font>
             </Text>
             <TextArea fx:id="textAreaObservaciones" layoutX="1012.0" layoutY="474.0" prefHeight="188.0" prefWidth="418.0" />
+            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="25.0" layoutY="25.0">
+               <image>
+                  <Image url="@../imagenes/flecha-izquierda.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </ImageView>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="50.0" layoutX="25.0" layoutY="25.0" onMouseClicked="#salir" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="50.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Rectangle>
          </children>
       </Pane>
       <Pane fx:id="panelInformacion" layoutX="64.0" layoutY="38.0" opacity="0.2" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: black; visibility: false;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />

@@ -93,11 +93,13 @@ public class CoordinadorEvaluarFormatosAController {
         }
     }
 
-    @FXML
-    void salir(ActionEvent event) {
+    public void salir() {
         Main.goCoordinador();
     }
-
+    public void cerrarSesion()
+    {
+        Main.goLogin();
+    }
     @FXML
     void verDocumento(ActionEvent event) {
         if (formato != null && formato.getArchivoAdjunto() != null) {

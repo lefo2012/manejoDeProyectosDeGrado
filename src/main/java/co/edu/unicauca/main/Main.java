@@ -28,7 +28,7 @@ import co.edu.unicauca.database.InitDB;
 public class Main extends Application {
 
     private static Scene scene;
-    private static Parent profesorRoot;
+    private static Parent profesorSubirFormatoRoot;
     private static Parent loginRoot;
     private static Parent registerRoot;
 
@@ -50,7 +50,7 @@ public class Main extends Application {
     private static ProfesorFormatosController profesorFormatosController;
     
     public static Parent getProfesorRoot() {
-        return profesorRoot;
+        return profesorSubirFormatoRoot;
     }
     //victor@unicauca.edu.co
     //123ASD.
@@ -70,7 +70,7 @@ public class Main extends Application {
         ProyectoService proyectoService = new ProyectoService(repoFactory.getInstance("SQLite"));
         
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("/fxml/ProfesorSubirFormatoA.fxml"));
-        profesorRoot = loader.load();          
+        profesorSubirFormatoRoot = loader.load();          
         profesorSubirFormatoCrtl = loader.getController();
         personaService.addObserver(profesorSubirFormatoCrtl);
         
@@ -127,9 +127,9 @@ public class Main extends Application {
     {
         scene.setRoot(root);
     }
-    public static void goProfesor()
+    public static void goProfesorSubirFormato()
     {
-        scene.setRoot(profesorRoot);
+        scene.setRoot(profesorSubirFormatoRoot);
     }
     public static void goLogin()
     {

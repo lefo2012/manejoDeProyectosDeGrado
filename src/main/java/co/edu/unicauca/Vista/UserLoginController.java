@@ -52,10 +52,10 @@ public class UserLoginController {
             textCorreoOContraseniaIncorrecto.setText("CORREO O CONTRASEÑA INCORRECTOS");
         }else
         {
-            
+            vaciarCampos();
             if(persona instanceof Profesor)
             {
-                Main.goProfesor();
+                Main.goProfesorSubirFormato();
             }
             else if(persona instanceof Coordinador)
             {
@@ -73,6 +73,11 @@ public class UserLoginController {
 
     public void setPersonaService(PersonaService personaService) {
         this.personaService = personaService;
+    }
+
+    private void vaciarCampos() {
+        textFieldCorreoElectronico.setText("");
+        passwordFieldContrasenia.setText("");
     }
     
 }

@@ -259,6 +259,9 @@ public class ProfesorSubirFormatoAController implements Observer{
         }
         
     }
-
+    public void cerrarSesion()
+    {
+        Main.goLogin();
+    }
     
 } 

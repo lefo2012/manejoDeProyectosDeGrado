@@ -1,7 +1,6 @@
 package co.edu.unicauca.Vista;
 
 import co.edu.unicauca.Factorys.RepositoryFactory;
-import co.edu.unicauca.Models.Estudiante;
 import co.edu.unicauca.Models.FormatoA;
 import co.edu.unicauca.Models.Profesor;
 import co.edu.unicauca.Observer.Observer;
@@ -9,7 +8,6 @@ import co.edu.unicauca.Repository.ProyectoRepository;
 import co.edu.unicauca.Services.PersonaService;
 import co.edu.unicauca.Services.ProyectoService;
 import co.edu.unicauca.main.Main;
-import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -32,9 +30,7 @@ public class ProfesorFormatosController implements Observer {
         
     }
 
-    public void salir() throws IOException  {
-        Main.goLogin();
-    }
+    
     public void update(Object o) {
         
         if (o instanceof PersonaService personaService) {
@@ -71,5 +67,11 @@ public class ProfesorFormatosController implements Observer {
                 e.printStackTrace();
             }
     }
-    
+    public void goProfesorSubirFormato()
+    {
+        Main.goProfesorSubirFormato();
+    }
+    public void cerrarSesion() {
+        Main.goLogin();
+    }
 }

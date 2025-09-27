@@ -31,12 +31,8 @@
                   <Image url="@../imagenes/bell.png" />
                </image>
             </ImageView>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" height="100.0" layoutY="215.0" opacity="0.1" stroke="BLACK" strokeType="INSIDE" width="150.0">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Rectangle>
-            <Button fx:id="botonSalir" layoutX="25.0" layoutY="1000.0" mnemonicParsing="false" onAction="#salir" prefHeight="30.0" prefWidth="100.0" style="-fx-background-radius: 10px; -fx-background-color: #9F0E13;" stylesheets="@../css/sombraBoton.css" text="Cerrar sesion" textFill="WHITE">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" height="100.0" layoutY="215.0" opacity="0.1" stroke="BLACK" strokeType="INSIDE" width="150.0" />
+            <Button fx:id="botonSalir" layoutX="25.0" layoutY="1000.0" mnemonicParsing="false" onAction="#cerrarSesion" prefHeight="30.0" prefWidth="100.0" style="-fx-background-radius: 10px; -fx-background-color: #9F0E13;" stylesheets="@../css/sombraBoton.css" text="Cerrar sesion" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -45,6 +41,11 @@
                   <String fx:value="btn-hover-scale" />
                </styleClass>
             </Button>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="50.0" layoutY="340.0" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="150.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Rectangle>
          </children>
       </Pane>
       <Pane fx:id="PanelSubirFormatoA" layoutX="210.0" layoutY="40.0" prefHeight="1000.0" prefWidth="1650.0" style="-fx-background-color: white; visibility: true;">
@@ -130,27 +131,17 @@
                   <Font size="20.0" />
                </font>
             </Text>
-         </children>
-      </Pane>
-      <Pane fx:id="panelInformacion" layoutX="64.0" layoutY="38.0" opacity="0.2" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: black; visibility: false;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <Pane fx:id="panelInformacionOk" layoutX="710.0" layoutY="415.0" prefHeight="250.0" prefWidth="500.0" style="-fx-background-color: white; visibility: false;">
-         <children>
-            <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="201.0" layoutY="131.0">
+            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="25.0" layoutY="25.0">
                <image>
-                  <Image url="@../imagenes/check-gif.gif" />
+                  <Image url="@../imagenes/flecha-izquierda.png" />
                </image>
             </ImageView>
-            <Text layoutX="54.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Formato A subido con exito">
-               <font>
-                  <Font size="32.0" />
-               </font>
-            </Text>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="50.0" layoutX="25.0" layoutY="25.0" onMouseClicked="#salir" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="50.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Rectangle>
          </children>
       </Pane>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-text-alignment: CENTER;" text="Observaciones">
-         <font>
-            <Font size="10.0" />
-         </font>
-      </Text>
    </children>
 </AnchorPane>

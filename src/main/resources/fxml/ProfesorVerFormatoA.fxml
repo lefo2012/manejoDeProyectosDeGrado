@@ -12,23 +12,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: radial-gradient(center 50% 50%,radius 200%, #001282,black);" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.unicauca.Vista.ProfesorVerFormatoAController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: radial-gradient(center 50% 50%,radius 200%, #001282,black);" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.unicauca.Vista.ProfesorVerFormatoAController">
    <children>
-      <Pane layoutX="428.0" layoutY="142.0" prefHeight="1080.0" prefWidth="150.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Pane prefHeight="1080.0" prefWidth="150.0" style="-fx-background-color: white;">
          <children>
             <ImageView fitHeight="200.0" fitWidth="130.0" layoutX="10.0">
                <image>
                   <Image url="@../imagenes/logoUnicaucaVertical.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="50.0" layoutY="240.0">
-               <image>
-                  <Image url="@../imagenes/folder.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="50.0" layoutY="340.0">
-               <image>
-                  <Image url="@../imagenes/bell.png" />
                </image>
             </ImageView>
             <Rectangle arcHeight="5.0" arcWidth="5.0" height="100.0" layoutY="215.0" opacity="0.1" stroke="BLACK" strokeType="INSIDE" width="150.0">
@@ -36,7 +26,32 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Rectangle>
-            <Button fx:id="botonSalir" layoutX="25.0" layoutY="1000.0" mnemonicParsing="false" onAction="#salir" prefHeight="30.0" prefWidth="100.0" style="-fx-background-radius: 10px; -fx-background-color: #9F0E13;" stylesheets="@../css/sombraBoton.css" text="Cerrar sesion" textFill="WHITE">
+            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="50.0" layoutY="240.0">
+               <image>
+                  <Image url="@../imagenes/folder.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="50.0" layoutY="340.0">
+               <image>
+                  <Image url="@../imagenes/archivo.png" />
+               </image>
+            </ImageView>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="50.0" layoutY="340.0" onMouseClicked="#goProfesorSubirFormato" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="150.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Rectangle>
+            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="50.0" layoutY="440.0">
+               <image>
+                  <Image url="@../imagenes/bell.png" />
+               </image>
+            </ImageView>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="50.0" layoutY="440.0" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="150.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Rectangle>
+            <Button fx:id="botonCerrarSesion" layoutX="25.0" layoutY="1000.0" mnemonicParsing="false" onAction="#cerrarSesion" prefHeight="30.0" prefWidth="100.0" style="-fx-background-radius: 10px; -fx-background-color: #9F0E13;" stylesheets="@../css/sombraBoton.css" text="Cerrar sesion" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -130,6 +145,19 @@
                   <Font size="20.0" />
                </font>
             </Text>
+            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="25.0" layoutY="25.0">
+               <image>
+                  <Image url="@../imagenes/flecha-izquierda.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </ImageView>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="50.0" layoutX="25.0" layoutY="25.0" onMouseClicked="#salir" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="50.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Rectangle>
          </children>
       </Pane>
       <Pane fx:id="panelInformacion" layoutX="64.0" layoutY="38.0" opacity="0.2" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: black; visibility: false;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />

@@ -51,13 +51,10 @@ public class EstudianteVerFormatoAController {
     private FormatoA formato;
 
 
-    @FXML
-    void salir(ActionEvent event) {
-        Main.goEstudianteFormatos();
-    }
+    
 
     @FXML
-    void verDocumento(ActionEvent event) {
+    public void verDocumento(ActionEvent event) {
         if (formato != null && formato.getArchivoAdjunto() != null) {
             try {
                 File file = new File(formato.getArchivoAdjunto()); 
@@ -93,5 +90,12 @@ public class EstudianteVerFormatoAController {
         if (ests.size() > 1) textFieldEstudiante1.setText(ests.get(1).getNombre());
   
     }
-
+    @FXML
+    public void cerrarSesion(ActionEvent event) {
+        Main.goLogin();
+    }
+    public void salir()
+    {
+        Main.goEstudianteFormatos();
+    }
 }
