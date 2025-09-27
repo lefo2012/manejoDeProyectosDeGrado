@@ -68,7 +68,7 @@ public class CoordinadorEvaluarFormatosAController {
     @FXML
     void aceptarFormato(ActionEvent event) {
         try {
-            bandera=proyectoService.aceptarProyecto(formato.getIdProyecto(), idCoordinador, textAreaObservaciones.getText(), fecha);
+            bandera=proyectoService.aceptarProyecto(formato, idCoordinador, textAreaObservaciones.getText(), fecha);
             System.out.println("Proyecto aceptado con comentario");
             textAreaObservaciones.setText("");
             if(bandera){

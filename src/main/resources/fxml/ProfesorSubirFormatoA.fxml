@@ -84,12 +84,12 @@
                      </font>
                   </Text>
                   <ComboBox fx:id="comboBoxModalidad" layoutX="125.0" layoutY="405.0" onAction="#verificarProyecto" prefHeight="40.0" prefWidth="400.0" style="-fx-background-color: white; -fx-border-color: gray;" />
-                  <Text layoutX="125.0" layoutY="310.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-text-alignment: CENTER;" text="Estudiante:">
+                  <Text layoutX="125.0" layoutY="310.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-text-alignment: CENTER;" text="Estudiante">
                      <font>
                         <Font size="10.0" />
                      </font>
                   </Text>
-                  <Text layoutX="125.0" layoutY="230.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-text-alignment: CENTER;" text="Estudiante* :">
+                  <Text layoutX="125.0" layoutY="230.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-text-alignment: CENTER;" text="Estudiante*">
                      <font>
                         <Font size="10.0" />
                      </font>
@@ -121,6 +121,7 @@
                      </image>
                   </ImageView>
                   <Text fx:id="textNombreArchivo" layoutX="120.0" layoutY="400.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Agrega un archivo PDF de maximo 20MB" />
+                  <Text fx:id="textCartaAceptacion" layoutX="61.0" layoutY="415.0" strokeType="OUTSIDE" strokeWidth="0.0" text="(Adjuntar en el mismo PDF la carta de aceptación de la empresa)" visible="false" />
                   <Button fx:id="botonSubirArchivo" layoutX="150.0" layoutY="440.0" mnemonicParsing="false" onAction="#subirDocumento" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #1B21D4; -fx-background-radius: 30px;" stylesheets="@../css/sombraBoton.css" text="Agregar Archivo" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />

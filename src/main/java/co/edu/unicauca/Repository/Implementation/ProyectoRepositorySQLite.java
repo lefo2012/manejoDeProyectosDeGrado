@@ -396,7 +396,7 @@ public class ProyectoRepositorySQLite implements ProyectoRepository{
     }
 
     @Override
-    public boolean aceptarProyecto(int idProyecto, int idCoordinador, String comentario, String fecha) throws Exception {
+    public boolean aceptarProyecto(FormatoA formato, int idCoordinador, String comentario, String fecha) throws Exception {
         try (Connection conn = ConexionSQLite.getInstance()) {
             conn.setAutoCommit(false);
 
@@ -404,11 +404,11 @@ public class ProyectoRepositorySQLite implements ProyectoRepository{
             try (PreparedStatement ps = conn.prepareStatement(sql)) {
                 ps.setString(1, "APROBADO");
                 ps.setString(2, fecha);
-                ps.setInt(3, idProyecto);
+                ps.setInt(3, formato.getIdProyecto());
                 ps.executeUpdate();
             }
 
-            insertarComentario(conn, comentario != null ? comentario : "Proyecto aceptado", idProyecto, idCoordinador);
+            insertarComentario(conn, comentario != null ? comentario : "Proyecto aceptado", formato.getIdProyecto(), idCoordinador);
 
             conn.commit();
             return true;

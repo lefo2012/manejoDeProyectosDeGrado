@@ -47,16 +47,18 @@ public class ProyectoService extends Subject {
         return proyectoRepository.getProyectosProfesor(idProfesor);
     
     }
-    public boolean aceptarProyecto(int idProyecto, int idCoordinador, String comentario, String fecha) throws Exception{
-        bandera=proyectoRepository.aceptarProyecto(idProyecto, idCoordinador, comentario,fecha);
+    public boolean aceptarProyecto(FormatoA formato, int idCoordinador, String comentario, String fecha) throws Exception{
+        bandera=proyectoRepository.aceptarProyecto(formato, idCoordinador, comentario,fecha);
         System.out.println("[ProyectoService] Proyecto aceptado, notificando observers...");
         this.notifyAllObserves();
+        this.notifyObservers(formato);
         return bandera;
     }
     public boolean rechazarProyecto(FormatoA formato, int idCoordinador, String comentario, String fecha) throws Exception{
         bandera=proyectoRepository.rechazarProyecto(formato, idCoordinador, comentario,fecha);
         System.out.println("[ProyectoService] Proyecto aceptado, notificando observers...");
         this.notifyAllObserves();
+        this.notifyObservers(formato);
         return bandera;
     }
     public String obtenerComentarioProyecto(int idProyecto) throws Exception{

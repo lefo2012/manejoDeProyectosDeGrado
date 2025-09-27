@@ -59,7 +59,6 @@ public class Main extends Application {
         scene = new Scene(new javafx.scene.Group(), 1920, 1080);
         scene.getStylesheets().add(getClass().getResource("/css/labelFondo.css").toExternalForm());
         stage.setScene(scene);
-        stage.setScene(scene);
         stage.show();
 
         InitDB.crearTablas();

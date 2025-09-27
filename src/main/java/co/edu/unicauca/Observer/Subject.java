@@ -30,5 +30,11 @@ public abstract class Subject {
             each.update(this);
         }
     }
+    
+    public void notifyObservers(Object arg) {
+        for (Observer each : observers) {
+            each.update(arg);
+        }
+    }
 
 }

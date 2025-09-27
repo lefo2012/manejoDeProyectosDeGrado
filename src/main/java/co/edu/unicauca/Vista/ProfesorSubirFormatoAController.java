@@ -5,11 +5,9 @@ package co.edu.unicauca.Vista;
 import co.edu.unicauca.Builders.Director;
 import co.edu.unicauca.Builders.InvestigacionBuilder;
 import co.edu.unicauca.Builders.PracticaBuilder;
-import co.edu.unicauca.Factorys.RepositoryFactory;
 import co.edu.unicauca.Models.Estudiante;
 import co.edu.unicauca.Models.Profesor;
 import co.edu.unicauca.Observer.Observer;
-import co.edu.unicauca.Repository.ProyectoRepository;
 import co.edu.unicauca.Services.PersonaService;
 import co.edu.unicauca.Services.ProyectoService;
 import co.edu.unicauca.Util.ArchivosProyecto;
@@ -50,7 +48,7 @@ public class ProfesorSubirFormatoAController implements Observer{
     @FXML
     ComboBox<Tipo> comboBoxModalidad;
     @FXML
-    Text textNombreArchivo,advertencia;
+    Text textNombreArchivo,textCartaAceptacion,advertencia;
     @FXML
     ImageView imagenArchivoPlano,imagenPdf;
     @FXML
@@ -69,6 +67,7 @@ public class ProfesorSubirFormatoAController implements Observer{
     
     public void initialize()
     {
+        
         try{
             
             comboBoxModalidad.setItems(FXCollections.observableArrayList(Tipo.values()));
@@ -80,6 +79,7 @@ public class ProfesorSubirFormatoAController implements Observer{
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
+        
     }
     public void cambiarPaginaFormatoA()
     {
@@ -186,6 +186,7 @@ public class ProfesorSubirFormatoAController implements Observer{
         textFieldEstudiante1.setText("");
         imagenArchivoPlano.setVisible(true);
         imagenPdf.setVisible(false);
+        comboBoxModalidad.setValue(Tipo.Investigacion);
         textNombreArchivo.setText("Agrega un archivo PDF de maximo 20MB");
         advertencia.setText("");
         archivo = null;
@@ -195,7 +196,7 @@ public class ProfesorSubirFormatoAController implements Observer{
         panelInformacion.setVisible(true);
         panelInformacionOk.setVisible(true);
 
-        PauseTransition delay = new PauseTransition(Duration.seconds(1));
+        PauseTransition delay = new PauseTransition(Duration.seconds(10));
         delay.setOnFinished(e -> {
             panelInformacion.setVisible(false);
             panelInformacionOk.setVisible(false);
@@ -210,19 +211,22 @@ public class ProfesorSubirFormatoAController implements Observer{
     
         if(comboBoxModalidad.getValue().equals(Tipo.PracticaProfesional))
         {
+            textCartaAceptacion.setVisible(true);
             textFieldEstudiante1.setText("");
             textFieldEstudiante1.setEditable(false);
             textFieldEstudiante1.setMouseTransparent(true);
             textFieldEstudiante1.setFocusTraversable(false);
-            textFieldEstudiante1.setPromptText("En practica profesional solo puede haber un estudiante");
+            textFieldEstudiante1.setPromptText("EN PRACTICA PROFESIONAL SOLO PUEDE HABER UN ESTUDIANTE");
         }
         if(comboBoxModalidad.getValue().equals(Tipo.Investigacion))
         {
+            textCartaAceptacion.setVisible(false);
+            textNombreArchivo.setText("Agrega un archivo PDF de maximo 20MB");
             textFieldEstudiante1.setText(null);
             textFieldEstudiante1.setEditable(true);
             textFieldEstudiante1.setMouseTransparent(false);
             textFieldEstudiante1.setFocusTraversable(true);
-            textFieldEstudiante1.setPromptText("Estudiante");
+            textFieldEstudiante1.setPromptText("ESTUDIANTE");
         }
         
     }
@@ -251,6 +255,7 @@ public class ProfesorSubirFormatoAController implements Observer{
     public void goProfesorFormatos()
     {
         Main.goProfesorFormatos();
+        
     }
     @Override
     public void update(Object o) {
@@ -263,6 +268,7 @@ public class ProfesorSubirFormatoAController implements Observer{
     }
     public void cerrarSesion()
     {
+        vaciarCampos();
         Main.goLogin();
     }
     

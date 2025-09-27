@@ -16,10 +16,15 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 /**
  *
@@ -28,6 +33,11 @@ import javafx.scene.layout.VBox;
 public class EstudianteFormatosController implements Observer{
     @FXML
     private VBox contactsLayout;
+    @FXML
+    private Pane panelFormatoNoti;
+    @FXML
+    private StackPane panelFormatoNotiOk;
+    
     private Estudiante estudiante=null;
    
     public void initialize(URL url, ResourceBundle rb) {
@@ -49,6 +59,27 @@ public class EstudianteFormatosController implements Observer{
         }else if (o instanceof ProyectoService proyectoService) {
             actualizarFormatos();
             System.out.println("update 2");
+        }
+        else if (o instanceof FormatoA formato) {
+            if (this.estudiante == null) {
+                System.out.println("[EstudianteFormatos] Ignorando FormatoA: no hay estudiante logueado");
+                return;
+            }
+            boolean pertenece = false;
+            for (Estudiante est : formato.getEstudiantes()) {
+                if (est.getId() == estudiante.getId()) 
+                {
+                    pertenece = true;
+                    break;
+                }
+            }
+            if (pertenece) 
+            {
+                Platform.runLater(() -> {
+                    actualizarFormatos();
+                    informacionFormato();
+                });
+            }
         }
     }
     
@@ -78,5 +109,24 @@ public class EstudianteFormatosController implements Observer{
             } catch (Exception e) {
                 e.printStackTrace();
             }
+    }
+    public void informacionFormato() {
+        panelFormatoNoti.setManaged(true);
+        panelFormatoNotiOk.setManaged(true);
+
+        panelFormatoNoti.setVisible(true);
+        panelFormatoNotiOk.setVisible(true);
+
+        panelFormatoNoti.toFront();
+        panelFormatoNotiOk.toFront();
+
+        PauseTransition delay = new PauseTransition(Duration.seconds(1.5));
+        delay.setOnFinished(e -> {
+            panelFormatoNoti.setVisible(false);
+            panelFormatoNotiOk.setVisible(false);
+            panelFormatoNoti.setManaged(false);
+            panelFormatoNotiOk.setManaged(false);
+        });
+        delay.play();
     }
 }
