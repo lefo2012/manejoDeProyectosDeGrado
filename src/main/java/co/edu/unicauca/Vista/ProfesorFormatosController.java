@@ -52,7 +52,7 @@ public class ProfesorFormatosController implements Observer {
             return;
         }
         RepositoryFactory<ProyectoRepository> repositoryProgramaFactory = new RepositoryFactory(ProyectoRepository.class);
-        ProyectoService proyectoService = new ProyectoService(repositoryProgramaFactory.getInstance("SQLite"));
+        ProyectoService proyectoService = new ProyectoService(repositoryProgramaFactory.getInstance());
             
         try {
             if (contactsLayout.getChildren().size() > 1) {

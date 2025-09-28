@@ -55,31 +55,28 @@ public class ProfesorSubirFormatoAController implements Observer{
     TextField textFieldTituloProyecto,textFieldCoodirector,textFieldEstudiante,textFieldEstudiante1;
     @FXML
     TextArea textAreaObjetivosEspecificos,textAreaObjetivoGeneral;
+    
     Profesor profesor=null;
+    
     ProyectoService proyectoService;
     File archivo;
 
     public void setProyectoService(ProyectoService proyectoService) {
         this.proyectoService = proyectoService;
-    }
-    
-    
+    }    
     
     public void initialize()
     {
-        
         try{
             
             comboBoxModalidad.setItems(FXCollections.observableArrayList(Tipo.values()));
-            comboBoxModalidad.getSelectionModel().selectFirst();
-            
+            comboBoxModalidad.getSelectionModel().selectFirst();   
         }catch(Exception e)
         {
             System.out.println("Error en Profesor subir formato");
             System.out.println(e.getMessage());
             e.printStackTrace();
-        }
-        
+        } 
     }
     public void cambiarPaginaFormatoA()
     {
@@ -196,7 +193,7 @@ public class ProfesorSubirFormatoAController implements Observer{
         panelInformacion.setVisible(true);
         panelInformacionOk.setVisible(true);
 
-        PauseTransition delay = new PauseTransition(Duration.seconds(10));
+        PauseTransition delay = new PauseTransition(Duration.seconds(1));
         delay.setOnFinished(e -> {
             panelInformacion.setVisible(false);
             panelInformacionOk.setVisible(false);
@@ -222,7 +219,7 @@ public class ProfesorSubirFormatoAController implements Observer{
         {
             textCartaAceptacion.setVisible(false);
             textNombreArchivo.setText("Agrega un archivo PDF de maximo 20MB");
-            textFieldEstudiante1.setText(null);
+            textFieldEstudiante1.setText("");
             textFieldEstudiante1.setEditable(true);
             textFieldEstudiante1.setMouseTransparent(false);
             textFieldEstudiante1.setFocusTraversable(true);

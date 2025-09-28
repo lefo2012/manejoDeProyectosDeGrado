@@ -8,7 +8,6 @@ import co.edu.unicauca.Models.Profesor;
 import co.edu.unicauca.Services.PersonaService;
 import co.edu.unicauca.main.Main;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -42,7 +41,7 @@ public class UserLoginController {
     }   
     
     @FXML
-    public void iniciarSesion() throws UnsupportedEncodingException, IOException, Exception
+    public void iniciarSesion() throws Exception
     {
         
         persona = personaService.iniciarSesion(textFieldCorreoElectronico.getText(), passwordFieldContrasenia.getText());

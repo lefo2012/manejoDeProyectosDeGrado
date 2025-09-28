@@ -59,9 +59,9 @@ public class UserRegisterController {
         RepositoryFactory<ProgramaRepository> repositoryProgramaFactory = new RepositoryFactory(ProgramaRepository.class);
         RepositoryFactory<DepartamentoRepository> repositoryDepartamentoFactory = new RepositoryFactory(DepartamentoRepository.class);
         
-        departamentoService = new DepartamentoService(repositoryDepartamentoFactory.getInstance("SQLite"));
+        departamentoService = new DepartamentoService(repositoryDepartamentoFactory.getInstance());
         
-        programaService = new ProgramaService(repositoryProgramaFactory.getInstance("SQLite"));
+        programaService = new ProgramaService(repositoryProgramaFactory.getInstance());
         
         try{
         
@@ -141,7 +141,7 @@ public class UserRegisterController {
     {
         RepositoryFactory<PersonaRepository> repositoryPersonaFactory = new RepositoryFactory(PersonaRepository.class);
         String resultado="";
-        PersonaService personaService = new PersonaService(repositoryPersonaFactory.getInstance("SQLite"));
+        PersonaService personaService = new PersonaService(repositoryPersonaFactory.getInstance());
         
         if (validarCampos())
         {

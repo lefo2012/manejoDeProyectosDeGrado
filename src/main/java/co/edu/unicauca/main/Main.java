@@ -1,7 +1,5 @@
 package co.edu.unicauca.main;
 
-
-
 import co.edu.unicauca.Factorys.RepositoryFactory;
 import co.edu.unicauca.Models.FormatoA;
 import co.edu.unicauca.Repository.PersonaRepository;
@@ -63,10 +61,10 @@ public class Main extends Application {
 
         InitDB.crearTablas();
         RepositoryFactory<PersonaRepository> factoryPersona = new RepositoryFactory<>(PersonaRepository.class);
-        PersonaService personaService = new PersonaService(factoryPersona.getInstance("SQLite"));
+        PersonaService personaService = new PersonaService(factoryPersona.getInstance());
         
         RepositoryFactory<ProyectoRepository> repoFactory = new RepositoryFactory<>(ProyectoRepository.class);
-        ProyectoService proyectoService = new ProyectoService(repoFactory.getInstance("SQLite"));
+        ProyectoService proyectoService = new ProyectoService(repoFactory.getInstance());
         
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("/fxml/ProfesorSubirFormatoA.fxml"));
         profesorSubirFormatoRoot = loader.load();          
