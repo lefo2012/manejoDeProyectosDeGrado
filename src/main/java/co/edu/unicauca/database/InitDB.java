@@ -157,6 +157,17 @@ public class InitDB {
                    );
                """);
                st.addBatch("""
+                           CREATE TABLE IF NOT EXISTS Notificacion (
+                             idNotificacion INTEGER PRIMARY KEY AUTOINCREMENT,
+                             mensaje        TEXT NOT NULL,
+                             fecha          TEXT NOT NULL,
+                             leido          INTEGER DEFAULT 0,
+                             idPersona      INTEGER NOT NULL,
+                             FOREIGN KEY (idPersona)
+                               REFERENCES Persona(idPersona)
+                               ON DELETE CASCADE
+                           );""");
+               st.addBatch("""
                    CREATE TABLE IF NOT EXISTS ProyectosEstudiante (
                      idEstudiante INTEGER NOT NULL,
                      idProyecto   INTEGER NOT NULL,

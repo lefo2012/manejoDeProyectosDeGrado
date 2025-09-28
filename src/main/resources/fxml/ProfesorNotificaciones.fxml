@@ -23,7 +23,7 @@
                   <Image url="@../imagenes/logoUnicaucaVertical.png" />
                </image>
             </ImageView>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" height="100.0" layoutY="415.0" opacity="0.1" stroke="BLACK" strokeType="INSIDE" width="150.0">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" height="100.0" layoutY="315.0" opacity="0.1" stroke="BLACK" strokeType="INSIDE" width="150.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -34,16 +34,6 @@
                </image>
             </ImageView>
             <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="50.0" layoutY="340.0">
-               <image>
-                  <Image url="@../imagenes/archivo.png" />
-               </image>
-            </ImageView>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="50.0" layoutY="340.0" onMouseClicked="#goProfesorSubirFormato" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="150.0">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Rectangle>
-            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="50.0" layoutY="440.0">
                <image>
                   <Image url="@../imagenes/bell.png" />
                </image>
@@ -79,35 +69,7 @@
                            <content>
                               <VBox fx:id="contactsLayout" fillWidth="true" focusTraversable="false" minHeight="100" prefWidth="1528.0" style="-fx-background-radius: 20; -fx-background-color: white;">
                                  <children>
-                                    <HBox maxHeight="100.0" prefHeight="100.0" prefWidth="1650.0" style="-fx-background-color: white;">
-                                       <children>
-                                          <Label fx:id="lblFormato" alignment="CENTER" prefHeight="100.0" prefWidth="300.0">
-                                             <font>
-                                                <Font size="20.0" />
-                                             </font>
-                                          </Label>
-                                          <Label fx:id="lblName" alignment="CENTER" prefHeight="100.0" prefWidth="368.0">
-                                             <font>
-                                                <Font size="24.0" />
-                                             </font>
-                                          </Label>
-                                          <Label fx:id="lblFecha" alignment="CENTER" prefHeight="100.0" prefWidth="274.0">
-                                             <font>
-                                                <Font size="24.0" />
-                                             </font>
-                                          </Label>
-                                          <Label fx:id="lblEstado" alignment="CENTER" prefHeight="100.0" prefWidth="300.0">
-                                             <font>
-                                                <Font size="24.0" />
-                                             </font>
-                                          </Label>
-                                          <Label fx:id="lblDetalles" alignment="CENTER" prefHeight="100.0" prefWidth="300.0" textFill="#9f0e13">
-                                             <font>
-                                                <Font size="24.0" />
-                                             </font>
-                                          </Label>
-                                       </children>
-                                    </HBox>
+                                    <HBox maxHeight="100.0" prefHeight="100.0" prefWidth="1650.0" style="-fx-background-color: white;" />
                                  </children>
                               </VBox>
                            </content>
