@@ -1,6 +1,7 @@
 package co.edu.unicauca.Services;
 
 import co.edu.unicauca.Models.FormatoA;
+import co.edu.unicauca.Models.Notificacion;
 import co.edu.unicauca.Observer.Subject;
 import co.edu.unicauca.Repository.ProyectoRepository;
 import java.util.List;
@@ -69,6 +70,12 @@ public class ProyectoService extends Subject {
             return true;
         return false;
     }
-
+    public List<Notificacion> obtenerNotificacionesPorPersona(int idPersona) throws Exception{
+        return proyectoRepository.obtenerNotificacionesPorPersona(idPersona);
+    }
+    
+    public void marcarNotificacionComoLeida(int idNotificacion) throws Exception {
+        proyectoRepository.marcarNotificacionComoLeida(idNotificacion);
+    }
     
 }

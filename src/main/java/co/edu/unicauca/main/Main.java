@@ -10,7 +10,9 @@ import co.edu.unicauca.Vista.EstudianteFormatosController;
 import co.edu.unicauca.Vista.EstudianteVerFormatoAController;
 import co.edu.unicauca.Vista.CoordinadorEvaluarFormatosAController;
 import co.edu.unicauca.Vista.CoordinadorFormatosController;
+import co.edu.unicauca.Vista.EstudianteNotificacionesController;
 import co.edu.unicauca.Vista.ProfesorFormatosController;
+import co.edu.unicauca.Vista.ProfesorNotificacionesController;
 import co.edu.unicauca.Vista.ProfesorSubirFormatoAController;
 import co.edu.unicauca.Vista.ProfesorVerFormatoAController;
 import co.edu.unicauca.Vista.UserLoginController;
@@ -32,20 +34,24 @@ public class Main extends Application {
 
     private static Parent profesorFormatosRoot;
     private static Parent profesorVerFormatoA;
+    private static Parent profesorNotificaciones;
     
     private static Parent cordinadorEvaluarRoot;
     private static Parent cordinadorRoot;
 
     private static Parent estudianteFormatos;
     private static Parent estudianteVerFormatoA;
+    private static Parent estudianteNotificaciones;
     
     private ProfesorSubirFormatoAController profesorSubirFormatoCrtl;
     private CoordinadorFormatosController coordinadorController;
     private static CoordinadorEvaluarFormatosAController coordinadorEvaluar;
-    private static EstudianteFormatosController estudianteController;
+    private static EstudianteFormatosController estudianteFormatosController;
+    private static EstudianteNotificacionesController estudianteNotificacionesController;
     private static EstudianteVerFormatoAController estudianteVerFormatoAController;
     private static ProfesorVerFormatoAController profesorVerFormatoAController;
     private static ProfesorFormatosController profesorFormatosController;
+    private static ProfesorNotificacionesController profesorNotificacionesController;
     
     public static Parent getProfesorRoot() {
         return profesorSubirFormatoRoot;
@@ -99,20 +105,38 @@ public class Main extends Application {
         personaService.addObserver(profesorFormatosController);
         proyectoService.addObserver(profesorFormatosController);
         
+        loader = new FXMLLoader(Main.class.getResource("/fxml/ProfesorNotificaciones.fxml"));
+        profesorNotificaciones = loader.load();  
+        profesorNotificacionesController=loader.getController();
+        personaService.addObserver(profesorNotificacionesController);
+        proyectoService.addObserver(profesorNotificacionesController);
         
         loader = new FXMLLoader(Main.class.getResource("/fxml/EstudianteFormatos.fxml"));
         estudianteFormatos = loader.load();  
-        estudianteController=loader.getController();
-        personaService.addObserver(estudianteController);
-        proyectoService.addObserver(estudianteController);
+        estudianteFormatosController=loader.getController();
+        personaService.addObserver(estudianteFormatosController);
+        proyectoService.addObserver(estudianteFormatosController);
+        
+        loader = new FXMLLoader(Main.class.getResource("/fxml/EstudianteNotificaciones.fxml"));
+        estudianteNotificaciones = loader.load();  
+        estudianteNotificacionesController=loader.getController();
+        personaService.addObserver(estudianteNotificacionesController);
+        proyectoService.addObserver(estudianteNotificacionesController);
+        
         
         loader = new FXMLLoader(Main.class.getResource("/fxml/EstudianteVerFormatoA.fxml"));
         estudianteVerFormatoA = loader.load();
         estudianteVerFormatoAController = loader.getController();
+        estudianteVerFormatoAController.setProyectoService(proyectoService);
+        
+        
+        
         
         loader = new FXMLLoader(Main.class.getResource("/fxml/ProfesorVerFormatoA.fxml"));
         profesorVerFormatoA = loader.load();
         profesorVerFormatoAController = loader.getController();
+        profesorVerFormatoAController.setProyectoService(proyectoService);
+        
         
         scene.setRoot(loginRoot);
 
@@ -125,10 +149,6 @@ public class Main extends Application {
     {
         scene.setRoot(root);
     }
-    public static void goProfesorSubirFormato()
-    {
-        scene.setRoot(profesorSubirFormatoRoot);
-    }
     public static void goLogin()
     {
         scene.setRoot(loginRoot);
@@ -140,6 +160,14 @@ public class Main extends Application {
     public static void goProfesorFormatos()
     {
         scene.setRoot(profesorFormatosRoot);
+    }
+    public static void goProfesorSubirFormato()
+    {
+        scene.setRoot(profesorSubirFormatoRoot);
+    }
+    public static void goProfesorNotificaciones()
+    {
+        scene.setRoot(profesorNotificaciones);
     }
     public static void goCoordinador()
     {
@@ -165,6 +193,10 @@ public class Main extends Application {
     public static void goEstudianteFormatos()
     {
         scene.setRoot(estudianteFormatos);
+    }
+    public static void goEstudianteNotificaciones()
+    {
+        scene.setRoot(estudianteNotificaciones);
     }
     private static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/fxml/"+fxml + ".fxml"));

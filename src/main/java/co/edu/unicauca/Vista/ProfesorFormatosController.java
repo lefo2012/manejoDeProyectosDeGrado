@@ -76,6 +76,10 @@ public class ProfesorFormatosController implements Observer {
     {
         Main.goProfesorSubirFormato();
     }
+    public void goProfesorNotificaciones()
+    {
+        Main.goProfesorNotificaciones();
+    }
     public void cerrarSesion() {
         Main.goLogin();
     }

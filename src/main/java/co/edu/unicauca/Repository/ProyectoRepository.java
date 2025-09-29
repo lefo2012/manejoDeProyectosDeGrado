@@ -1,6 +1,7 @@
 package co.edu.unicauca.Repository;
 
 import co.edu.unicauca.Models.FormatoA;
+import co.edu.unicauca.Models.Notificacion;
 import java.util.List;
 
 /**
@@ -15,4 +16,6 @@ public interface ProyectoRepository extends Repository<FormatoA,Integer>{
     public boolean aceptarProyecto(FormatoA formato, int idCoordinador, String comentario, String fecha) throws Exception;
     public boolean rechazarProyecto(FormatoA formato, int idCoordinador, String comentario, String fecha) throws Exception;
     public String obtenerComentarioProyecto(int idProyecto) throws Exception;
+    public List<Notificacion> obtenerNotificacionesPorPersona(int idPersona) throws Exception;
+    public void marcarNotificacionComoLeida(int idNotificacion) throws Exception;
 }

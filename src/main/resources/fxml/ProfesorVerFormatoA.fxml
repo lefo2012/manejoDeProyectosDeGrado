@@ -137,7 +137,7 @@
                         <Font size="10.0" />
                      </font>
                   </Text>
-                  <Label fx:id="labelObservaciones" layoutX="15.0" layoutY="423.0" prefHeight="188.0" prefWidth="418.0" style="-fx-border-color: gray;" />
+                  <Label fx:id="labelObservaciones" alignment="TOP_LEFT" layoutX="15.0" layoutY="423.0" prefHeight="188.0" prefWidth="418.0" style="-fx-border-color: gray;" />
                </children>
             </Pane>
             <Text fx:id="advertencia" fill="RED" layoutX="1007.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="396.1029052734375">

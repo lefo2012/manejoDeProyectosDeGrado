@@ -249,11 +249,7 @@ public class ProfesorSubirFormatoAController implements Observer{
             this.archivo=archivo;
         }
     }
-    public void goProfesorFormatos()
-    {
-        Main.goProfesorFormatos();
-        
-    }
+    
     @Override
     public void update(Object o) {
         
@@ -262,6 +258,15 @@ public class ProfesorSubirFormatoAController implements Observer{
             profesor = (Profesor) personaService.getPersona();
         }
         
+    }
+    
+    public void goProfesorFormatos()
+    {
+        Main.goProfesorFormatos();  
+    }
+    public void goProfesorNotificaciones()
+    {
+        Main.goProfesorNotificaciones();
     }
     public void cerrarSesion()
     {

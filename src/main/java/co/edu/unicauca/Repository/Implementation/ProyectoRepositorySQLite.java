@@ -2,6 +2,7 @@ package co.edu.unicauca.Repository.Implementation;
 
 import co.edu.unicauca.Models.Estudiante;
 import co.edu.unicauca.Models.FormatoA;
+import co.edu.unicauca.Models.Notificacion;
 import co.edu.unicauca.Models.Profesor;
 import co.edu.unicauca.Repository.ProyectoRepository;
 import co.edu.unicauca.Util.Tipo;
@@ -409,7 +410,10 @@ public class ProyectoRepositorySQLite implements ProyectoRepository{
             }
 
             insertarComentario(conn, comentario != null ? comentario : "Proyecto aceptado", formato.getIdProyecto(), idCoordinador);
-
+            
+            String mensaje = "formato A con titulo '" + formato.getTitulo() + "' ha sido APROBADO";
+            insertarNotificacionFormato(conn,mensaje, 0, formato);
+            
             conn.commit();
             return true;
         } catch (Exception e) {
@@ -445,7 +449,10 @@ public class ProyectoRepositorySQLite implements ProyectoRepository{
             }
 
             insertarComentario(conn, comentario != null ? comentario : "Proyecto rechazado", formato.getIdProyecto(), idCoordinador);
-
+            
+            String mensaje = "formato A con titulo '" + formato.getTitulo() + "' ha sido RECHAZADO";
+            insertarNotificacionFormato(conn, mensaje, 0, formato);
+            
             conn.commit();
             return true;
         } catch (Exception e) {
@@ -484,6 +491,70 @@ public class ProyectoRepositorySQLite implements ProyectoRepository{
         }
 
         return comentario;
+    }
+    
+    public void insertarNotificacion(Connection conn,String mensaje, int leido, int idPersona) throws Exception {
+        String sql = "INSERT INTO Notificacion (mensaje, fecha, leido, idPersona) VALUES (?, DATE('now'), ?, ?)";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, mensaje);
+            stmt.setInt(2, leido);
+            stmt.setInt(3, idPersona);
+            stmt.executeUpdate();
+        }
+    }
+    
+    public void insertarNotificacionFormato(Connection conn, String mensaje, int leido, FormatoA formato) throws Exception {
+        for (Estudiante est : formato.getEstudiantes()) {
+            insertarNotificacion(conn, mensaje, leido, est.getId());
+        }
+
+        String sql = "SELECT idDirector, idCodirector FROM ProyectosProfesor WHERE idProyecto = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, formato.getIdProyecto());
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                int idDirector = rs.getInt("idDirector");
+                int idCodirector = rs.getInt("idCodirector");
+
+                if (idDirector > 0) {
+                    insertarNotificacion(conn, mensaje, leido, idDirector);
+                }
+                if (idCodirector > 0) { 
+                    insertarNotificacion(conn, mensaje, leido, idCodirector);
+                }
+            }
+        }
+    }
+    
+    @Override
+    public List<Notificacion> obtenerNotificacionesPorPersona(int idPersona) throws Exception {
+        List<Notificacion> lista = new ArrayList<>();
+        String sql = "SELECT * FROM Notificacion WHERE idPersona = ? AND leido = 0 ORDER BY fecha DESC";
+        try (Connection conn = ConexionSQLite.getInstance();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, idPersona);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Notificacion noti = new Notificacion();
+                noti.setIdNotificacion(rs.getInt("idNotificacion"));
+                noti.setMensaje(rs.getString("mensaje"));
+                noti.setFecha(rs.getString("fecha"));
+                noti.setLeido(rs.getInt("leido"));               
+                noti.setIdPersona(rs.getInt("idPersona"));
+                lista.add(noti);
+            }
+        }
+        return lista;
+    }
+    
+    @Override
+    public void marcarNotificacionComoLeida(int idNotificacion) throws Exception {
+        String sql = "UPDATE Notificacion SET leido = 1 WHERE idNotificacion = ?";
+        try (Connection conn = ConexionSQLite.getInstance();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, idNotificacion);
+            stmt.executeUpdate();
+        }
     }
 
     

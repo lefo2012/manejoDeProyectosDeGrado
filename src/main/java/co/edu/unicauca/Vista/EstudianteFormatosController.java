@@ -86,7 +86,6 @@ public class EstudianteFormatosController implements Observer{
     public void actualizarFormatos(){
         if(estudiante == null)
         {
-        
             return;
         }
         RepositoryFactory<ProyectoRepository> repositoryProgramaFactory = new RepositoryFactory(ProyectoRepository.class);
@@ -128,5 +127,9 @@ public class EstudianteFormatosController implements Observer{
             panelFormatoNotiOk.setManaged(false);
         });
         delay.play();
+    }
+    
+    public void goEstudianteNotificaciones(){
+        Main.goEstudianteNotificaciones();
     }
 }

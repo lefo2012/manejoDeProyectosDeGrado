@@ -3,6 +3,7 @@ package co.edu.unicauca.Vista;
 import co.edu.unicauca.Models.Estudiante;
 import co.edu.unicauca.Models.FormatoA;
 import co.edu.unicauca.Models.Profesor;
+import co.edu.unicauca.Services.ProyectoService;
 import co.edu.unicauca.main.Main;
 import java.awt.Desktop;
 import java.io.File;
@@ -44,13 +45,17 @@ public class EstudianteVerFormatoAController {
     private Label textFieldTituloProyecto;
     
     @FXML
-    private TextArea textAreaObservaciones;
+    private Label labelObservaciones;
     
     
     
     private FormatoA formato;
 
+    private ProyectoService proyectoService;
 
+    public void setProyectoService(ProyectoService proyectoService) {
+        this.proyectoService = proyectoService;
+    }
     
 
     @FXML
@@ -81,6 +86,11 @@ public class EstudianteVerFormatoAController {
         textFieldModalidad.setText(formato.getTipo().name());
         textAreaObjetivoGeneral.setText(formato.getObjetivo());
         textAreaObjetivosEspecificos.setText(formato.getObjetivoEspecifico());
+        try {
+                labelObservaciones.setText(obtenerComentario());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         List<Profesor> prof = formato.getProfesores();
         if (!prof.isEmpty()) textFieldDirector.setText(prof.get(0).getNombre());
         if (prof.size() > 1) textFieldCodirector.setText(prof.get(1).getNombre());
@@ -89,6 +99,9 @@ public class EstudianteVerFormatoAController {
         if (!ests.isEmpty()) textFieldEstudiante.setText(ests.get(0).getNombre());
         if (ests.size() > 1) textFieldEstudiante1.setText(ests.get(1).getNombre());
   
+    }
+    public String obtenerComentario() throws Exception {
+        return proyectoService.obtenerComentarioProyecto(formato.getIdProyecto());
     }
     @FXML
     public void cerrarSesion(ActionEvent event) {
